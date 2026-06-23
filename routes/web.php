@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\EventController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +22,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
+
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+// Event
+Route::get('/event', [EventController::class, 'index'])->name('event');
