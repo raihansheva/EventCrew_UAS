@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_events', function (Blueprint $table) {
+        Schema::create('penugasan_volunteers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pendaftaran_id');
+            $table->text('tugas');
+            $table->string('lokasi_tugas', 255);
             $table->timestamps();
+
+            $table->foreign('pendaftaran_id')->references('id')->on('pendaftaran_volunteers')->onDelete('cascade');
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_events');
+        Schema::dropIfExists('penugasan_volunteers');
     }
 };
