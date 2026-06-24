@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
 
+use App\Http\Controllers\PendaftaranVolunteerController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -27,3 +28,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 // Event
 Route::get('/event', [EventController::class, 'index'])->name('event');
+
+Route::get('/pendaftaran', [PendaftaranVolunteerController::class, 'create']);
+Route::post('/pendaftaran', [PendaftaranVolunteerController::class, 'store']);
