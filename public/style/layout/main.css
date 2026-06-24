@@ -10,6 +10,9 @@
     --cream: #f7f1e4;
     --light-green: #80e895;
     --light-yellow: #efde68;
+    --outline-pink: #ff4a96;
+    --outline-yellow: #dcb800;
+    --outline-green: #258c70; 
 }
 
 * {
@@ -32,11 +35,17 @@ a{
     margin: 0 auto;
 }
 
+nav{
+    position: sticky;
+    top: 0;
+    background-color: var(--cream);
+}
+
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
 .brand {
@@ -86,7 +95,7 @@ a{
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    border: none;
+    border: 1.5px solid var(--outline-yellow);
     border-radius: 16px;
 }
 

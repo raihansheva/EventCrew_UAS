@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     height: 450px;
+    margin: 32px 0px;
 }
 
 .area-kiri {
@@ -32,7 +33,7 @@
     padding: 10px 30px;
     width: fit-content;
     background-color: var(--primary-yellow);
-    border: none;
+    border: 1.5px solid var(--outline-yellow);
     border-radius: 16px;
     color: var(--dark-red);
     font-weight: bold;
@@ -114,19 +115,22 @@
 .card-promotion{
     width: 25%;
     height: 300px;
-    border-radius: 16px;
+    border-radius: 24px;
 }
 
 .card-promotion.one{
     background-color: var(--primary-pink);
+    border: 1.5px solid var(--outline-pink);
 }
 
 .card-promotion.two{
     background-color: var(--primary-yellow);
+    border: 1.5px solid var(--outline-yellow);
 }
 
 .card-promotion.three{
     background-color: var(--primary-green);
+    border: 1.5px solid var(--outline-green);
 }
 
 
