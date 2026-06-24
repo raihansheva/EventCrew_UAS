@@ -14,7 +14,7 @@
         <nav>
             <div class="container">
                 <div class="navbar-brand">
-                    <h1 class="brand">EventCrew</h1>
+                    <h1 class="brand">Event<span class="brand-highlight">Crew</span></h1>
                 </div>
                 <div class="navbar-nav">
                     <a class="nav-link" href="#">Home</a>
@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#">Contact</a>
                     <div class="area-button-login">
                         <div class="button-login">
-                            <span>Login</span>
+                            <p>Login</p>
                         </div>
                     </div>
                 </div>

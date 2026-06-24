@@ -1,79 +1,107 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+:root {
+    --primary-yellow: #fad518;
+    --dark-yellow: #846919;
+    --primary-pink: #fc8fbc;
+    --primary-green: #36b896;
+    --dark-green: #29623e;
+    --dark-red: #6a333d;
+    --cream: #f7f1e4;
+    --light-green: #80e895;
+    --light-yellow: #efde68;
+}
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
-.wrapper{
+body {
+    background-color: var(--cream);
+}
+
+a{
+    text-decoration: none;
+}
+
+.wrapper {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.container{
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
 }
 
-
-.brand{
+.brand {
     font-size: 30px;
-    font-weight: 600;
+    font-weight: 700;
     color: #000;
     text-decoration: none;
 }
 
-.navbar-nav{
+.brand-highlight {
+    color: var(--dark-red);
+    font-weight: 700;
+}
+
+.navbar-nav {
     display: flex;
     gap: 20px;
     justify-content: center;
     align-items: center;
 }
 
-.nav-link{
+.nav-link {
     text-decoration: none;
-    color: #000;
+    color: var(--dark-red);
     font-size: 16px;
     font-weight: 400;
 }
 
-.nav-link:hover{
+.nav-link:hover {
+    color: #000;
     transition: 0.3s;
     text-decoration: underline;
 }
 
-.area-button-login{
+/* .area-button-login{
     border: 2px solid #000;
     border-radius: 5px;
-}
+} */
 
-.button-login{
-    padding: 5px 20px;
-    background-color: #000;
-    color: #fff;
+
+
+.button-login {
+    background-color: var(--primary-yellow);
+    padding: 5px 30px;
+    color: var(--dark-red);
     text-decoration: none;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     cursor: pointer;
-}
-
-.button-login:hover{
-    background-color: #fff;
-    color: #000;
-    transition: 0.3s;
+    border: none;
+    border-radius: 16px;
 }
 
 
-footer{
-    background-color: #000;
+main{
+    min-height: 78.5vh;
+    height: auto;
+
+}
+
+footer {
+    background-color: var(--dark-red);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
     color: #fff;
     padding: 20px 0;
     text-align: center;
 }
-
-
