@@ -109,9 +109,9 @@
   array (
     'paths' => 
     array (
-      0 => 'D:\\Project - Kuliah\\EventCrew_UAS\\resources\\views',
+      0 => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\resources\\views',
     ),
-    'compiled' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\framework\\views',
   ),
   'app' => 
   array (
@@ -126,7 +126,7 @@
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:dSZIcJ2cp+5GHiWfDJFVZnMe18X7TjSk6Sc0Ds3wgl8=',
+    'key' => 'base64:ikXBYSkVId21hUj8dx1poQOWQOGc1fg+iH37AMLIY2c=',
     'previous_keys' => 
     array (
     ),
@@ -273,8 +273,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\framework/cache/data',
-        'lock_path' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\framework/cache/data',
+        'lock_path' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -338,7 +338,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'evencrew_uas',
+        'database' => 'eventcrew_uas',
         'prefix' => '',
         'foreign_key_constraints' => true,
         'busy_timeout' => NULL,
@@ -351,7 +351,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'evencrew_uas',
+        'database' => 'eventcrew_uas',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -371,7 +371,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'evencrew_uas',
+        'database' => 'eventcrew_uas',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -391,7 +391,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'evencrew_uas',
+        'database' => 'eventcrew_uas',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -406,7 +406,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'evencrew_uas',
+        'database' => 'eventcrew_uas',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -456,7 +456,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\app/private',
+        'root' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\app/private',
         'serve' => true,
         'throw' => false,
         'report' => false,
@@ -464,7 +464,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\app/public',
+        'root' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
@@ -486,7 +486,7 @@
     ),
     'links' => 
     array (
-      'D:\\Project - Kuliah\\EventCrew_UAS\\public\\storage' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\app/public',
+      'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\public\\storage' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\app/public',
     ),
   ),
   'logging' => 
@@ -511,14 +511,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -583,7 +583,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -659,7 +659,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'D:\\Project - Kuliah\\EventCrew_UAS\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\resources\\views/vendor/mail',
       ),
       'extensions' => 
       array (
@@ -770,7 +770,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'D:\\Project - Kuliah\\EventCrew_UAS\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\Think\\OneDrive\\Documents\\EventCrew_UAS\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
