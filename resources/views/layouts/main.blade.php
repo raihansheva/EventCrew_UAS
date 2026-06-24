@@ -21,6 +21,7 @@
                     <a class="nav-link" href="#">Events</a>
                     <a class="nav-link" href="#">About</a>
                     <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="{{ url('/pendaftaran') }}">Pendaftaran</a>
                     <div class="area-button-login">
                         <div class="button-login">
                             <span>Login</span>
