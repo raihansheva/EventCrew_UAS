@@ -1,4 +1,4 @@
-section {
+.section-1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,7 +29,7 @@ section {
 }
 
 .button-event {
-    padding: 10px 45px;
+    padding: 10px 30px;
     width: fit-content;
     background-color: var(--primary-yellow);
     border: none;
@@ -41,6 +41,12 @@ section {
     align-items: center;
 }
 
+.button-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--dark-red);
+}
+
 .area-kanan {
     width: 50%;
     display: flex;
@@ -50,11 +56,77 @@ section {
 
 .content-kanan {
     width: 450px;
-    height: 380px;
-    background-color: var(--dark-red);
-    border-radius: 10px;
+    height: 450px;
+    border-radius: 16px;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.imageHero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* section 2 */
+.section-2 {
+    min-height: 320px;
+    height: auto;
+    padding: 32px 0;
+}
+
+.area-content-sect-2{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.section-description {
+    font-size: 16px;
+    color: #6c757d;
+    text-align: center;
+    max-width: 600px;
+}
+
+.content-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.card-promotion{
+    width: 25%;
+    height: 300px;
+    border-radius: 16px;
+}
+
+.card-promotion.one{
+    background-color: var(--primary-pink);
+}
+
+.card-promotion.two{
+    background-color: var(--primary-yellow);
+}
+
+.card-promotion.three{
+    background-color: var(--primary-green);
+}
+
+
