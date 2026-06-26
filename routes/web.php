@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+Route::get('admin' , function () {
+    return view('admin.dashboard');
+});
+
 // Register
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
