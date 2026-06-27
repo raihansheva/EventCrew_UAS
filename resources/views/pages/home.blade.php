@@ -41,6 +41,18 @@
                 <div class="card-promotion three">
 
                 </div>
+                <div class="card-promotion two">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-3">
+        <div class="area-content-step">
+            <div class="header-step">
+                <h2 class="section-title">Cara Bergabung</h2>
+                <p class="section-description">Bergabung menjadi volunteer hanya membutuhkan
+                    3 langkah sederhana.</p>
             </div>
         </div>
     </section>
