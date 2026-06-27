@@ -66,13 +66,13 @@
                             DATA MASTER
                         </span>
                         <div class="sidebar-menu">
-                            <a href="" class="nav-link">
+                            <a href="/data-event" class="nav-link">
                                 Data Event
                             </a>
-                            <a href="" class="nav-link">
+                            <a href="/data-kategori" class="nav-link">
                                 Data Kategori
                             </a>
-                            <a href="" class="nav-link">
+                            <a href="/data-volunteer" class="nav-link">
                                 Data Volunteer
                             </a>
                         </div>
@@ -82,11 +82,12 @@
                             TRANSAKSI
                         </span>
                         <div class="sidebar-menu">
-
-                            <a href="" class="nav-link">
+                            <a href="/data-pendaftaran" class="nav-link">
                                 Data Pendaftaran
                             </a>
-
+                            <a href="/event-verifikasi" class="nav-link">
+                                Event Verifikasi
+                            </a>
                         </div>
                     </div>
                 </div>
