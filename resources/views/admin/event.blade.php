@@ -1,5 +1,6 @@
 @extends('layouts.mainAdmin')
-@section('page-title', 'Dashboard')
+
+@section('page-title', 'Event')
 @section('content')
     
 @endsection

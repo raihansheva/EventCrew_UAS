@@ -12,7 +12,11 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('admin' , function () {
+Route::get('/admin' , function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/dashboard' , function () {
     return view('admin.dashboard');
 });
 
@@ -24,9 +28,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('auth');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
@@ -35,3 +39,12 @@ Route::get('/event', [EventController::class, 'index'])->name('event');
 
 Route::get('/pendaftaran', [PendaftaranVolunteerController::class, 'create']);
 Route::post('/pendaftaran', [PendaftaranVolunteerController::class, 'store']);
+
+
+// admin route
+
+// event
+Route::get('/data-event',   function () {
+    return view('admin.event');
+});
+// -----

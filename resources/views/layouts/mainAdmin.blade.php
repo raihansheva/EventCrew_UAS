@@ -56,7 +56,7 @@
                             MAIN
                         </span>
                         <div class="sidebar-menu">
-                            <a href="" class="nav-link active">
+                            <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                                 Dashboard
                             </a>
                         </div>
@@ -66,13 +66,13 @@
                             DATA MASTER
                         </span>
                         <div class="sidebar-menu">
-                            <a href="/data-event" class="nav-link">
+                            <a href="/data-event" class="nav-link {{ request()->is('data-event') ? 'active' : '' }}">
                                 Data Event
                             </a>
-                            <a href="/data-kategori" class="nav-link">
+                            <a href="/data-kategori" class="nav-link {{ request()->is('data-kategori') ? 'active' : '' }}">
                                 Data Kategori
                             </a>
-                            <a href="/data-volunteer" class="nav-link">
+                            <a href="/data-volunteer" class="nav-link {{ request()->is('data-volunteer') ? 'active' : '' }}">
                                 Data Volunteer
                             </a>
                         </div>
@@ -82,10 +82,10 @@
                             TRANSAKSI
                         </span>
                         <div class="sidebar-menu">
-                            <a href="/data-pendaftaran" class="nav-link">
+                            <a href="/data-pendaftaran" class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
                                 Data Pendaftaran
                             </a>
-                            <a href="/event-verifikasi" class="nav-link">
+                            <a href="/event-verifikasi" class="nav-link {{ request()->is('event-verifikasi') ? 'active' : '' }}">
                                 Event Verifikasi
                             </a>
                         </div>
@@ -132,7 +132,9 @@
             <main>
                 <div class="header-main">
                     <h1 class="brand-main">
-                        <span class="brand-main-highlight">Dashboard</span>
+                        <span class="brand-main-highlight">
+                            @yield('page-title', 'Dashboard')
+                        </span>
                     </h1>
                 </div>
                 @yield('content')
