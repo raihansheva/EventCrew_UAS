@@ -47,4 +47,12 @@ Route::post('/pendaftaran', [PendaftaranVolunteerController::class, 'store']);
 Route::get('/data-event',   function () {
     return view('admin.event');
 });
+// isi route nya disini yakk
+// -----
+
+// kategori event
+Route::get('/data-kategori',   function () {
+    return view('admin.eventKategori');
+});
+// isi route nya disini yakk
 // -----
