@@ -56,3 +56,10 @@ Route::get('/data-kategori',   function () {
 });
 // isi route nya disini yakk
 // -----
+
+// volunteer
+Route::get('/data-volunteer',   function () {
+    return view('admin.volunteer');
+});
+// isi route nya disini yakk
+// -----
