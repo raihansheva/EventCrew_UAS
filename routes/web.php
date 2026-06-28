@@ -5,8 +5,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
-
+use App\Http\Controllers\KategoriEventController;
 use App\Http\Controllers\PendaftaranVolunteerController;
+
 
 Route::get('/', function () {
     return view('pages.home');
@@ -54,5 +55,11 @@ Route::get('/data-event',   function () {
 Route::get('/data-kategori',   function () {
     return view('admin.eventKategori');
 });
+
+// kategori event
+Route::get('/data-kategori', [KategoriEventController::class, 'index']);
+Route::post('/data-kategori', [KategoriEventController::class, 'store'])->name('admin.kategori.store');
+Route::put('/data-kategori/{id}', [KategoriEventController::class, 'update'])->name('admin.kategori.update');
+Route::delete('/data-kategori/{id}', [KategoriEventController::class, 'destroy'])->name('admin.kategori.destroy');
 // isi route nya disini yakk
 // -----
