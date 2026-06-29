@@ -5,11 +5,20 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\VolunteerController;
 
 use App\Http\Controllers\PendaftaranVolunteerController;
 
 Route::get('/', function () {
     return view('pages.home');
+});
+
+Route::get('/admin' , function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/dashboard' , function () {
+    return view('admin.dashboard');
 });
 
 // Register
@@ -20,9 +29,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('auth');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
@@ -31,3 +40,29 @@ Route::get('/event', [EventController::class, 'index'])->name('event');
 
 Route::get('/pendaftaran', [PendaftaranVolunteerController::class, 'create']);
 Route::post('/pendaftaran', [PendaftaranVolunteerController::class, 'store']);
+
+
+// admin route
+
+// event
+Route::get('/data-event',   function () {
+    return view('admin.event');
+});
+// isi route nya disini yakk
+// -----
+
+// kategori event
+Route::get('/data-kategori',   function () {
+    return view('admin.eventKategori');
+});
+// isi route nya disini yakk
+// -----
+
+// volunteer
+// Menampilkan halaman data volunteer
+Route::get('/data-volunteer', [VolunteerController::class, 'index'])
+    ->name('admin.volunteer');
+Route::delete('/data-volunteer/{id}', [VolunteerController::class, 'destroy'])
+    ->name('admin.volunteer.destroy');
+// isi route nya disini yakk
+// -----
