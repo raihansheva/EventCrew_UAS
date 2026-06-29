@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
                     <a class="nav-link" href="{{ url('/pendaftaran') }}">Pendaftaran</a>
                     <div class="area-button-login">
-                        <div class="button-login">
+                        <div class="button-login" onclick="document.getElementById('modalLogin').style.display='block'" style="cursor:pointer;">
                             <p>Login</p>
                         </div>
                     </div>
@@ -37,6 +37,152 @@
             <p>&copy; 2024 EventCrew. All rights reserved.</p>
         </footer>
     </div>
+
+    <!-- Modal Login -->
+    <div id="modalLogin" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; overflow-y:auto;">
+        <div style="background:#fff; width:400px; margin:80px auto; border-radius:8px; padding:30px; position:relative;">
+            
+            <h5 style="margin-bottom:20px;">Login</h5>
+
+            @if(session('login_error'))
+                <div style="background:#fee2e2; color:#dc2626; padding:8px; border-radius:4px; margin-bottom:15px;">
+                    {{ session('login_error') }}
+                </div>
+            @endif
+
+            @if(session('success'))
+                <div style="background:#dcfce7; color:#16a34a; padding:8px; border-radius:4px; margin-bottom:15px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if($errors->has('email'))
+                <div style="background:#fee2e2; color:#dc2626; padding:8px; border-radius:4px; margin-bottom:15px;">
+                    {{ $errors->first('email') }}
+                </div>
+            @endif
+            
+            <form action="{{ route('login.post') }}" method="POST">
+                @csrf
+                <div style="margin-bottom:15px;">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Masukkan email" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Masukkan password" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <button type="submit" style="width:100%; padding:10px; background:#4f46e5; color:#fff; border:none; border-radius:4px; cursor:pointer;">
+                    Login
+                </button>
+            </form>
+
+            <p style="text-align:center; margin-top:15px; font-size:14px;">
+                Belum punya akun? 
+                <a href="#" onclick="document.getElementById('modalLogin').style.display='none'; document.getElementById('modalRegister').style.display='block';" style="color:#4f46e5;">Register</a>
+            </p>
+
+            <button onclick="document.getElementById('modalLogin').style.display='none'"
+                style="position:absolute; top:10px; right:15px; background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <!-- Modal Register -->
+    <div id="modalRegister" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; overflow-y:auto;">
+        <div style="background:#fff; width:400px; margin:40px auto; border-radius:8px; padding:30px; position:relative;">
+            
+            <h5 style="margin-bottom:20px;">Register Volunteer</h5>
+
+            @if(session('register_error'))
+                <div style="background:#fee2e2; color:#dc2626; padding:8px; border-radius:4px; margin-bottom:15px;">
+                    {{ session('register_error') }}
+                </div>
+            @endif
+
+            <form action="{{ route('register.post') }}" method="POST">
+                @csrf
+                <input type="hidden" name="role" value="volunteer">
+
+                <div style="margin-bottom:15px;">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="nama_lengkap" placeholder="Masukkan nama lengkap" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Masukkan email" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>No HP</label>
+                    <input type="text" name="no_hp" placeholder="Masukkan no HP" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Jenis Kelamin</label>
+                    <select name="jenis_kelamin" required style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                        <option value="">-- Pilih --</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Alamat</label>
+                    <textarea name="alamat" placeholder="Masukkan alamat" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;"></textarea>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Pendidikan <span style="color:#999; font-size:12px;">(opsional)</span></label>
+                    <input type="text" name="pendidikan" placeholder="Contoh: SMA, D3, S1"
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Keahlian <span style="color:#999; font-size:12px;">(opsional)</span></label>
+                    <input type="text" name="keahlian" placeholder="Contoh: Desain, Fotografi"
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Pengalaman <span style="color:#999; font-size:12px;">(opsional)</span></label>
+                    <input type="text" name="pengalaman" placeholder="Contoh: 2 tahun volunteer"
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Masukkan password" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label>Konfirmasi Password</label>
+                    <input type="password" name="password_confirmation" placeholder="Konfirmasi password" required
+                        style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
+                </div>
+
+                <button type="submit" style="width:100%; padding:10px; background:#4f46e5; color:#fff; border:none; border-radius:4px; cursor:pointer;">
+                    Register
+                </button>
+            </form>
+
+            <p style="text-align:center; margin-top:15px; font-size:14px;">
+                Sudah punya akun? 
+                <a href="#" onclick="document.getElementById('modalRegister').style.display='none'; document.getElementById('modalLogin').style.display='block';" style="color:#4f46e5;">Login</a>
+            </p>
+
+            <button onclick="document.getElementById('modalRegister').style.display='none'"
+                style="position:absolute; top:10px; right:15px; background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+        </div>
+    </div>
+
+    <script>
+        @if(session('success') || session('login_error') || $errors->has('email'))
+            document.getElementById('modalLogin').style.display = 'block';
+        @elseif(session('register_error') || (Request::is('register') && $errors->any()))
+            document.getElementById('modalRegister').style.display = 'block';
+        @endif
+    </script>
+
+    @yield('modal')
 </body>
 
 </html>
