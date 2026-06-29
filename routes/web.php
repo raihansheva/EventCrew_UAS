@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\VolunteerController;
 
 use App\Http\Controllers\PendaftaranVolunteerController;
 
@@ -58,8 +59,10 @@ Route::get('/data-kategori',   function () {
 // -----
 
 // volunteer
-Route::get('/data-volunteer',   function () {
-    return view('admin.volunteer');
-});
+// Menampilkan halaman data volunteer
+Route::get('/data-volunteer', [VolunteerController::class, 'index'])
+    ->name('admin.volunteer');
+Route::delete('/data-volunteer/{id}', [VolunteerController::class, 'destroy'])
+    ->name('admin.volunteer.destroy');
 // isi route nya disini yakk
 // -----
