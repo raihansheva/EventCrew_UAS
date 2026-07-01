@@ -23,11 +23,11 @@ Route::get('/dashboard', function () {
 });
 
 // Register
-Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
+// Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
 // Login
-Route::get('/login', [LoginController::class, 'showForm'])->name('login');
+// Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

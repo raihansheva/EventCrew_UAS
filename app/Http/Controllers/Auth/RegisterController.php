@@ -17,17 +17,33 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
-            'email'             => 'required|email|unique:users,email',
-            'password'          => 'required|min:6|confirmed',
-            'nama_lengkap'      => 'required|string|max:255',
-            'no_hp'             => 'required|string|max:25',
-            'jenis_kelamin'     => 'required|in:Laki-laki,Perempuan',
-            'alamat'            => 'required|string',
-            'pendidikan'        => 'nullable|string|max:255',
-            'keahlian'          => 'nullable|string',
-            'pengalaman'        => 'nullable|string',
-        ]);
+
+        if (
+            empty($request->email) ||
+            empty($request->password) ||
+            empty($request->password_confirmation) ||
+            empty($request->nama_lengkap) ||
+            empty($request->no_hp) ||
+            empty($request->jenis_kelamin) ||
+            empty($request->pendidikan) ||
+            empty($request->keahlian) ||
+            empty($request->pengalaman) 
+        ) {
+            return back()
+                ->withErrors([
+                    'register_error' => 'Semua field wajib diisi.'
+                ])
+                ->withInput();
+        }
+
+        if ($request->password !== $request->password_confirmation) {
+            return back()
+                ->withErrors([
+                    'register_error' => 'Konfirmasi password tidak sesuai.'
+                ])
+                ->withInput();
+        }
+
 
         $user = User::create([
             'email'    => $request->email,

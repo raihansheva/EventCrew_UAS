@@ -69,10 +69,12 @@
                             <a href="/data-event" class="nav-link {{ request()->is('data-event') ? 'active' : '' }}">
                                 Data Event
                             </a>
-                            <a href="/data-kategori" class="nav-link {{ request()->is('data-kategori') ? 'active' : '' }}">
+                            <a href="/data-kategori"
+                                class="nav-link {{ request()->is('data-kategori') ? 'active' : '' }}">
                                 Data Kategori
                             </a>
-                            <a href="/data-volunteer" class="nav-link {{ request()->is('data-volunteer') ? 'active' : '' }}">
+                            <a href="/data-volunteer"
+                                class="nav-link {{ request()->is('data-volunteer') ? 'active' : '' }}">
                                 Data Volunteer
                             </a>
                         </div>
@@ -82,10 +84,12 @@
                             TRANSAKSI
                         </span>
                         <div class="sidebar-menu">
-                            <a href="/data-pendaftaran" class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
+                            <a href="/data-pendaftaran"
+                                class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
                                 Data Pendaftaran
                             </a>
-                            <a href="/event-verifikasi" class="nav-link {{ request()->is('event-verifikasi') ? 'active' : '' }}">
+                            <a href="/event-verifikasi"
+                                class="nav-link {{ request()->is('event-verifikasi') ? 'active' : '' }}">
                                 Event Verifikasi
                             </a>
                         </div>
@@ -108,7 +112,7 @@
                                         </span>
 
                                         <span class="text-email">
-                                            admin321@gmail.com
+                                            {{ Auth::user()->email }}
                                         </span>
                                     </div>
                                 </div>
@@ -119,9 +123,10 @@
                                         </a>
                                     </div>
                                     <div class="area-logout">
-                                        <a class="dropdown-item text-danger fw-semibold small" href="#">
+                                        <span class="spanLogout dropdown-item text-danger fw-semibold small"
+                                            href="#" data-bs-toggle="modal" data-bs-target="#exampleModalLogout">
                                             Log Out
-                                        </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +134,28 @@
                     </li>
                 </div>
             </aside>
+            <div class="modal fade" id="exampleModalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">EventCrew</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Apakah anda ingin logout?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <form class="form-login" action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <main>
                 <div class="header-main">
                     <h1 class="brand-main">
@@ -141,12 +168,36 @@
             </main>
         </div>
     </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">EventCrew</strong>
+                <small>now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Anda berhasil login ke dashboard EventCrew
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous">
     </script>
+    @if (session('toast_success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const toastElement = document.getElementById('successToast');
+                const toast = new bootstrap.Toast(toastElement, {
+                    delay: 3000
+                });
+
+                toast.show();
+            });
+        </script>
+    @endif
 </body>
 
 </html>

@@ -195,6 +195,21 @@ a {
     border-top: 1px solid rgb(219, 219, 219);
 }
 
+.spanLogout{
+    cursor: pointer;
+}
+
+.dropdown-item:active {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border-bottom-right-radius: 0.375rem !important ;
+    border-bottom-left-radius: 0.375rem !important;
+}
+
+.toast{
+    background-color: var(--primary-yellow) !important;
+}
+
 /* =========================
         MAIN
 ========================= */

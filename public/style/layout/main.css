@@ -30,6 +30,11 @@ a{
     text-decoration: none;
 }
 
+p{
+    margin: 0px;
+    padding: 0px;
+}
+
 .wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -41,7 +46,7 @@ nav{
     background-color: var(--cream);
 }
 
-.container {
+.navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,7 +65,7 @@ nav{
     font-weight: 700;
 }
 
-.navbar-nav {
+.menu-nav {
     display: flex;
     gap: 20px;
     justify-content: center;
@@ -99,6 +104,335 @@ nav{
     border-radius: 16px;
 }
 
+.modal-content{
+    background-color: var(--cream);
+}
+
+.area-modal-login {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px red solid; */
+}
+
+.area-modal-image {
+  width: 100%;
+  height: fit-content;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px 10px 15px;
+}
+
+.area-login {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 0px 20px 0px;
+}
+
+.form-login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title-login-brand{
+    font-size: 36px;
+    font-weight: 800;
+}
+
+.desc-login-brand{
+    max-width: 350px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #8e8e8e;
+    text-align: center;
+}
+
+.line-login {
+  width: 60%;
+  height: 1px;
+  background-color: #d0d0d6;
+  border-radius: 8px;
+  margin: 15px 0px 0px 0px;
+}
+
+.title-login {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.title-logout {
+  font-size: 18px;
+  font-weight: 500;
+  color: #979797;
+}
+
+.content-input{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.area-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 2px;
+}
+
+label{
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 5px;
+}
+
+.input-login, .input-control {
+  width: auto;
+  height: 40px;
+  border: 1.2px solid #d0d0d6;
+  border-radius: 8px;
+  padding: 0px 10px;
+  font-size: 14px;
+  color: var(--dark-red);
+}
+
+.text-control {
+  width: auto;
+  border: 1.2px solid #d0d0d6;
+  border-radius: 8px;
+  padding: 10px 10px;
+  font-size: 14px;
+  color: var(--dark-red);
+}
+
+.input-login:focus {
+  outline: none;
+}
+
+.input-login::placeholder {
+  font-size: 14px;
+  color: #979797;
+}
+
+.button-submit-login {
+  width: 70%;
+  height: 36px;
+  background-color: var(--primary-yellow);
+  border: 1.5px solid var(--outline-yellow);
+  color: var(--dark-red);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+
+
+
+/* register */
+.button-register {
+  padding: 8px 16px;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.button-register:hover {
+  background-color: var(--color-primary-dark);
+  transition: 0.3s;
+}
+
+.link-register {
+  text-decoration: none;
+  color: var(--color-light);
+  padding: 0px;
+  margin: 0px;
+}
+
+.area-modal-register {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px red solid; */
+}
+
+.area-modal-image-register {
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-position: bottom;
+  border-radius: 8px;
+  padding: 30px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagline-register {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.desc-register {
+    max-width: 400px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #8e8e8e;
+    text-align: center;
+
+}
+
+.area-register {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 0px 20px 0px;
+}
+
+.form-register {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content-regis{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding: 10px 25px;
+}
+
+.area-regis-kiri, .area-regis-kanan{
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title-brand-register {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-dark);
+}
+
+.line {
+  width: 60%;
+  height: 1px;
+  background-color: #d0d0d6;
+  border-radius: 8px;
+  margin: 0px 0px 20px 0px;
+}
+
+.title-register {
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+}
+.title-logout {
+  font-size: 18px;
+  font-weight: 500;
+  color: #979797;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-register {
+  width: 80%;
+  height: 36px;
+  border: 1px solid #d0d0d6;
+  border-radius: 8px;
+  padding: 0px 10px;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.input-register:focus {
+  outline: none;
+}
+
+.input-register::placeholder {
+  font-size: 14px;
+  color: #d0d0d6;
+  font-family: "poppins", sans-serif;
+}
+
+.button-submit-register {
+  width: 60%;
+  height: 36px;
+  background-color: var(--primary-yellow);
+  color: var(--dark-red);
+  border: 1px solid var(--outline-yellow);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.span-register {
+  font-size: 12px;
+  margin-top: 20px;
+  font-weight: 400;
+}
+
+.textS {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.textS:hover {
+  text-decoration: underline;
+}
+
+.notifAlert {
+  width: auto;
+  height: auto;
+}
+
+.textNotif {
+  color: rgb(241, 35, 35);
+  font-size: 14px;
+  margin: 0px;
+}
+
+
 
 main{
     min-height: 78.5vh;
@@ -114,3 +448,5 @@ footer {
     padding: 20px 0;
     text-align: center;
 }
+
+

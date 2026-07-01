@@ -15,10 +15,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        if (empty($request->email) || empty($request->password)) {
+            return back()
+                ->withErrors([
+                    'login_error' => 'Email dan password wajib diisi.'
+                ])
+                ->withInput();
+        }
+
+        $credentials = $request->only('email', 'password');
+
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -26,13 +32,23 @@ class LoginController extends Controller
             $role = Auth::user()->role;
 
             if ($role === 'admin' || $role === 'panitia') {
-                return redirect('/dashboard')->with('success', 'Login berhasil! Selamat datang.');
-            } else {
-                return redirect('/')->with('success', 'Login berhasil! Selamat datang.');
+                return redirect('/dashboard')->with(
+                    'toast_success',
+                    'Login berhasil! Selamat datang, ' . Auth::user()->email
+                );
             }
+
+            return redirect('/')->with(
+                'toast_success',
+                'Login berhasil! Selamat datang.'
+            );
         }
 
-        return back()->with('login_error', 'Email atau password salah.');
+        return back()
+            ->withErrors([
+                'login_error' => 'Email atau password salah.'
+            ])
+            ->withInput();
     }
 
     public function logout(Request $request)
