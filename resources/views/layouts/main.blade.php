@@ -21,6 +21,7 @@
                     <h1 class="brand">Event<span class="brand-highlight">Crew</span></h1>
                 </div>
                 <div class="menu-nav">
+                <div class="menu-nav">
                     <a class="nav-link" href="{{ url('/') }}">Home</a>
                     <a class="nav-link" href="{{ url('/event') }}">Events</a>
                     <a class="nav-link" href="{{ url('/about') }}">About</a>
