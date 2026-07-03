@@ -44,6 +44,7 @@ Route::get('/data-event', [AdminEventController::class, 'index'])->name('admin.e
 Route::post('/data-event', [AdminEventController::class, 'store'])->name('admin.event.store');
 Route::put('/data-event/{id}', [AdminEventController::class, 'update'])->name('admin.event.update');
 Route::delete('/data-event/{id}', [AdminEventController::class, 'destroy'])->name('admin.event.destroy');
+Route::put('/data-event/{id}/verifikasi', [AdminEventController::class, 'verifikasi'])->name('admin.event.verifikasi');
 
 // Admin - Kategori
 Route::get('/data-kategori', [KategoriEventController::class, 'index']);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\KategoriEvent;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminEventController extends Controller
 {
@@ -17,21 +19,28 @@ class AdminEventController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_event'      => 'required|string|max:255',
-            'kategori_id'     => 'required',
-            'deskripsi'       => 'nullable|string',
-            'lokasi'          => 'required|string|max:255',
-            'tanggal_mulai'   => 'required|date',
-            'tanggal_selesai' => 'required|date',
-            'poster'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'status_event'    => 'required',
-        ]);
+        // $request->validate([
+        //     'nama_event'      => 'required|string|max:255',
+        //     'kategori_id'     => 'required',
+        //     'deskripsi'       => 'nullable|string',
+        //     'lokasi'          => 'required|string|max:255',
+        //     'tanggal_mulai'   => 'required|date',
+        //     'tanggal_selesai' => 'required|date',
+        //     'poster'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        //     'status_event'    => 'required',
+        // ]);
+        // dd($request->all());
 
-        $posterPath = $request->file('poster')->store('posters', 'public');
+        $file = $request->file('poster');
+
+        $fileName = Str::slug($request->nama_event) . '-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs('uploads/posters', $fileName, 'public');
+
+        $posterPath = 'uploads/posters/' . $fileName;
 
         Event::create([
-            'panitia_id'        => auth()->id(),
+            'panitia_id'        => Auth::id(),
             'kategori_id'       => $request->kategori_id,
             'nama_event'        => $request->nama_event,
             'deskripsi'         => $request->deskripsi,
@@ -82,5 +91,30 @@ class AdminEventController extends Controller
     {
         Event::findOrFail($id)->delete();
         return redirect('/data-event')->with('success', 'Event berhasil dihapus!');
+    }
+
+    public function verifikasi(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+
+        // dd($request->alasan_penolakan);
+
+        if ($request->status_verifikasi == 'ditolak') {
+
+            $request->validate([
+                'alasan_penolakan' => 'required|string|max:500',
+            ]);
+
+            $event->status_verifikasi = 'ditolak';
+            $event->alasan_penolakan = $request->alasan_penolakan;
+        } else {
+
+            $event->status_verifikasi = 'disetujui';
+            $event->alasan_penolakan = null;
+        }
+
+        $event->save();
+
+        return back()->with('success', 'Status verifikasi berhasil diperbarui.');
     }
 }
