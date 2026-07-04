@@ -1,0 +1,33 @@
+.area-total-statik{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+    height: fit-content;
+}
+
+.card-total{
+    width: 25%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.card-total.one {
+    background-color: var(--primary-pink);
+    border: 1.5px solid var(--outline-pink);
+}
+
+.card-total.two {
+    background-color: var(--primary-yellow);
+    border: 1.5px solid var(--outline-yellow);
+}
+
+.card-total.three {
+    background-color: var(--primary-green);
+    border: 1.5px solid var(--outline-green);
+}
