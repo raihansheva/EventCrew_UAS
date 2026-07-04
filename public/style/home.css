@@ -115,7 +115,15 @@
 .area-header-card-promo{
     height: 100px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* border: 1px black solid; */
+}
+
+.iconCard{
+    font-size: 46px;
+    /* color: #fff; */
 }
 
 .area-text-card{
@@ -256,3 +264,5 @@
 }
 
 /* ------------ */
+
+
