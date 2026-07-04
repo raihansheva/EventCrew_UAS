@@ -34,15 +34,17 @@
             <div class="content-card">
                 <div class="card-promotion one">
                     <div class="area-header-card-promo">
+                        <i class="bx bx-trending-up iconCard"></i>
                     </div>
                     <div class="area-text-card">
                         <h4 class="title-promo">Kembangkan Diri</h4>
-                        <p class="desc-promo">Tingkatkan kemampuan komunikasi, kepemimpinan, dan kerja sama tim melalui pengalaman langsung di
+                        <p class="desc-promo ">Tingkatkan kemampuan komunikasi, kepemimpinan, dan kerja sama tim melalui pengalaman langsung di
                             berbagai kegiatan.</p>
                     </div>
                 </div>
                 <div class="card-promotion two">
                     <div class="area-header-card-promo">
+                        <i class="bx bx-group iconCard"></i>
                     </div>
                     <div class="area-text-card">
                         <h4 class="title-promo">Bangun Relasi</h4>
@@ -51,6 +53,7 @@
                 </div>
                 <div class="card-promotion three">
                     <div class="area-header-card-promo">
+                        <i class="bx bx-heart-circle iconCard"></i>
                     </div>
                     <div class="area-text-card">
                         <h4 class="title-promo">Berikan Dampak</h4>
