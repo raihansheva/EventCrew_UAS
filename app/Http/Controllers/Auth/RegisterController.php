@@ -62,6 +62,6 @@ class RegisterController extends Controller
             'pengalaman'    => $request->pengalaman,
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login!');
+        return redirect('/')->with('success', 'Registrasi berhasil, silakan login!');
     }
 }
