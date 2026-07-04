@@ -25,7 +25,7 @@ class KategoriEventController extends Controller
         ]);
 
         return redirect()->back()
-    ->with('success', 'Kategori berhasil ditambahkan.');
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -40,17 +40,21 @@ class KategoriEventController extends Controller
             'nama_kategori' => $request->nama_kategori,
         ]);
 
-    return redirect()->back()
-    ->with('success', 'Kategori berhasil diupdate.');
+        return redirect()->back()
+            ->with('success', 'Kategori berhasil diupdate.');
     }
 
     public function destroy($id)
     {
         $kategori = KategoriEvent::findOrFail($id);
 
+        if ($kategori->events()->exists()) {
+            return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan oleh event.')->with('openDeleteModal', $kategori->id);;
+        }
+
         $kategori->delete();
 
         return redirect()->back()
-    ->with('success', 'Kategori berhasil dihapus.');
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }

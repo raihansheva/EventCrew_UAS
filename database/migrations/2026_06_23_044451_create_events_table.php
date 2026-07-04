@@ -24,9 +24,16 @@ return new class extends Migration
             $table->enum('status_verifikasi', ['menunggu', 'disetujui', 'ditolak'])->default('menunggu');
             $table->enum('status_event', ['persiapan', 'open', 'seleksi', 'berlangsung', 'selesai'])->default('persiapan');
             $table->timestamps();
-
-            $table->foreign('panitia_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('kategori_id')->references('id')->on('kategori_events')->onDelete('cascade');
+            $table->foreign('panitia_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('kategori_id')
+                ->references('id')
+                ->on('kategori_events')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 
