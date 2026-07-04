@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AdminEventController;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\KategoriEventController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\PendaftaranVolunteerController;
@@ -14,13 +15,9 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
+Route::get('/admin', [Dashboard::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
 // Register
 // Route::get('/register', [RegisterController::class, 'showForm'])->name('register');

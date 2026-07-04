@@ -7,15 +7,15 @@
         <div class="section-body">
             <div class="area-total-statik">
                 <div class="card-total one">
-                    <div class="total-value">100</div>
+                    <div class="total-value">{{ $volunteer }}</div>
                     <div class="total-label">Total Volunteers</div>
                 </div>
                 <div class="card-total two">
-                    <div class="total-value">50</div>
+                    <div class="total-value">{{ $event }}</div>
                     <div class="total-label">Active Events</div>
                 </div>
                 <div class="card-total three">
-                    <div class="total-value">25</div>
+                    <div class="total-value">{{ $kategori }}</div>
                     <div class="total-label">Upcoming Events</div>
                 </div>
                 <div class="card-total four">
