@@ -181,10 +181,6 @@
                                                                     diubah)</label>
                                                                 <input type="file" name="poster" class="form-control"
                                                                     accept="image/*">
-                                                                {{-- @if ($event->poster)
-                                        <img src="{{ asset('storage/' . $event->poster) }}" class="mt-2"
-                                            width="80">
-                                    @endif --}}
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="form-label">Status Event</label>

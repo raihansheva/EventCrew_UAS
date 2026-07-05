@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\KategoriEventController;
+use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\PendaftaranVolunteerController;
 
@@ -45,6 +46,12 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
 
     // Kategori
     Route::get('/data-kategori', [KategoriEventController::class, 'index'])->name('admin.kategori');
+    
+    // Panitia
+    Route::get('/data-panitia', [PanitiaController::class, 'index'])->name('admin.panitia');
+    Route::put('/data-panitia/{id}', [PanitiaController::class, 'update'])->name('admin.panitia.update');
+    Route::delete('/data-panitia/{id}', [PanitiaController::class, 'destroy'])->name('admin.panitia.destroy');
+    Route::put('/data-panitia/{id}/verifikasi', [PanitiaController::class, 'verifikasi'])->name('admin.panitia.verifikasi');
 });
 
 
