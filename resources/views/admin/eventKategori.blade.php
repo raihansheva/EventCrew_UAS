@@ -139,63 +139,35 @@
 
 
     <div class="modal fade" id="addModal" tabindex="-1">
-
         <div class="modal-dialog">
-
             <div class="modal-content">
-
                 <form action="{{ route('admin.kategori.store') }}" method="POST">
-
                     @csrf
-
                     <div class="modal-header">
-
                         <h5 class="modal-title">
-
                             Tambah Kategori Event
-
                         </h5>
-
                         <button type="button" class="btn-close" data-bs-dismiss="modal">
                         </button>
-
                     </div>
-
                     <div class="modal-body">
-
                         <label class="form-label">
-
                             Nama Kategori
-
                         </label>
-
                         <input type="text" name="nama_kategori" class="form-control" placeholder="Masukkan nama kategori"
                             required>
-
                     </div>
-
                     <div class="modal-footer">
-
                         <button class="btn btn-secondary" data-bs-dismiss="modal">
-
                             Batal
-
                         </button>
-
                         <button class="btn btn-warning">
-
                             Simpan
-
                         </button>
-
                     </div>
-
                 </form>
-
             </div>
-
         </div>
-
     </div>
 
 @endsection

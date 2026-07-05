@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('kuota_volunteer')->default(0);
             $table->timestamps();
 
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

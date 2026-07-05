@@ -83,6 +83,10 @@
                                     Data Panitia
                                 </a>
                             @endif
+                            <a href="/data-divisi"
+                                class="nav-link {{ request()->is('data-divisi') ? 'active' : '' }}">
+                                Data Divisi Event
+                            </a>
                         </div>
                     </div>
                     <div class="sidebar-group">

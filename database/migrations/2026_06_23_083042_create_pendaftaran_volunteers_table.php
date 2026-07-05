@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('pendaftaran_volunteers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('volunteer_id');
             $table->unsignedBigInteger('divisi_id');
-            $table->text('deskripsi')->nullable();
+            $table->text('motivasi')->nullable();
             $table->enum('status_pendaftaran', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
             $table->timestamps();
 
-            $table->foreign('volunteer_id')->references('id')->on('volunteers')->onDelete('cascade');
-            $table->foreign('divisi_id')->references('id')->on('divisi_volunteers')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('restrict');
+            $table->foreign('volunteer_id')->references('id')->on('volunteers')->onDelete('restrict');
+            $table->foreign('divisi_id')->references('id')->on('divisi_volunteers')->onDelete('restrict');
         });
     }
 
