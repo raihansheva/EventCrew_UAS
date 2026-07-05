@@ -47,5 +47,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function penyelenggara()
+    {
+        return $this->hasOne(Penyelenggara::class);
+    }
     
 }

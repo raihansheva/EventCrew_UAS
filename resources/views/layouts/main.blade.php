@@ -107,9 +107,67 @@
                                 </div>
                                 <button class="button-submit-login" type="submit">Login</button>
                                 <span class="span-register">Belum punya akun buat daftar event?, <span class="textS"
-                                        data-bs-target="#exampleModalRegister"
+                                        data-bs-target="#exampleModalPilihan"
                                         data-bs-toggle="modal">Register</span></span>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalPilihan" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-body p-5">
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold mb-2">Bergabung dengan EventCrew</h2>
+                        <p class="text-secondary mb-0">
+                            Pilih jenis akun yang ingin Anda daftarkan.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card-pilihan" data-bs-target="#exampleModalRegister" data-bs-toggle="modal">
+                                <div class="icon-pilihan">
+                                    <i class='bx bx-user'></i>
+                                </div>
+                                <h4>Volunteer</h4>
+                                <p>
+                                    Ikuti berbagai event, bangun pengalaman,
+                                    perluas relasi, dan tingkatkan kemampuanmu.
+                                </p>
+                                <span class="btn-pilihan">
+                                    Daftar Volunteer →
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-pilihan" data-bs-target="#exampleModalRegisPanitia"
+                                data-bs-toggle="modal">
+                                <div class="icon-pilihan">
+                                    <i class='bx bx-buildings'></i>
+                                </div>
+                                <h4>Organizer</h4>
+                                <p>
+                                    Publikasikan event dan temukan volunteer
+                                    terbaik untuk membantu kegiatan Anda.
+                                </p>
+                                <span class="btn-pilihan">
+                                    Daftar Organizer →
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="span-register">
+                                Sudah punya akun?
+                                <span class="textS" role="button" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalLogin">
+                                    Login
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -219,6 +277,85 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModalRegisPanitia" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-body p-2">
+                    <div class="area-modal-register">
+                        <div class="area-modal-image-register">
+                            <h2 class="tagline-register">Menjadi Penyelenggara Event</h2>
+                            <p class="desc-register">
+                                Buat akun penyelenggara dan mulai publikasikan event Anda untuk
+                                menjangkau volunteer dari berbagai daerah.
+                            </p>
+                        </div>
+                        <div class="area-register">
+                            <div class="line"></div>
+                            <h2 class="title-register">Register</h2>
+                            @error('registerPanitia_error')
+                                <div class="notifAlert" id="regisAlert">
+                                    <p class="textNotif">{{ $message }}</p>
+                                </div>
+                            @enderror
+                            <form class="form-register" action="{{ route('register.post.panitia') }}" method="post">
+                                @csrf
+                                <div class="content-regis">
+                                    <div class="area-regis-kiri">
+                                        <div class="area-input">
+                                            <label>Nama Penyelenggara :</label>
+                                            <input class="input-control" type="text" name="nama_penyelenggara"
+                                                placeholder="Masukkan nama penyelenggara"
+                                                value="{{ old('nama_penyelenggara') }}">
+                                        </div>
+                                        <div class="area-input">
+                                            <label>Email :</label>
+                                            <input class="input-control" type="email" name="email"
+                                                placeholder="Masukkan email" value="{{ old('email') }}">
+                                        </div>
+                                        <div class="area-input">
+                                            <label>No HP :</label>
+                                            <input class="input-control" type="text" name="no_hp"
+                                                placeholder="Masukkan no HP" value="{{ old('no_hp') }}">
+                                        </div>
+                                        <div class="area-input">
+                                            <label>Nama Penanggung Jawab ::</label>
+                                            <input class="input-control" type="text" name="nama_penanggung_jawab"
+                                                placeholder="Masukkan nama penanggung jawab"
+                                                value="{{ old('nama_penanggung_jawab') }}">
+                                        </div>
+                                        <div class="area-input">
+                                            <label>Alamat :</label>
+                                            <textarea class="text-control" name="alamat" placeholder="Masukkan alamat" rows="5">{{ old('alamat') }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="area-regis-kanan">
+                                        <div class="area-input">
+                                            <label>Deskripsi :</label>
+                                            <textarea class="text-control" name="deskripsi" placeholder="Masukkan deskripsi" rows="5">{{ old('deskripsi') }}</textarea>
+                                        </div>
+                                        <div class="area-input">
+                                            <label>Password :</label>
+                                            <input class="input-control" type="password" name="password"
+                                                placeholder="Masukkan password">
+                                        </div>
+                                        <div class="area-input">
+                                            <label>Konfirmasi Password :</label>
+                                            <input class="input-control" type="password" name="password_confirmation"
+                                                placeholder="Konfirmasi password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="button-submit-register" type="submit">Submit</button>
+                                <span class="span-register">Sudah Punya Akun?, <span class="textS"
+                                        data-bs-target="#exampleModalLogin" data-bs-toggle="modal">Login</span></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -256,6 +393,7 @@
             const loginModal = document.getElementById('exampleModalLogin');
             const alertRegis = document.getElementById('regisAlert');
             const regisModal = document.getElementById('exampleModalRegister');
+            const regisModalP = document.getElementById('exampleModalRegisPanitia');
 
             if (alert) {
                 setTimeout(() => {
@@ -284,6 +422,14 @@
                     regisAlert.remove();
                 }
             });
+
+            regisModalP.addEventListener('hidden.bs.modal', function() {
+                const regisAlert = document.getElementById('regisAlert');
+
+                if (regisAlert) {
+                    regisAlert.remove();
+                }
+            });
         });
     </script>
     @error('login_error')
@@ -298,6 +444,14 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const regisModal = new bootstrap.Modal(document.getElementById('exampleModalRegister'));
+                regisModal.show();
+            });
+        </script>
+    @enderror
+    @error('registerPanitia_error')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const regisModal = new bootstrap.Modal(document.getElementById('exampleModalRegisPanitia'));
                 regisModal.show();
             });
         </script>

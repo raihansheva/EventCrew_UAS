@@ -450,3 +450,60 @@ footer {
 }
 
 
+
+.card-pilihan{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:100%;
+    padding:35px 30px;
+    border: 1.2px solid #d0d0d6;
+    border-radius:20px;
+    background:#fff;
+    transition:.3s;
+    color:#222;
+    cursor: pointer;
+  }
+
+
+.card-pilihan:hover{
+    border-color:#FFD233;
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    color:#222;
+}
+
+.icon-pilihan{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#FFF6D7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+    font-size:30px;
+    color:#E3B400;
+    transition:.3s;
+}
+
+.card-pilihan:hover .icon-pilihan{
+    transform:scale(1.08);
+}
+
+.card-pilihan h4{
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.card-pilihan p{
+    color:#7d7d7d;
+    line-height:28px;
+    flex:1;
+}
+
+.btn-pilihan{
+    margin-top:25px;
+    font-weight:600;
+    color:#E3B400;
+}

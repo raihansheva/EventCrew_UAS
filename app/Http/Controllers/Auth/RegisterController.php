@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penyelenggara;
 use App\Models\User;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class RegisterController extends Controller
             empty($request->jenis_kelamin) ||
             empty($request->pendidikan) ||
             empty($request->keahlian) ||
-            empty($request->pengalaman) 
+            empty($request->pengalaman)
         ) {
             return back()
                 ->withErrors([
@@ -63,5 +64,60 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login!');
+    }
+
+    public function registerPanitia(Request $request)
+    {
+        if (
+            empty($request->email) ||
+            empty($request->password) ||
+            empty($request->password_confirmation) ||
+            empty($request->nama_penyelenggara) ||
+            empty($request->nama_penanggung_jawab) ||
+            empty($request->no_hp) ||
+            empty($request->alamat) ||
+            empty($request->deskripsi)
+        ) {
+            return back()
+                ->withErrors([
+                    'registerPanitia_error' => 'Semua field wajib diisi.'
+                ])
+                ->withInput();
+        }
+
+        if ($request->password !== $request->password_confirmation) {
+            return back()
+                ->withErrors([
+                    'registerPanitia_error' => 'Konfirmasi password tidak sesuai.'
+                ])
+                ->withInput();
+        }
+
+        if (User::where('email', $request->email)->exists()) {
+            return back()
+                ->withErrors([
+                    'registerPanitia_error' => 'Email sudah terdaftar.'
+                ])
+                ->withInput();
+        }
+
+        $user = User::create([
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => 'panitia',
+        ]);
+
+        Penyelenggara::create([
+            'user_id'                 => $user->id,
+            'nama_penyelenggara'      => $request->nama_penyelenggara,
+            'nama_penanggung_jawab'   => $request->nama_penanggung_jawab,
+            'no_hp'                   => $request->no_hp,
+            'alamat'                  => $request->alamat,
+            'deskripsi'               => $request->deskripsi,
+            'status_verifikasi'       => 'menunggu',
+        ]);
+
+        return redirect('/admin')
+            ->with('success', 'Pendaftaran penyelenggara berhasil. Silakan menunggu verifikasi dari admin.');
     }
 }
