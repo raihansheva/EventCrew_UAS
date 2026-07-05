@@ -12,7 +12,14 @@ class AdminEventController extends Controller
 {
     public function index()
     {
-        $events = Event::with('kategori')->latest()->get();
+        $user = Auth::user();
+        if ($user->role == "admin") {
+            $events = Event::with('kategori')->latest()->get();
+        }else if ($user->role == "panitia") {
+            $events = Event::with('kategori')->where('panitia_id', $user->id)->latest()->get();
+        } else {
+            abort(403, 'Anda tidak memiliki hak akses.');
+        }
         $kategoris = KategoriEvent::all();
         return view('admin.event', compact('events', 'kategoris'));
     }

@@ -88,15 +88,17 @@
                                                             Detail
                                                         </button>
                                                     </li>
-                                                    @if ($event->status_verifikasi !== 'disetujui')
-                                                        <li>
-                                                            <button class="dropdown-item d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalVerify{{ $event->id }}">
-                                                                <i class='bx bx-check-circle me-2'></i>
-                                                                Verifikasi
-                                                            </button>
-                                                        </li>
+                                                    @if (Auth::user()->role == 'admin')
+                                                        @if ($event->status_verifikasi !== 'disetujui')
+                                                            <li>
+                                                                <button class="dropdown-item d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalVerify{{ $event->id }}">
+                                                                    <i class='bx bx-check-circle me-2'></i>
+                                                                    Verifikasi
+                                                                </button>
+                                                            </li>
+                                                        @endif
                                                     @endif
                                                     <li>
                                                         <button class="dropdown-item drop-edit d-flex align-items-center"

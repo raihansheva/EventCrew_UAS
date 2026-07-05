@@ -4,11 +4,13 @@
 
 @section('content')
     <div class="admin-section">
-        <div class="section-header">
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
-                Tambah Data
-            </button>
-        </div>
+        @if (Auth::user()->role == 'admin')
+            <div class="section-header">
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
+                    Tambah Data
+                </button>
+            </div>
+        @endif
         <div class="section-body">
             <div class="table-container">
                 <div class="table-wrapper">
@@ -17,7 +19,9 @@
                             <tr>
                                 <th width="70">No</th>
                                 <th>Nama Kategori</th>
-                                <th width="180" class="text-center">Action</th>
+                                @if (Auth::user()->role == 'admin')
+                                    <th width="180" class="text-center">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -25,37 +29,40 @@
                                 <tr>
                                     <td class="text-center">{{ $i + 1 }}</td>
                                     <td>{{ $k->nama_kategori }}</td>
-                                    <td class="text-center">
-                                        <div class="dropup">
-                                            <button class="btn btn-light border-0" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
+                                    @if (Auth::user()->role == 'admin')
+                                        <td class="text-center">
+                                            <div class="dropup">
+                                                <button class="btn btn-light border-0" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
 
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                <div class="area-menu-drop">
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    <div class="area-menu-drop">
 
-                                                    <li>
-                                                        <button class="dropdown-item drop-edit d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editModal{{ $k->id }}">
-                                                            <i class='bx bx-edit-alt me-2'></i>
-                                                            Edit
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalHapus{{ $k->id }}">
-                                                            <i class="bx bx-trash me-2"></i>
-                                                            Hapus
-                                                        </button>
-                                                    </li>
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-edit d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $k->id }}">
+                                                                <i class='bx bx-edit-alt me-2'></i>
+                                                                Edit
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item text-danger drop-hapus d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalHapus{{ $k->id }}">
+                                                                <i class="bx bx-trash me-2"></i>
+                                                                Hapus
+                                                            </button>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <!-- Modal Edit -->
                                 <div class="modal fade" id="editModal{{ $k->id }}" tabindex="-1">
