@@ -22,6 +22,7 @@ Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 // Register
 // Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+Route::post('/register-panitia', [RegisterController::class, 'registerPanitia'])->name('register.post.panitia');
 
 // Login
 // Route::get('/login', [LoginController::class, 'showForm'])->name('login');
