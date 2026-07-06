@@ -117,7 +117,7 @@ class RegisterController extends Controller
             'status_verifikasi'       => 'menunggu',
         ]);
 
-        return redirect('/admin')
+        return redirect('/dashboard')
             ->with('success', 'Pendaftaran penyelenggara berhasil. Silakan menunggu verifikasi dari admin.');
     }
 }
