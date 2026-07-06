@@ -147,7 +147,7 @@
                                 <div class="area-link">
                                     <div class="area-setting">
                                         <a class="dropdown-item" href="#">
-                                            Pengaturan
+                                            Profile
                                         </a>
                                     </div>
                                     <div class="area-logout">
