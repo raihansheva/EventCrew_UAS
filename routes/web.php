@@ -7,7 +7,9 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\KategoriEventController;
+use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\PendaftaranVolunteerController;
 
@@ -45,6 +47,19 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
 
     // Kategori
     Route::get('/data-kategori', [KategoriEventController::class, 'index'])->name('admin.kategori');
+    
+    // Panitia
+    Route::get('/data-panitia', [PanitiaController::class, 'index'])->name('admin.panitia');
+    Route::put('/data-panitia/{id}', [PanitiaController::class, 'update'])->name('admin.panitia.update');
+    Route::delete('/data-panitia/{id}', [PanitiaController::class, 'destroy'])->name('admin.panitia.destroy');
+    Route::put('/data-panitia/{id}/verifikasi', [PanitiaController::class, 'verifikasi'])->name('admin.panitia.verifikasi');
+
+
+    // Divisi
+    Route::get('/data-divisi', [DivisiController::class, 'index'])->name('admin.divisi');
+    Route::post('/data-divisi', [DivisiController::class, 'store'])->name('admin.divisi.post');
+    Route::put('/data-divisi/{id}', [DivisiController::class, 'update'])->name('admin.divisi.update');
+    Route::delete('/data-divisi/{id}', [DivisiController::class, 'destroy'])->name('admin.divisi.destroy');
 });
 
 
