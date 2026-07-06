@@ -62,21 +62,42 @@
                         </div>
                     </div>
                     <div class="sidebar-group">
-                        <span class="menu-group-title">
-                            DATA MASTER
-                        </span>
+                        @if (Auth::user()->role == 'admin')
+                            <span class="menu-group-title">
+                                DATA MASTER
+                            </span>
+                        @else
+                            <span class="menu-group-title">
+                                Event
+                            </span>
+                        @endif
                         <div class="sidebar-menu">
-                            <a href="/data-event" class="nav-link {{ request()->is('data-event') ? 'active' : '' }}">
-                                Data Event
-                            </a>
-                            <a href="/data-kategori"
-                                class="nav-link {{ request()->is('data-kategori') ? 'active' : '' }}">
-                                Data Kategori
-                            </a>
-                            <a href="/data-volunteer"
-                                class="nav-link {{ request()->is('data-volunteer') ? 'active' : '' }}">
-                                Data Volunteer
-                            </a>
+                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'panitia')
+                                <a href="/data-event"
+                                    class="nav-link {{ request()->is('data-event') ? 'active' : '' }}">
+                                    Data Event
+                                </a>
+                            @endif
+                            @if (Auth::user()->role == 'admin')
+                                <a href="/data-kategori"
+                                    class="nav-link {{ request()->is('data-kategori') ? 'active' : '' }}">
+                                    Data Kategori
+                                </a>
+                                <a href="/data-volunteer"
+                                    class="nav-link {{ request()->is('data-volunteer') ? 'active' : '' }}">
+                                    Data Volunteer
+                                </a>
+                                <a href="/data-panitia"
+                                    class="nav-link {{ request()->is('data-panitia') ? 'active' : '' }}">
+                                    Data Panitia
+                                </a>
+                            @endif
+                            @if (Auth::user()->role == 'panitia')
+                                <a href="/data-divisi"
+                                    class="nav-link {{ request()->is('data-divisi') ? 'active' : '' }}">
+                                    Data Divisi Event
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="sidebar-group">
@@ -84,14 +105,21 @@
                             TRANSAKSI
                         </span>
                         <div class="sidebar-menu">
-                            <a href="/data-pendaftaran"
-                                class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
-                                Data Pendaftaran
-                            </a>
-                            <a href="/event-verifikasi"
-                                class="nav-link {{ request()->is('event-verifikasi') ? 'active' : '' }}">
-                                Event Verifikasi
-                            </a>
+                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'panitia')
+                                <a href="/data-pendaftaran"
+                                    class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
+                                    Data Pendaftaran
+                                </a>
+                            @endif
+                            @if (Auth::user()->role == 'panitia')
+                                <a href="/penugasan" class="nav-link {{ request()->is('penugasan') ? 'active' : '' }}">
+                                    Penugasan Volunteer
+                                </a>
+
+                                <a href="/evaluasi" class="nav-link {{ request()->is('evaluasi') ? 'active' : '' }}">
+                                    Evaluasi Volunteer
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
