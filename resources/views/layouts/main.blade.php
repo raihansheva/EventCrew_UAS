@@ -76,7 +76,7 @@
     <div class="modal fade" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4">
+            <div class="modal-content rounded-4 modal-content-L">
                 <div class="modal-body p-2">
                     <div class="area-modal-login">
                         <div class="area-modal-image">
@@ -122,7 +122,7 @@
     <div class="modal fade" id="exampleModalPilihan" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg modal-content-L">
                 <div class="modal-body p-5">
                     <div class="text-center mb-5">
                         <h2 class="fw-bold mb-2">Bergabung dengan EventCrew</h2>
@@ -180,7 +180,7 @@
     <div class="modal fade" id="exampleModalRegister" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content rounded-4">
+            <div class="modal-content rounded-4 modal-content-L">
                 <div class="modal-body p-2">
                     <div class="area-modal-register">
                         <div class="area-modal-image-register">
@@ -282,8 +282,8 @@
     </div>
     <div class="modal fade" id="exampleModalRegisPanitia" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content rounded-4">
+        <div class="modal-dialog modal-lg modal-dialog-centered ">
+            <div class="modal-content rounded-4 modal-content-L">
                 <div class="modal-body p-2">
                     <div class="area-modal-register">
                         <div class="area-modal-image-register">

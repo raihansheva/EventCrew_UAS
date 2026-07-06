@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\PendaftaranVolunteer;
 
 class PendaftaranVolunteerController extends Controller
 {
-    public function create()
+    public function create($id)
     {
-        return view('pages.pendaftaran');
+        $event = Event::with('panitia', 'kategori', 'divisiVolunteer')->findOrFail($id);
+
+        return view('pages.pendaftaran', compact('event'));
     }
 
     public function store(Request $request)
