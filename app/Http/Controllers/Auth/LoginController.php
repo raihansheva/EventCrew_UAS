@@ -8,37 +8,54 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Tampilkan form login
     public function showForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        if (empty($request->email) || empty($request->password)) {
+            return back()
+                ->withErrors([
+                    'login_error' => 'Email dan password wajib diisi.'
+                ])
+                ->withInput();
+        }
+
+        $credentials = $request->only('email', 'password');
+
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard'); // arahkan ke dashboard
+
+            $role = Auth::user()->role;
+
+            if ($role === 'admin' || $role === 'panitia') {
+                return redirect('/dashboard')->with(
+                    'toast_success',
+                    'Login berhasil! Selamat datang, ' . Auth::user()->email
+                );
+            }
+
+            return redirect('/')->with(
+                'toast_success',
+                'Login berhasil! Selamat datang.'
+            );
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
+        return back()
+            ->withErrors([
+                'login_error' => 'Email atau password salah.'
+            ])
+            ->withInput();
     }
 
-    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect('/login');
+        return redirect('/')->with('success', 'Berhasil logout.');
     }
 }

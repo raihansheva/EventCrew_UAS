@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Volunteer extends Model
+class Penyelenggara extends Model
 {
+    protected $table = 'penyelenggaras';
+
     protected $fillable = [
         'user_id',
-        'nama_lengkap',
+        'nama_penyelenggara',
+        'nama_penanggung_jawab',
         'no_hp',
-        'jenis_kelamin',
         'alamat',
-        'pendidikan',
-        'keahlian',
-        'pengalaman',
+        'deskripsi',
+        'status_verifikasi',
     ];
 
     public function user()

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('komentar')->nullable();
             $table->timestamps();
 
-            $table->foreign('volunteer_id')->references('id')->on('volunteers')->onDelete('cascade');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('volunteer_id')->references('id')->on('volunteers')->onDelete('restrict');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('restrict');
         });
     }
 

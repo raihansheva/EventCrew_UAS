@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,5 +47,14 @@ class User extends Authenticatable
         ];
     }
 
+    public function penyelenggara()
+    {
+        return $this->hasOne(Penyelenggara::class);
+    }
+
+        public function volunteer()
+    {
+        return $this->hasOne(Volunteer::class);
+    }
     
 }

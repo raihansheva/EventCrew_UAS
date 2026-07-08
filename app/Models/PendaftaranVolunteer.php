@@ -9,9 +9,10 @@ class PendaftaranVolunteer extends Model
     protected $table = 'pendaftaran_volunteers';
 
     protected $fillable = [
+        'event_id',
         'volunteer_id',
         'divisi_id',
-        'deskripsi',
+        'motivasi',
         'status_pendaftaran',
     ];
 
@@ -19,6 +20,13 @@ class PendaftaranVolunteer extends Model
     {
         return $this->belongsTo(Volunteer::class, 'volunteer_id');
     }
+
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
 
     public function divisi()
     {

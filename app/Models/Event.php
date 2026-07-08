@@ -30,4 +30,9 @@ class Event extends Model
     {
         return $this->belongsTo(KategoriEvent::class, 'kategori_id');
     }
+
+    public function divisiVolunteer()
+    {
+        return $this->hasMany(DivisiVolunteer::class);
+    }
 }
