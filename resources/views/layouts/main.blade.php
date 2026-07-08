@@ -31,9 +31,6 @@
                     <a class="nav-link" href="{{ url('/event') }}">Events</a>
                     <a class="nav-link" href="{{ url('/about') }}">About</a>
                     <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
-                    <a class="nav-link" href="{{ url('/pendaftaran') }}">
-                        Pendaftaran
-                    </a>
                     @guest
                         <div class="area-button-login">
                             <div class="button-login" data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
