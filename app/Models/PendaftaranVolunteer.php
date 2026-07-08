@@ -12,7 +12,7 @@ class PendaftaranVolunteer extends Model
         'event_id',
         'volunteer_id',
         'divisi_id',
-        'deskripsi',
+        'motivasi',
         'status_pendaftaran',
     ];
 

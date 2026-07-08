@@ -18,19 +18,30 @@ class PendaftaranVolunteerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'volunteer_id' => 'required',
-            'divisi_id' => 'required',
-            'deskripsi' => 'nullable'
+            'event_id'      => 'required|exists:events,id',
+            'volunteer_id'  => 'required|exists:volunteers,id',
+            'divisi_id'     => 'required|exists:divisi_volunteers,id',
+            'motivasi'      => 'required|string|max:1000',
         ]);
+
+        // Cek apakah volunteer sudah pernah mendaftar
+        $cekPendaftaran = PendaftaranVolunteer::where('volunteer_id', $request->volunteer_id)
+            ->where('divisi_id', $request->divisi_id)
+            ->where('status_pendaftaran', 'menunggu')
+            ->first();
+
+        if ($cekPendaftaran) {
+            return back()->with('warning', 'Anda sudah mendaftar pada divisi ini dan status pendaftaran masih menunggu.');
+        }
 
         PendaftaranVolunteer::create([
-            'volunteer_id' => $request->volunteer_id,
-            'divisi_id' => $request->divisi_id,
-            'deskripsi' => $request->deskripsi,
-            'status_pendaftaran' => 'menunggu'
+            'event_id'            => $request->event_id,
+            'volunteer_id'        => $request->volunteer_id,
+            'divisi_id'           => $request->divisi_id,
+            'motivasi'            => $request->motivasi,
+            'status_pendaftaran'  => 'menunggu',
         ]);
 
-        return redirect('/pendaftaran')
-            ->with('success', 'Pendaftaran berhasil dikirim');
+        return back()->with('success', 'Pendaftaran berhasil dikirim.');
     }
 }

@@ -361,7 +361,7 @@
     </div>
 
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {{-- <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <strong class="me-auto">EventCrew</strong>
@@ -372,14 +372,14 @@
                 Anda berhasil login ke dashboard EventCrew
             </div>
         </div>
-    </div>
+    </div> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous">
     </script>
-    @if (session('toast_success'))
+    {{-- @if (session('toast_success'))
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const toastElement = document.getElementById('successToast');
@@ -389,7 +389,7 @@
                 toast.show();
             });
         </script>
-    @endif
+    @endif --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const alert = document.getElementById('loginAlert');

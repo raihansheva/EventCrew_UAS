@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             @if (Auth::check())
-                                <a href="{{ route('pendaftaran.create', $item->id) }}" class="btn-detail">
+                                <a href="/pendaftaran/{{ $item->id }}" class="btn-detail">
                                     Lihat Detail
                                 </a>
                             @endif

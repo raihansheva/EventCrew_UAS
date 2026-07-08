@@ -30,7 +30,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 25px;
     background: #ffffff;
     border-radius: 24px;
     border: 1.2px solid #e4e4e4;
@@ -41,6 +41,34 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+.area-badge-back {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.iconBack {
+    font-size: 34px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.area-back{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: var(--primary-yellow);
+}
+
+.area-back:hover {
+    background: #ffe355;
 }
 
 .badge-event {
@@ -82,9 +110,9 @@
     gap: 0px;
 }
 
-.section-detail h3 {
-    font-size: 24px;
-    font-weight: 700;
+.title-detail {
+    font-size: 22px;
+    font-weight: 800;
 }
 
 .section-detail p {
@@ -127,7 +155,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: .3s;
+    transition: 0.3s;
+    gap: 15px;
 }
 
 .card-divisi:hover {
@@ -135,36 +164,37 @@
     border: 1px solid var(--primary-yellow);
 }
 
-.content-divisi{
+.content-divisi {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 6px;
 }
 
-.nama-divisi{
+.nama-divisi {
     margin: 0px;
     padding: 0px;
     font-size: 20px;
+    font-weight: 700;
 }
 
-.desk-divisi{
+.desk-divisi {
     margin: 0px;
     padding: 0px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.kuota-divisi{
+.kuota-divisi {
     margin: 0px;
     padding: 0px;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
 }
-
 
 .btn-daftar {
     border: none;
     background: var(--primary-yellow);
     color: #000000;
-    padding: 12px 24px;
+    padding: 8px 24px;
     border-radius: 12px;
     cursor: pointer;
     transition: 0.3s;
