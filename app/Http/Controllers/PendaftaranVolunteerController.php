@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\StatusPendaftaranVolunteerMail;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\PendaftaranVolunteer;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PendaftaranVolunteerController extends Controller
 {
@@ -15,33 +18,68 @@ class PendaftaranVolunteerController extends Controller
         return view('pages.pendaftaran', compact('event'));
     }
 
-    public function store(Request $request)
+    public function dataPendaftaran()
+    {
+        $panitiaId = Auth::id();
+
+        $pendaftaran = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi'])
+            ->whereHas('event', function ($query) use ($panitiaId) {
+                $query->where('panitia_id', $panitiaId);
+            })
+            ->get();
+
+        return view('admin.pendaftaran', compact('pendaftaran'));
+    }
+
+    public function verifikasi(Request $request, $id)
     {
         $request->validate([
-            'event_id'      => 'required|exists:events,id',
-            'volunteer_id'  => 'required|exists:volunteers,id',
-            'divisi_id'     => 'required|exists:divisi_volunteers,id',
-            'motivasi'      => 'required|string|max:1000',
+            'status_pendaftaran' => 'required|in:diterima,ditolak',
         ]);
 
-        // Cek apakah volunteer sudah pernah mendaftar
-        $cekPendaftaran = PendaftaranVolunteer::where('volunteer_id', $request->volunteer_id)
-            ->where('divisi_id', $request->divisi_id)
-            ->where('status_pendaftaran', 'menunggu')
-            ->first();
+        $pendaftaran = PendaftaranVolunteer::with([
+            'volunteer.user',
+            'event',
+            'divisi'
+        ])->findOrFail($id);
 
-        if ($cekPendaftaran) {
-            return back()->with('warning', 'Anda sudah mendaftar pada divisi ini dan status pendaftaran masih menunggu.');
+        // Jika sudah diverifikasi sebelumnya
+        if ($pendaftaran->status_pendaftaran != 'menunggu') {
+            return back()->with('warning', 'Pendaftaran ini sudah diverifikasi.');
         }
 
-        PendaftaranVolunteer::create([
-            'event_id'            => $request->event_id,
-            'volunteer_id'        => $request->volunteer_id,
-            'divisi_id'           => $request->divisi_id,
-            'motivasi'            => $request->motivasi,
-            'status_pendaftaran'  => 'menunggu',
+        // Jika diterima, cek kuota
+        if ($request->status_pendaftaran == 'diterima') {
+
+            if ($pendaftaran->divisi->kuota_volunteer <= 0) {
+                return back()->with('warning', 'Kuota volunteer pada divisi ini sudah penuh.');
+            }
+
+            // Kurangi kuota
+            $pendaftaran->divisi->decrement('kuota_volunteer');
+        }
+
+        // Update status
+        $pendaftaran->update([
+            'status_pendaftaran' => $request->status_pendaftaran,
         ]);
 
-        return back()->with('success', 'Pendaftaran berhasil dikirim.');
+        // Reload relasi agar status terbaru ikut terkirim
+        $pendaftaran->refresh();
+        $pendaftaran->load([
+            'volunteer.user',
+            'event',
+            'divisi'
+        ]);
+
+        // Kirim email
+        Mail::to($pendaftaran->volunteer->user->email)
+            ->send(new StatusPendaftaranVolunteerMail($pendaftaran));
+
+        if ($request->status_pendaftaran == 'diterima') {
+            return back()->with('success', 'Volunteer berhasil diterima dan email telah dikirim.');
+        }
+
+        return back()->with('success', 'Volunteer berhasil ditolak dan email telah dikirim.');
     }
 }

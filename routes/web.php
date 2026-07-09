@@ -47,7 +47,7 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
 
     // Kategori
     Route::get('/data-kategori', [KategoriEventController::class, 'index'])->name('admin.kategori');
-    
+
     // Panitia
     Route::get('/data-panitia', [PanitiaController::class, 'index'])->name('admin.panitia');
     Route::put('/data-panitia/{id}', [PanitiaController::class, 'update'])->name('admin.panitia.update');
@@ -60,6 +60,10 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
     Route::post('/data-divisi', [DivisiController::class, 'store'])->name('admin.divisi.post');
     Route::put('/data-divisi/{id}', [DivisiController::class, 'update'])->name('admin.divisi.update');
     Route::delete('/data-divisi/{id}', [DivisiController::class, 'destroy'])->name('admin.divisi.destroy');
+
+
+    Route::get('/data-pendaftaran', [PendaftaranVolunteerController::class, 'dataPendaftaran'])->name('data.pendaftaran');
+    Route::put('/data-pendaftaran/{id}/verifikasi', [PendaftaranVolunteerController::class, 'verifikasi'])->name('admin.pendaftaran.verifikasi');
 });
 
 
