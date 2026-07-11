@@ -7,6 +7,8 @@ use App\Models\PenugasanVolunteer;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class VolunteerController extends Controller
 {
@@ -17,6 +19,125 @@ class VolunteerController extends Controller
             ->get();
 
         return view('admin.volunteer', compact('volunteers'));
+    }
+
+    public function profile()
+    {
+        $profile = User::with('volunteer')
+            ->findOrFail(Auth::id());
+
+        // Pastikan user memiliki data volunteer
+        if (!$profile->volunteer) {
+            abort(404, 'Data volunteer tidak ditemukan.');
+        }
+
+        $volunteerId = $profile->volunteer->id;
+
+        $totalPendaftaran = PendaftaranVolunteer::where('volunteer_id', $volunteerId)->count();
+
+        $totalDiterima = PendaftaranVolunteer::where('volunteer_id', $volunteerId)
+            ->where('status_pendaftaran', 'diterima')
+            ->count();
+
+        $totalMenunggu = PendaftaranVolunteer::where('volunteer_id', $volunteerId)
+            ->where('status_pendaftaran', 'menunggu')
+            ->count();
+
+        $totalDitolak = PendaftaranVolunteer::where('volunteer_id', $volunteerId)
+            ->where('status_pendaftaran', 'ditolak')
+            ->count();
+
+        return view('pages.profile', compact(
+            'profile',
+            'totalPendaftaran',
+            'totalDiterima',
+            'totalMenunggu',
+            'totalDitolak'
+        ));
+    }
+
+    public function editProfile(Request $request, $id)
+    {
+        $request->validate([
+            'nama_lengkap'   => 'required|string|max:255',
+            'no_hp'          => 'required|string|max:20',
+            'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
+            'tanggal_lahir'  => 'required|date',
+            'alamat'         => 'required|string',
+            'pendidikan'     => 'nullable|string|max:255',
+            'keahlian'       => 'nullable|string|max:255',
+            'pengalaman'     => 'nullable|string|max:255',
+        ]);
+
+        $user = User::with('volunteer')->findOrFail($id);
+
+        $user->update([
+            'email' => $request->email
+        ]);
+
+        $user->volunteer->update([
+            'nama_lengkap'   => $request->nama_lengkap,
+            'no_hp'          => $request->no_hp,
+            'jenis_kelamin'  => $request->jenis_kelamin,
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'alamat'         => $request->alamat,
+            'pendidikan'     => $request->pendidikan,
+            'keahlian'       => $request->keahlian,
+            'pengalaman'     => $request->pengalaman,
+        ]);
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // dd($request);
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+        $user = Auth::user();
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Password lama tidak sesuai.'
+            ]);
+        }
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+        return back()->with('success', 'Password berhasil diperbarui.');
+    }
+
+    public function pendaftaranSaya()
+    {
+        $volunteer = Auth::user()->volunteer;
+
+        $pendaftaran = PendaftaranVolunteer::with([
+            'event',
+            'divisi'
+        ])
+            ->where('volunteer_id', $volunteer->id)
+            ->latest()
+            ->get();
+
+        return view('pages.singlePendaftaran', compact('pendaftaran'));
+    }
+
+    public function penugasanSaya()
+    {
+        $volunteer = Auth::user()->volunteer;
+
+    $penugasan = PenugasanVolunteer::with([
+        'pendaftaran.event',
+        'pendaftaran.divisi'
+    ])
+    ->whereHas('pendaftaran', function ($query) use ($volunteer) {
+        $query->where('volunteer_id', $volunteer->id);
+    })
+    ->latest()
+    ->get();
+
+    return view('pages.penugasan', compact('penugasan'));
     }
 
     public function destroy($id)

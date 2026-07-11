@@ -8,10 +8,10 @@
     <title>EventCrew</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-    
+
     <link rel="stylesheet" href="{{ asset('style/layout/main.css') }}">
 </head>
 
@@ -23,47 +23,50 @@
                     <h1 class="brand">Event<span class="brand-highlight">Crew</span></h1>
                 </div>
                 <div class="menu-nav">
-                <div class="menu-nav">
-                    <a class="nav-link" href="{{ url('/') }}">Home</a>
-                    <a class="nav-link" href="{{ url('/event') }}">Events</a>
-                    <a class="nav-link" href="{{ url('/about') }}">About</a>
-                    <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
-                    <a class="nav-link" href="{{ url('/pendaftaran') }}">
-                        Pendaftaran
-                    </a>
-                    @guest
-                        <div class="area-button-login">
-                            <div class="button-login" data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
-                                <p>Login</p>
-                            </div>
-                        </div>
-                    @endguest
-                    @auth
-                        <a class="nav-link dropdown-toggle text-center" href="#" data-bs-toggle="dropdown">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu">
-                            <div class="area-menu-drop">
-                                <div class="area-link">
-                                    <div class="area-setting">
-                                        <a class="dropdown-item" href="#">
-                                            Akun Saya
-                                        </a>
-                                    </div>
-                                    <div class="area-logout">
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <button class="dropdown-item text-danger" type="submit">
-                                                Logout
-                                            </button>
-                                        </form>
-                                    </div>
+                    <div class="menu-nav">
+                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        <a class="nav-link" href="{{ url('/event') }}">Events</a>
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
+                        <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
+                        @guest
+                            <div class="area-button-login">
+                                <div class="button-login" data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
+                                    <p>Login</p>
                                 </div>
                             </div>
-                        </ul>
-                    @endauth
+                        @endguest
+                        @auth
+                            <a class="nav-link dropdown-toggle text-center" href="#" data-bs-toggle="dropdown">
+                                Profile
+                            </a>
+                            <ul class="dropdown-menu">
+                                <div class="area-menu-drop">
+                                    <div class="area-link">
+                                        <div class="area-setting">
+                                            <a class="dropdown-item" href="/profile">
+                                                Akun Saya
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('volunteer.pendaftaran') }}">
+                                                Pendaftaran Saya
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('volunteer.penugasan') }}">
+                                                Penugasan Saya
+                                            </a>
+                                        </div>
+                                        <div class="area-logout">
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button class="dropdown-item text-danger" type="submit">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        @endauth
+                    </div>
                 </div>
-            </div>
         </nav>
         <main>
             @yield('content')
@@ -232,12 +235,18 @@
                                                 </option>
                                             </select>
                                         </div>
+
                                         <div class="area-input">
                                             <label>Alamat :</label>
                                             <textarea class="text-control" name="alamat" placeholder="Masukkan alamat" rows="5">{{ old('alamat') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="area-regis-kanan">
+                                        <div class="area-input">
+                                            <label>Tanggal Lahir :</label>
+                                            <input class="input-control" type="date" name="tanggal_lahir"
+                                                value="{{ old('tanggal_lahir') }}" required>
+                                        </div>
                                         <div class="area-input">
                                             <label>Pendidikan : <span
                                                     style="color:#999; font-size:12px;">(opsional)</span></label>
@@ -301,7 +310,8 @@
                                     <p class="textNotif">{{ $message }}</p>
                                 </div>
                             @enderror
-                            <form class="form-register" action="{{ route('register.post.panitia') }}" method="post">
+                            <form class="form-register" action="{{ route('register.post.panitia') }}"
+                                method="post">
                                 @csrf
                                 <div class="content-regis">
                                     <div class="area-regis-kiri">
@@ -359,37 +369,12 @@
             </div>
         </div>
     </div>
-
-
-    {{-- <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">EventCrew</strong>
-                <small>now</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Anda berhasil login ke dashboard EventCrew
-            </div>
-        </div>
-    </div> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous">
     </script>
-    {{-- @if (session('toast_success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const toastElement = document.getElementById('successToast');
-                const toast = new bootstrap.Toast(toastElement, {
-                    delay: 3000
-                });
-                toast.show();
-            });
-        </script>
-    @endif --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const alert = document.getElementById('loginAlert');

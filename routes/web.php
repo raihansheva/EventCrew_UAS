@@ -12,6 +12,7 @@ use App\Http\Controllers\KategoriEventController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\PendaftaranVolunteerController;
+use Illuminate\Support\Facades\Request;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -32,6 +33,14 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+Route::get('/profile', [VolunteerController::class, 'profile'])->name('profile.volunteer');
+Route::put('/profile/{id}', [VolunteerController::class, 'editProfile'])->name('profile.volunteer.update');
+Route::post('/profile/password', [VolunteerController::class, 'updatePassword'])
+    ->name('volunteer.password.update');
+Route::get('/pendaftaran-saya', [VolunteerController::class, 'pendaftaranSaya'])
+    ->name('volunteer.pendaftaran');
+Route::get('/penugasan-saya', [VolunteerController::class, 'penugasanSaya'])
+    ->name('volunteer.penugasan');
 
 
 Route::middleware(['auth', 'role:admin,panitia'])->group(function () {

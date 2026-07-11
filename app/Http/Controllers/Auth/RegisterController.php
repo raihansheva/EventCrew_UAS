@@ -26,6 +26,7 @@ class RegisterController extends Controller
             empty($request->nama_lengkap) ||
             empty($request->no_hp) ||
             empty($request->jenis_kelamin) ||
+            empty($request->tanggal_lahir) ||
             empty($request->pendidikan) ||
             empty($request->keahlian) ||
             empty($request->pengalaman)
@@ -57,6 +58,7 @@ class RegisterController extends Controller
             'nama_lengkap'  => $request->nama_lengkap,
             'no_hp'         => $request->no_hp,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'jenis_kelamin' => $request->tanggal_lahir,
             'alamat'        => $request->alamat,
             'pendidikan'    => $request->pendidikan,
             'keahlian'      => $request->keahlian,
