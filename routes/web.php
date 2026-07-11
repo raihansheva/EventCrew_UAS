@@ -61,9 +61,14 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
     Route::put('/data-divisi/{id}', [DivisiController::class, 'update'])->name('admin.divisi.update');
     Route::delete('/data-divisi/{id}', [DivisiController::class, 'destroy'])->name('admin.divisi.destroy');
 
-
+    // Pendaftaran
     Route::get('/data-pendaftaran', [PendaftaranVolunteerController::class, 'dataPendaftaran'])->name('data.pendaftaran');
     Route::put('/data-pendaftaran/{id}/verifikasi', [PendaftaranVolunteerController::class, 'verifikasi'])->name('admin.pendaftaran.verifikasi');
+
+    // Penugasan
+    Route::get('/data-penugasan', [VolunteerController::class, 'dataPenugasan'])->name('data.penugasan');
+    Route::post('/data-penugasan', [VolunteerController::class, 'penugasan'])->name('admin.penugasan.post');
+    Route::put('/data-penugasan/{id}', [VolunteerController::class, 'editPenugasan'])->name('admin.penugasan.update');
 });
 
 

@@ -112,7 +112,7 @@
                                 </a>
                             @endif
                             @if (Auth::user()->role == 'panitia')
-                                <a href="/penugasan" class="nav-link {{ request()->is('penugasan') ? 'active' : '' }}">
+                                <a href="/data-penugasan" class="nav-link {{ request()->is('data-penugasan') ? 'active' : '' }}">
                                     Penugasan Volunteer
                                 </a>
 
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="area-bawah">
-                    <li class="nav-item dropup-center dropup">
+                    <li class="nav-item dropup-center dropup list-unstyled m-0 p-0 ">
                         <a class="nav-link dropdown-toggle text-center" href="#" data-bs-toggle="dropdown">
                             Admin EventCrew
                         </a>
