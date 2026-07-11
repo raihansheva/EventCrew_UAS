@@ -1,0 +1,271 @@
+.area-content-pendaftaran {
+    margin: 24px 0px;
+}
+
+.content-pendaftaran {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    height: fit-content;
+}
+
+.area-kiri {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.imgPoster {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 2 / 3; /* Portrait */
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.area-kanan {
+    width: 70%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1.2px solid #e4e4e4;
+    padding: 32px;
+}
+
+.header-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.area-badge-back {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.iconBack {
+    font-size: 34px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.area-back {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: var(--primary-yellow);
+}
+
+.area-back:hover {
+    background: #ffe355;
+}
+
+.badge-event {
+    width: fit-content;
+    background: #fad41843;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nama-event {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.info-event {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+.item-info i {
+    color: var(--primary-yellow);
+    font-size: 20px;
+}
+
+.section-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.title-detail {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.section-detail p {
+    line-height: 1.8;
+    color: #555;
+}
+
+.persyaratan {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.persyaratan li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.persyaratan li::before {
+    content: "✔";
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.area-divisi {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 8px;
+}
+
+.card-divisi {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    gap: 15px;
+}
+
+.card-divisi:hover {
+    background: #f1f5f9;
+    border: 1px solid var(--primary-yellow);
+}
+
+.content-divisi {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nama-divisi {
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.desk-divisi {
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+}
+
+.kuota-divisi {
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-daftar {
+    border: none;
+    background: var(--primary-yellow);
+    color: #000000;
+    padding: 8px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-daftar:hover {
+    background: #ffe355;
+    border: 0px;
+}
+
+.area-card {
+    display: flex;
+    gap: 10px;
+}
+
+.card-area-volunteer,
+.card-area-event {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid #e0e0e0;
+}
+
+.area-content-v {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.area-label-volunteer {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-header {
+    text-align: center;
+    font-weight: 700;
+}
+
+.area-label-volunteer label,
+.area-label-event label {
+    font-weight: 600;
+}
+
+.area-content-e {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.area-label-event {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-motivasi {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+}
+
+.label-motivasi {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.text-motivasi{
+    font-size: 16px;
+}
