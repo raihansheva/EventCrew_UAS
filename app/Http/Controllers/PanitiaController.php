@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\EvaluasiVolunteer;
+use App\Models\Event;
+use App\Models\PendaftaranVolunteer;
+use App\Models\PenugasanVolunteer;
 use App\Models\Penyelenggara;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PanitiaController extends Controller
 {
@@ -115,5 +120,71 @@ class PanitiaController extends Controller
         ]);
         return redirect()->back()
             ->with('success', 'Status penyelenggara berhasil diperbarui.');
+    }
+
+    public function profile()
+    {
+        $admin = Auth::user();
+
+        $totalEvent = Event::count();
+
+        $totalVolunteer = PendaftaranVolunteer::where('status_pendaftaran', 'diterima')->count();
+
+        $totalPenugasan = PenugasanVolunteer::count();
+
+        $totalEvaluasi = EvaluasiVolunteer::count();
+
+        return view('admin.profile', compact(
+            'admin',
+            'totalEvent',
+            'totalVolunteer',
+            'totalPenugasan',
+            'totalEvaluasi'
+        ));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Password lama tidak sesuai.');
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('success', 'Password berhasil diperbarui.');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+        ]);
+
+        $admin = Auth::user();
+        
+        $admin->update([
+            'email' => $request->email,
+        ]);
+
+        $admin->penyelenggara->update([
+            'nama_penanggung_jawab' => $request->name,
+        ]);
+
+        return back()->with('success', 'Profile berhasil diperbarui.');
     }
 }

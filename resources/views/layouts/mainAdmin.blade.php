@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="area-link">
                                     <div class="area-setting">
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="/profile-admin">
                                             Profile
                                         </a>
                                     </div>
