@@ -1,20 +1,20 @@
-.area-pendaftaran {
+.area-penugasan {
     display: flex;
     flex-direction: column;
 }
 
-.area-header-pendaftaran {
+.area-header-penugasan {
     width: 100%;
     height: auto;
 }
 
-.area-content-pendaftaran {
+.area-content-penugasan {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.card-pendaftaran {
+.card-penugasan {
     width: 50%;
     height: auto;
     padding: 24px;
@@ -40,8 +40,14 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     margin-bottom: 20px;
+}
+
+.area-date{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
 }
 
 .area-text {
@@ -64,7 +70,7 @@
     align-items: center;
     justify-content: center;
     width: auto;
-    height: auto;
+    height: fit-content;
     padding: 4px 20px;
     border-radius: 16px;
     font-size: 13px;
@@ -72,25 +78,25 @@
     border: 1px solid transparent;
 }
 
-.status.sukses {
-    background-color: #dcfce7;
-    color: #15803d;
-    border-color: #bbf7d0;
+.status.berjalan {
+    background-color: #DBEAFE;
+    color: #1D4ED8;
+    border-color: #BFDBFE;
 }
 
-.status.ditolak {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border-color: #fecaca;
+.status.selesai {
+    background-color: #DCFCE7;
+    color: #15803D;
+    border-color: #BBF7D0;
 }
 
-.status.menunggu {
-    background-color: #fef3c7;
-    color: #d97706;
-    border-color: #fde68a;
+.status.default {
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border-color: #D1D5DB;
 }
 
-.btn-detail-pendaftaran {
+.btn-detail-penugasan {
     width: fit-content;
     height: auto;
     padding: 10px 20px;
