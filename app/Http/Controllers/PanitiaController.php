@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EvaluasiVolunteer;
 use App\Models\Penyelenggara;
 use Illuminate\Http\Request;
 
@@ -27,9 +28,32 @@ class PanitiaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeEvaluasi(Request $request)
     {
-        //
+        $request->validate([
+            'penugasan_id' => 'required|exists:penugasan_volunteers,id',
+            'nilai' => 'required|integer|min:1|max:5',
+            'komentar' => 'nullable|string|max:1000',
+        ]);
+        $cek = EvaluasiVolunteer::where(
+            'penugasan_id',
+            $request->penugasan_id
+        )->exists();
+        if ($cek) {
+            return back()->with(
+                'error',
+                'Volunteer sudah pernah dievaluasi.'
+            );
+        }
+        EvaluasiVolunteer::create([
+            'penugasan_id' => $request->penugasan_id,
+            'nilai' => $request->nilai,
+            'komentar' => $request->komentar,
+        ]);
+        return back()->with(
+            'success',
+            'Evaluasi berhasil disimpan.'
+        );
     }
 
     /**
@@ -70,7 +94,7 @@ class PanitiaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    
+
     public function destroy(string $id)
     {
         $penyelenggara = Penyelenggara::findOrFail($id);

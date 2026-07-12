@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EvaluasiVolunteer;
 use App\Models\PendaftaranVolunteer;
 use App\Models\PenugasanVolunteer;
 use App\Models\User;
@@ -33,6 +34,12 @@ class VolunteerController extends Controller
 
         $volunteerId = $profile->volunteer->id;
 
+        $penugasanId = PenugasanVolunteer::whereHas('pendaftaran', function ($query) use ($volunteerId) {
+            $query->where('volunteer_id', $volunteerId);
+        })->pluck('id');
+
+        $evaluasi = EvaluasiVolunteer::whereIn('penugasan_id', $penugasanId)->get();
+
         $totalPendaftaran = PendaftaranVolunteer::where('volunteer_id', $volunteerId)->count();
 
         $totalDiterima = PendaftaranVolunteer::where('volunteer_id', $volunteerId)
@@ -52,7 +59,8 @@ class VolunteerController extends Controller
             'totalPendaftaran',
             'totalDiterima',
             'totalMenunggu',
-            'totalDitolak'
+            'totalDitolak',
+            'evaluasi'
         ));
     }
 
@@ -127,17 +135,17 @@ class VolunteerController extends Controller
     {
         $volunteer = Auth::user()->volunteer;
 
-    $penugasan = PenugasanVolunteer::with([
-        'pendaftaran.event',
-        'pendaftaran.divisi'
-    ])
-    ->whereHas('pendaftaran', function ($query) use ($volunteer) {
-        $query->where('volunteer_id', $volunteer->id);
-    })
-    ->latest()
-    ->get();
+        $penugasan = PenugasanVolunteer::with([
+            'pendaftaran.event',
+            'pendaftaran.divisi'
+        ])
+            ->whereHas('pendaftaran', function ($query) use ($volunteer) {
+                $query->where('volunteer_id', $volunteer->id);
+            })
+            ->latest()
+            ->get();
 
-    return view('pages.penugasan', compact('penugasan'));
+        return view('pages.penugasan', compact('penugasan'));
     }
 
     public function destroy($id)
@@ -182,7 +190,7 @@ class VolunteerController extends Controller
             }
         }
 
-        $penugasan = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi', 'penugasan'])
+        $penugasan = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi', 'penugasan.evaluasi'])
             ->where('status_pendaftaran', 'diterima')
             ->get();
 

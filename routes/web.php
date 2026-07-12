@@ -78,6 +78,8 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
     Route::get('/data-penugasan', [VolunteerController::class, 'dataPenugasan'])->name('data.penugasan');
     Route::post('/data-penugasan', [VolunteerController::class, 'penugasan'])->name('admin.penugasan.post');
     Route::put('/data-penugasan/{id}', [VolunteerController::class, 'editPenugasan'])->name('admin.penugasan.update');
+    Route::post('/evaluasi/store', [PanitiaController::class, 'storeEvaluasi'])
+    ->name('evaluasi.store');
 });
 
 

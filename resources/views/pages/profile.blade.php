@@ -130,6 +130,80 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-area-evaluasi">
+                    <div class="card-header-AE">
+                        <h3>
+                            <i class='bx bx-medal'></i>
+                            Evaluasi Saya
+                        </h3>
+                    </div>
+                    <div class="card-body-AE">
+                        @forelse ($evaluasi as $item)
+                            <div class="card-evaluasi">
+                                <div class="evaluasi-header">
+                                    <div>
+                                        <h5>
+                                            {{ $item->penugasan->pendaftaran->event->nama_event }}
+                                        </h5>
+                                        <small>
+                                            {{ $item->penugasan->pendaftaran->divisi->nama_divisi }}
+                                        </small>
+                                    </div>
+                                    <span
+                                        class="badge
+                                         @if ($item->nilai == 5) bg-success
+                                         @elseif($item->nilai == 4)
+                                             bg-primary
+                                         @elseif($item->nilai == 3)
+                                             bg-info text-dark
+                                         @elseif($item->nilai == 2)
+                                             bg-warning text-dark
+                                         @else
+                                             bg-danger @endif">
+                                        @if ($item->nilai == 5)
+                                            Sangat Baik
+                                        @elseif($item->nilai == 4)
+                                            Baik
+                                        @elseif($item->nilai == 3)
+                                            Cukup
+                                        @elseif($item->nilai == 2)
+                                            Kurang
+                                        @else
+                                            Sangat Kurang
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="area-content-text">
+                                    <div class="evaluasi-score">
+                                        <span class="text-nilai">Nilai</span>
+                                        <span class="nilai">{{ $item->nilai }}/5</span>
+                                    </div>
+                                    <div class="evaluasi-komentar">
+                                        <label class="text-komen">Komentar</label>
+                                        <p class="desk-komen">
+                                            {{ $item->komentar }}
+                                        </p>
+                                    </div>
+                                    <small class="text-muted">
+                                        Dievaluasi
+                                        {{ $item->created_at->translatedFormat('d F Y') }}
+                                    </small>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="empty-evaluasi">
+                                <i class='bx bx-message-square-x'></i>
+                                <h5>
+                                    Belum Ada Evaluasi
+                                </h5>
+                                <p>
+                                    Evaluasi akan muncul setelah panitia
+                                    memberikan penilaian terhadap tugas Anda.
+                                </p>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
             </div>
         </div>
     </section>

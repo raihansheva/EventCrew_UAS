@@ -101,3 +101,35 @@
     gap: 16px;
     border: 1px solid #e0e0e0;
 }
+
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 38px;
+    color: #d1d5db;
+    cursor: pointer;
+    transition: .2s;
+}
+
+/* Hover */
+
+.rating label:hover,
+.rating label:hover~label {
+    color: #fbbf24;
+}
+
+/* Selected */
+
+.rating input:checked~label {
+    color: #f59e0b;
+}

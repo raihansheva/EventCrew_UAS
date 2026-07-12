@@ -47,9 +47,7 @@
                                             <button class="btn btn-light border-0" data-bs-toggle="dropdown">
                                                 <i class='bx bx-dots-vertical-rounded'></i>
                                             </button>
-
                                             <ul class="dropdown-menu dropdown-menu-end shadow">
-
                                                 @if (!$item->penugasan)
                                                     <li>
                                                         <button class="dropdown-item" data-bs-toggle="modal"
@@ -63,13 +61,26 @@
                                                     <li>
                                                         <button class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#modalEdit{{ $item->id }}">
-
                                                             <i class='bx bx-edit me-2'></i>
                                                             Edit Penugasan
                                                         </button>
                                                     </li>
                                                 @endif
-
+                                                @if ($item->penugasan->status_tugas == 'selesai')
+                                                    @if ($item->penugasan->evaluasi)
+                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
+                                                            <i class='bx bx-medal me-2'></i>
+                                                            Lihat Evaluasi
+                                                        </a>
+                                                    @else
+                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#modalEvaluasi{{ $item->id }}">
+                                                            <i class="bx bx-star me-2"></i>
+                                                            Evaluasi
+                                                        </a>
+                                                    @endif
+                                                @endif
                                                 <li>
                                                     <button class="dropdown-item" data-bs-toggle="modal"
                                                         data-bs-target="#modalDetail{{ $item->id }}">
@@ -413,8 +424,179 @@
                                         </div>
                                     </div>
                                 </div>
-                            @empty
+                                <div class="modal fade" id="modalEvaluasi{{ $item->id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content rounded-4">
+                                            <form action="{{ route('evaluasi.store') }}" method="POST">
+                                                @csrf
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title fw-bold">
+                                                        Evaluasi Volunteer
+                                                    </h5>
+                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="penugasan_id"
+                                                        value="{{ $item->penugasan->id }}">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">
+                                                            Volunteer
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $item->volunteer->nama_lengkap }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">
+                                                            Event
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $item->event->nama_event }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">
+                                                            Nilai
+                                                        </label>
+                                                        <select class="form-select" name="nilai" required>
+                                                            <option value="">
+                                                                -- Pilih Nilai --
+                                                            </option>
+                                                            <option value="1">
+                                                                1 - Sangat Kurang
+                                                            </option>
+                                                            <option value="2">
+                                                                2 - Kurang
+                                                            </option>
+                                                            <option value="3">
+                                                                3 - Cukup
+                                                            </option>
+                                                            <option value="4">
+                                                                4 - Baik
+                                                            </option>
+                                                            <option value="5">
+                                                                5 - Sangat Baik
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">
+                                                            Komentar
+                                                        </label>
+                                                        <textarea class="form-control" name="komentar" rows="4" placeholder="Masukkan komentar..."></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Batal
+                                                    </button>
+                                                    <button type="submit" class="btn btn-warning">
+                                                        Simpan Evaluasi
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($item->penugasan->evaluasi)
+                                    <div class="modal fade" id="modalLihatEvaluasi{{ $item->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content rounded-4">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title fw-bold">
+                                                        Detail Evaluasi Volunteer
+                                                    </h5>
+                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label fw-semibold">
+                                                                Volunteer
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $item->volunteer->nama_lengkap }}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label fw-semibold">
+                                                                Event
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $item->event->nama_event }}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label fw-semibold">
+                                                                Divisi
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $item->divisi->nama_divisi }}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label fw-semibold">
+                                                                Dievaluasi Pada
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $item->penugasan->evaluasi->created_at->translatedFormat('d F Y H:i') }}"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="col-12 mb-4">
 
+                                                            <label class="form-label fw-semibold">
+                                                                Hasil Penilaian
+                                                            </label>
+
+                                                            @php
+                                                                $nilai = $item->penugasan->evaluasi->nilai;
+                                                            @endphp
+
+                                                            <div class="border rounded-3 p-4 text-center">
+
+                                                                @if ($nilai == 5)
+                                                                    <span class="badge bg-success px-3 py-2">
+                                                                        Sangat Baik
+                                                                    </span>
+                                                                @elseif($nilai == 4)
+                                                                    <span class="badge bg-primary px-3 py-2">
+                                                                        Baik
+                                                                    </span>
+                                                                @elseif($nilai == 3)
+                                                                    <span class="badge bg-info text-dark px-3 py-2">
+                                                                        Cukup
+                                                                    </span>
+                                                                @elseif($nilai == 2)
+                                                                    <span class="badge bg-warning text-dark px-3 py-2">
+                                                                        Kurang
+                                                                    </span>
+                                                                @else
+                                                                    <span class="badge bg-danger px-3 py-2">
+                                                                        Sangat Kurang
+                                                                    </span>
+                                                                @endif
+
+                                                                <h3 class="fw-bold mt-3 mb-0">
+                                                                    {{ $nilai }} / 5
+                                                                </h3>
+
+                                                                <small class="text-muted">
+                                                                    Nilai Akhir Volunteer
+                                                                </small>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label class="form-label fw-semibold">
+                                                                Komentar
+                                                            </label>
+                                                            <textarea class="form-control" rows="5" readonly>{{ $item->penugasan->evaluasi->komentar }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @empty
                                 <tr>
                                     <td colspan="6" class="text-center">
                                         Belum ada volunteer yang diterima.

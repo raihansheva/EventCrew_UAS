@@ -23,5 +23,8 @@ class PenugasanVolunteer extends Model
         return $this->belongsTo(PendaftaranVolunteer::class, 'pendaftaran_id');
     }
 
-    
+    public function evaluasi()
+    {
+        return $this->hasOne(EvaluasiVolunteer::class, 'penugasan_id');
+    }
 }
