@@ -1,0 +1,172 @@
+/* .about-section {
+    padding: 80px 0;
+} */
+
+.area-about{
+    margin-top: 80px;
+}
+
+.about-header {
+    max-width: 700px;
+    margin: 0 auto 70px;
+    text-align: center;
+}
+
+.about-badge {
+    display: inline-block;
+    background: #ffd54a;
+    color: #222;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.title-header{
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.desk-header{
+    color: #666;
+    line-height: 1.9;
+}
+
+.about-card {
+    background: var(--dark-red);
+    color: var(--cream);
+    border-radius: 24px;
+    padding: 45px;
+    margin-bottom: 80px;
+    width: fit-content;
+    border: 1.2px #9f0000 solid;
+}
+
+.title-about{
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.desk-about{
+    line-height: 1.9;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.area-feature{
+    margin-bottom: 80px;
+}
+
+.title-header-F{
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.desk-header-F{
+    color: #777;
+}
+
+.content-feature{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.feature-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 35px 25px;
+    text-align: center;
+    width: calc( 25% - 15px);
+    border: 1px rgb(187, 187, 187) solid;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+}
+
+.feature-card i {
+    font-size: 52px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.title-feature{
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.desk-feature{
+    color: #666;
+    margin: 0;
+}
+
+.area-role{
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    padding: 40px 0px;
+}
+
+.section-title-role{
+    text-align: center;
+}
+
+.title-user{
+    font-weight: 700;
+}
+
+.area-card-role{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.role-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 35px;
+    width: calc( 50% - 15px );
+    border: 1px rgb(187, 187, 187) solid;
+}
+
+.role-card.panitia {
+    background-color: var(--primary-yellow);
+    border: 1.5px solid var(--outline-yellow);
+    color: #222;
+}
+
+.role-card.volunteer {
+    background-color: var(--primary-green);
+    border: 1.5px solid var(--outline-green);
+    color: #ffffff;
+}
+
+.role-card h4 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.role-card i {
+    font-size: 28px;
+}
+
+.role-card ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.role-card li {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
