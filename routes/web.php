@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/event', [EventController::class, 'index'])->name('event');
+Route::get('/contact', function () {
+    return view('pages.contact');
+});
 
 Route::get('/pendaftaran/{id}', [PendaftaranVolunteerController::class, 'create']);
 Route::post('/pendaftaran', [PendaftaranVolunteerController::class, 'store']);
