@@ -11,6 +11,7 @@ class Volunteer extends Model
         'nama_lengkap',
         'no_hp',
         'jenis_kelamin',
+        'tanggal_lahir',
         'alamat',
         'pendidikan',
         'keahlian',

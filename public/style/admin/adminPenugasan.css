@@ -1,0 +1,135 @@
+.content-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.area-card {
+    display: flex;
+    gap: 16px;
+    /* border: 1px red solid; */
+}
+
+.area-card-v {
+    width: 50%;
+    padding: 16px;
+    background-color: var(--primary-yellow);
+    border-radius: 24px;
+    padding: 16px;
+    border: 1.2px solid var(--outline-yellow);
+}
+
+.card-v-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label-v{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.desk-v{
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+}
+
+.area-card-e {
+    width: 50%;
+    padding: 16px;
+    background-color: var(--primary-pink);
+    border-radius: 24px;
+    padding: 16px;
+    border: 1.2px solid var(--outline-pink);
+}
+
+.card-e-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label-e{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.desk-e{
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+}
+
+.card-e,
+.card-v {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card-e-header,
+.card-v-header{
+    width: 100%;
+    background-color: white;
+    border-radius: 16px;
+    text-align: center;
+    padding: 8px 0px;
+    font-weight: 600;
+}
+
+.card-p-header {
+    width: 100%;
+    background-color: #181818;
+    border: 1px solid #303030;
+    border-radius: 16px;
+    text-align: center;
+    padding: 8px 0px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.card-p {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    border-radius: 24px;
+    padding: 16px;
+    gap: 16px;
+    border: 1px solid #e0e0e0;
+}
+
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 38px;
+    color: #d1d5db;
+    cursor: pointer;
+    transition: .2s;
+}
+
+/* Hover */
+
+.rating label:hover,
+.rating label:hover~label {
+    color: #fbbf24;
+}
+
+/* Selected */
+
+.rating input:checked~label {
+    color: #f59e0b;
+}

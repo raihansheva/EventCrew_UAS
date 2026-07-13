@@ -1,0 +1,108 @@
+.area-penugasan {
+    display: flex;
+    flex-direction: column;
+}
+
+.area-header-penugasan {
+    width: 100%;
+    height: auto;
+}
+
+.area-content-penugasan {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-penugasan {
+    width: 50%;
+    height: auto;
+    padding: 24px;
+    background-color: white;
+    border-radius: 24px;
+}
+
+.card-header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-header {
+    margin: 0px;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.card-area-text {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.area-date{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.area-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-text {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0px;
+}
+
+.span-text {
+    font-size: 16px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: fit-content;
+    padding: 4px 20px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.status.berjalan {
+    background-color: #DBEAFE;
+    color: #1D4ED8;
+    border-color: #BFDBFE;
+}
+
+.status.selesai {
+    background-color: #DCFCE7;
+    color: #15803D;
+    border-color: #BBF7D0;
+}
+
+.status.default {
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border-color: #D1D5DB;
+}
+
+.btn-detail-penugasan {
+    width: fit-content;
+    height: auto;
+    padding: 10px 20px;
+    background-color: var(--primary-yellow);
+    text-align: center;
+    color: black;
+    border-radius: 16px;
+    cursor: pointer;
+}

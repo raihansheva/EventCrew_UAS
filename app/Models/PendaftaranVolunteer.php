@@ -32,4 +32,9 @@ class PendaftaranVolunteer extends Model
     {
         return $this->belongsTo(DivisiVolunteer::class, 'divisi_id');
     }
+
+    public function penugasan()
+    {
+        return $this->hasOne(PenugasanVolunteer::class, 'pendaftaran_id');
+    }
 }
