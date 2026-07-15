@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EventCrew</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -40,38 +40,64 @@
                             </div>
                         @endguest
                         @auth
-                            <a class="nav-link dropdown-toggle text-center" href="#" data-bs-toggle="dropdown">
-                                Profile
-                            </a>
-                            <ul class="dropdown-menu">
-                                <div class="area-menu-drop">
-                                    <div class="area-link">
-                                        <div class="area-setting">
-                                            <a class="dropdown-item" href="/profile">
-                                                Akun Saya
-                                            </a>
-                                            <a class="dropdown-item" href="{{ route('volunteer.pendaftaran') }}">
-                                                Pendaftaran Saya
-                                            </a>
-                                            <a class="dropdown-item" href="{{ route('volunteer.penugasan') }}">
-                                                Penugasan Saya
-                                            </a>
-                                        </div>
-                                        <div class="area-logout">
-                                            <form action="{{ route('logout') }}" method="POST">
-                                                @csrf
-                                                <button class="dropdown-item text-danger" type="submit">
-                                                    Logout
-                                                </button>
-                                            </form>
+                            @if (Auth::user()->role == 'volunteer')
+                                <a class="nav-link dropdown-toggle text-center" href="#" data-bs-toggle="dropdown">
+                                    Profile
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+                                    <div class="area-menu-drop">
+                                        <div class="area-link">
+                                            <div class="area-setting">
+                                                <a class="dropdown-item" href="/profile">
+                                                    Akun Saya
+                                                </a>
+                                                <a class="dropdown-item" href="{{ route('volunteer.pendaftaran') }}">
+                                                    Pendaftaran Saya
+                                                </a>
+                                                <a class="dropdown-item" href="{{ route('volunteer.penugasan') }}">
+                                                    Penugasan Saya
+                                                </a>
+                                            </div>
+                                            <div class="area-logout">
+                                                <div class="area-logout">
+                                                    <span
+                                                        class="spanLogout dropdown-item text-danger fw-semibold small drop-hapus"
+                                                        href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModalLogout">
+                                                        Log Out
+                                                    </span>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </ul>
+                                </ul>
+                            @endif
                         @endauth
                     </div>
                 </div>
         </nav>
+        <div class="modal fade" id="exampleModalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">EventCrew</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <span>Apakah anda ingin logout?</span>
+                    </div>
+                    <form class="form-login" action="{{ route('logout') }}" method="post">
+                        <div class="modal-footer">
+                            @csrf
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <main>
             @yield('content')
         </main>
