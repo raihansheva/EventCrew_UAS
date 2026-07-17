@@ -165,25 +165,38 @@ class PanitiaController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
-        ], [
-            'name.required' => 'Nama lengkap wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Email sudah digunakan.',
-        ]);
-
         $admin = Auth::user();
-        
-        $admin->update([
-            'email' => $request->email,
-        ]);
 
-        $admin->penyelenggara->update([
-            'nama_penanggung_jawab' => $request->name,
-        ]);
+        if ($admin->role == "admin") {
+            $request->validate([
+                'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+            ], [
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+            ]);
+            $admin->update([
+                'email' => $request->email,
+            ]);
+        }
+
+        if ($admin->role == "panitia") {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+            ], [
+                'name.required' => 'Nama lengkap wajib diisi.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+            ]);
+            $admin->update([
+                'email' => $request->email,
+            ]);
+            $admin->penyelenggara->update([
+                'nama_penanggung_jawab' => $request->name,
+            ]);
+        }
 
         return back()->with('success', 'Profile berhasil diperbarui.');
     }

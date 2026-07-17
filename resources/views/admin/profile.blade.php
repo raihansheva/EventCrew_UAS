@@ -28,13 +28,15 @@
                         </p>
                         <form action="{{ route('admin.profile.update') }}" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Nama Lengkap
-                                </label>
-                                <input type="text" class="form-control" name="name"
-                                    value="{{ $admin->penyelenggara->nama_penanggung_jawab }}">
-                            </div>
+                            @if (Auth::user()->role == 'panitia')
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Nama Lengkap
+                                    </label>
+                                    <input type="text" class="form-control" name="name"
+                                        value="{{ $admin->penyelenggara->nama_penanggung_jawab }}">
+                                </div>
+                            @endif
                             <div class="mb-3">
                                 <label class="form-label">
                                     Email

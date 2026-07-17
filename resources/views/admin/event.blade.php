@@ -5,20 +5,14 @@
 
 @section('content')
 
-    {{-- @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif --}}
-
     <div class="admin-section">
-        <div class="section-header">
-            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                Tambah Data
-            </button>
-        </div>
-
+        @if (Auth::user()->role == 'panitia')
+            <div class="section-header">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                    Tambah Data
+                </button>
+            </div>
+        @endif
         <div class="section-body">
             <div class="table-container">
                 <div class="table-wrapper">
@@ -100,14 +94,17 @@
                                                             </li>
                                                         @endif
                                                     @endif
-                                                    <li>
-                                                        <button class="dropdown-item drop-edit d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalEdit{{ $event->id }}">
-                                                            <i class='bx bx-edit-alt me-2'></i>
-                                                            Edit
-                                                        </button>
-                                                    </li>
+                                                    @if (Auth::user()->role == 'panitia')
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-edit d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalEdit{{ $event->id }}">
+                                                                <i class='bx bx-edit-alt me-2'></i>
+                                                                Edit
+                                                            </button>
+                                                        </li>
+                                                    @endif
                                                     <li>
                                                         <button
                                                             class="dropdown-item text-danger drop-hapus d-flex align-items-center"
