@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\KategoriEvent;
+use App\Models\PendaftaranVolunteer;
+use App\Models\PenugasanVolunteer;
+use App\Models\Penyelenggara;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 
@@ -14,11 +17,56 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $event = Event::all()->count();
-        $kategori = KategoriEvent::all()->count();
-        $volunteer = Volunteer::all()->count();
+        // Card Statistik
+        $totalVolunteer   = Volunteer::count();
+        $totalEvent       = Event::count();
+        $totalPendaftaran = PendaftaranVolunteer::count();
+        $totalPenugasan   = PenugasanVolunteer::count();
 
-        return view('admin.dashboard', compact('event', 'kategori', 'volunteer'));
+        // Event Terbaru
+        $eventTerbaru = Event::with('panitia')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Event Menunggu Verifikasi
+        $eventMenunggu = Event::with('panitia')
+            ->where('status_verifikasi', 'menunggu')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Pendaftaran Terbaru
+        $pendaftaranTerbaru = PendaftaranVolunteer::with([
+            'volunteer',
+            'event',
+            'divisi'
+        ])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Penugasan Aktif
+        $penugasanAktif = PenugasanVolunteer::with([
+            'volunteer',
+            'event',
+            'divisi'
+        ])
+            ->where('status_tugas', 'berjalan')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'totalVolunteer',
+            'totalEvent',
+            'totalPendaftaran',
+            'totalPenugasan',
+            'eventTerbaru',
+            'eventMenunggu',
+            'pendaftaranTerbaru',
+            'penugasanAktif'
+        ));
     }
 
     /**
