@@ -60,14 +60,17 @@
                                                             Detail
                                                         </button>
                                                     </li>
-                                                    <li>
-                                                        <button class="dropdown-item drop-edit d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editModal{{ $user->id }}">
-                                                            <i class='bx bx-edit-alt me-2'></i>
-                                                            Edit
-                                                        </button>
-                                                    </li>
+                                                    @if (Auth::user()->role == 'panitia')
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-edit d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $user->id }}">
+                                                                <i class='bx bx-edit-alt me-2'></i>
+                                                                Edit
+                                                            </button>
+                                                        </li>
+                                                    @endif
                                                     <li>
                                                         <button
                                                             class="dropdown-item text-danger drop-hapus d-flex align-items-center"

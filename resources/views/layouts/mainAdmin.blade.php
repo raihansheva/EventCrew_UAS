@@ -110,14 +110,8 @@
                                     class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
                                     Data Pendaftaran
                                 </a>
-                            @endif
-                            @if (Auth::user()->role == 'panitia')
                                 <a href="/data-penugasan" class="nav-link {{ request()->is('data-penugasan') ? 'active' : '' }}">
                                     Penugasan Volunteer
-                                </a>
-
-                                <a href="/evaluasi" class="nav-link {{ request()->is('evaluasi') ? 'active' : '' }}">
-                                    Evaluasi Volunteer
                                 </a>
                             @endif
                         </div>

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="admin-section">
-        @if (Auth::user()->role == 'admin')
+        @if (Auth::user()->role == 'panitia')
             <div class="section-header">
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
                     Tambah Data
@@ -42,24 +42,26 @@
 
                                             <ul class="dropdown-menu dropdown-menu-end shadow">
                                                 <div class="area-menu-drop">
-
-                                                    <li>
-                                                        <button class="dropdown-item drop-edit d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editModal{{ $d->id }}">
-                                                            <i class='bx bx-edit-alt me-2'></i>
-                                                            Edit
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalHapus{{ $d->id }}">
-                                                            <i class="bx bx-trash me-2"></i>
-                                                            Hapus
-                                                        </button>
-                                                    </li>
+                                                    @if (Auth::user()->role == 'panitia')
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-edit d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $d->id }}">
+                                                                <i class='bx bx-edit-alt me-2'></i>
+                                                                Edit
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item text-danger drop-hapus d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalHapus{{ $d->id }}">
+                                                                <i class="bx bx-trash me-2"></i>
+                                                                Hapus
+                                                            </button>
+                                                        </li>
+                                                    @endif
                                                 </div>
                                             </ul>
                                         </div>

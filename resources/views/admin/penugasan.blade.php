@@ -48,39 +48,42 @@
                                                 <i class='bx bx-dots-vertical-rounded'></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                @if (!$item->penugasan)
-                                                    <li>
-                                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#modalTambah{{ $item->id }}">
+                                                @if (Auth::user()->role == 'panitia')
+                                                    @if (!$item->penugasan)
+                                                        <li>
+                                                            <button class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#modalTambah{{ $item->id }}">
 
-                                                            <i class='bx bx-task me-2'></i>
-                                                            Tambah Penugasan
-                                                        </button>
-                                                    </li>
-                                                @else
-                                                    <li>
-                                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#modalEdit{{ $item->id }}">
-                                                            <i class='bx bx-edit me-2'></i>
-                                                            Edit Penugasan
-                                                        </button>
-                                                    </li>
-                                                @endif
-                                                @if ($item->penugasan->status_tugas == 'selesai')
-                                                    @if ($item->penugasan->evaluasi)
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
-                                                            <i class='bx bx-medal me-2'></i>
-                                                            Lihat Evaluasi
-                                                        </a>
+                                                                <i class='bx bx-task me-2'></i>
+                                                                Tambah Penugasan
+                                                            </button>
+                                                        </li>
                                                     @else
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modalEvaluasi{{ $item->id }}">
-                                                            <i class="bx bx-star me-2"></i>
-                                                            Evaluasi
-                                                        </a>
+                                                        <li>
+                                                            <button class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#modalEdit{{ $item->id }}">
+                                                                <i class='bx bx-edit me-2'></i>
+                                                                Edit Penugasan
+                                                            </button>
+                                                        </li>
+                                                    @endif
+                                                    @if ($item->penugasan->status_tugas == 'selesai')
+                                                        @if ($item->penugasan->evaluasi)
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
+                                                                <i class='bx bx-medal me-2'></i>
+                                                                Lihat Evaluasi
+                                                            </a>
+                                                        @else
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#modalEvaluasi{{ $item->id }}">
+                                                                <i class="bx bx-star me-2"></i>
+                                                                Evaluasi
+                                                            </a>
+                                                        @endif
                                                     @endif
                                                 @endif
+
                                                 <li>
                                                     <button class="dropdown-item" data-bs-toggle="modal"
                                                         data-bs-target="#modalDetail{{ $item->id }}">

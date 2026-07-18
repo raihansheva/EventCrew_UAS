@@ -53,14 +53,16 @@
                                                 <i class='bx bx-dots-vertical-rounded'></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                @if ($item->status_pendaftaran == 'menunggu')
-                                                    <li>
-                                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#modalVerify{{ $item->id }}">
-                                                            <i class='bx bx-check-circle me-2'></i>
-                                                            Verifikasi
-                                                        </button>
-                                                    </li>
+                                                @if (Auth::user()->role == 'panitia')
+                                                    @if ($item->status_pendaftaran == 'menunggu')
+                                                        <li>
+                                                            <button class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#modalVerify{{ $item->id }}">
+                                                                <i class='bx bx-check-circle me-2'></i>
+                                                                Verifikasi
+                                                            </button>
+                                                        </li>
+                                                    @endif
                                                 @endif
                                                 <li>
                                                     <button class="dropdown-item" data-bs-toggle="modal"
