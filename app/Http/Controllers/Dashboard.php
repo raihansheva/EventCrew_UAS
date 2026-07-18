@@ -9,6 +9,7 @@ use App\Models\PenugasanVolunteer;
 use App\Models\Penyelenggara;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Controller
 {
@@ -17,42 +18,104 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        // Card Statistik
+        if (Auth::user()->role == 'admin') {
+            return $this->dashboardAdmin();
+        }
+
+        if (Auth::user()->role == 'panitia') {
+            return $this->dashboardPanitia();
+        }
+
+        abort(403);
+    }
+
+    private function dashboardPanitia()
+{
+    $panitia = Penyelenggara::where('user_id', Auth::id())->firstOrFail();
+
+    // Event milik panitia
+    $totalEvent = Event::where('panitia_id', $panitia->user_id)->count();
+
+    // Pendaftaran pada event milik panitia
+    $totalPendaftaran = PendaftaranVolunteer::whereHas('event', function ($q) use ($panitia) {
+        $q->where('panitia_id', $panitia->user_id);
+    })->count();
+
+    // Penugasan pada event milik panitia
+    $totalPenugasan = PenugasanVolunteer::whereHas('pendaftaran.event', function ($q) use ($panitia) {
+        $q->where('panitia_id', $panitia->user_id);
+    })->count();
+
+    $eventTerbaru = Event::where('panitia_id', $panitia->user_id)
+        ->latest()
+        ->take(5)
+        ->get();
+
+    $pendaftaranTerbaru = PendaftaranVolunteer::with([
+        'volunteer',
+        'event',
+        'divisi'
+    ])
+    ->whereHas('event', function ($q) use ($panitia) {
+        $q->where('panitia_id', $panitia->user_id);
+    })
+    ->latest()
+    ->take(5)
+    ->get();
+
+    $penugasanAktif = PenugasanVolunteer::with([
+        'pendaftaran.volunteer',
+        'pendaftaran.event',
+        'pendaftaran.divisi',
+    ])
+    ->where('status_tugas', 'berlangsung')
+    ->whereHas('pendaftaran.event', function ($q) use ($panitia) {
+        $q->where('panitia_id', $panitia->user_id);
+    })
+    ->latest()
+    ->take(5)
+    ->get();
+
+    return view('admin.dashboard', compact(
+        'totalEvent',
+        'totalPendaftaran',
+        'totalPenugasan',
+        'eventTerbaru',
+        'pendaftaranTerbaru',
+        'penugasanAktif'
+    ));
+}
+
+    private function dashboardAdmin()
+    {
         $totalVolunteer   = Volunteer::count();
         $totalEvent       = Event::count();
         $totalPendaftaran = PendaftaranVolunteer::count();
         $totalPenugasan   = PenugasanVolunteer::count();
 
-        // Event Terbaru
         $eventTerbaru = Event::with('panitia')
             ->latest()
             ->take(5)
             ->get();
 
-        // Event Menunggu Verifikasi
         $eventMenunggu = Event::with('panitia')
             ->where('status_verifikasi', 'menunggu')
             ->latest()
             ->take(5)
             ->get();
 
-        // Pendaftaran Terbaru
         $pendaftaranTerbaru = PendaftaranVolunteer::with([
             'volunteer',
             'event',
             'divisi'
-        ])
-            ->latest()
-            ->take(5)
-            ->get();
+        ])->latest()->take(5)->get();
 
-        // Penugasan Aktif
         $penugasanAktif = PenugasanVolunteer::with([
             'volunteer',
             'event',
             'divisi'
         ])
-            ->where('status_tugas', 'berjalan')
+            ->where('status_tugas', 'berlangsung')
             ->latest()
             ->take(5)
             ->get();
@@ -67,53 +130,5 @@ class Dashboard extends Controller
             'pendaftaranTerbaru',
             'penugasanAktif'
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -160,22 +160,26 @@ class VolunteerController extends Controller
 
     public function dataPenugasan()
     {
-
         $now = Carbon::now();
 
         $penugasans = PenugasanVolunteer::all();
 
-        foreach ($penugasans as $penugasan) {
+        foreach ($penugasans as $item) {
 
-            $tanggal = Carbon::parse($penugasan->tanggal_tugas);
-
-            $jamMulai = Carbon::parse($penugasan->tanggal_tugas . ' ' . $penugasan->jam_mulai);
-            $jamSelesai = Carbon::parse($penugasan->tanggal_tugas . ' ' . $penugasan->jam_selesai);
-
+            $jamMulai = Carbon::parse($item->tanggal_tugas . ' ' . $item->jam_mulai);
+            $jamSelesai = Carbon::parse($item->tanggal_tugas . ' ' . $item->jam_selesai);
+            // dd([
+            //     'now' => $now->format('Y-m-d H:i:s'),
+            //     'tanggal' => $item->tanggal_tugas,
+            //     'jam_mulai' => $item->jam_mulai,
+            //     'jam_selesai' => $item->jam_selesai,
+            //     'mulai' => $jamMulai->format('Y-m-d H:i:s'),
+            //     'selesai' => $jamSelesai->format('Y-m-d H:i:s'),
+            // ]);
             if ($now->lt($jamMulai)) {
 
                 $status = 'belum_dimulai';
-            } elseif ($now->between($jamMulai, $jamSelesai)) {
+            } elseif ($now->gte($jamMulai) && $now->lte($jamSelesai)) {
 
                 $status = 'berlangsung';
             } else {
@@ -183,14 +187,19 @@ class VolunteerController extends Controller
                 $status = 'selesai';
             }
 
-            if ($penugasan->status_tugas != $status) {
-                $penugasan->update([
+            if ($item->status_tugas !== $status) {
+                $item->update([
                     'status_tugas' => $status
                 ]);
             }
         }
 
-        $penugasan = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi', 'penugasan.evaluasi'])
+        $penugasan = PendaftaranVolunteer::with([
+            'volunteer',
+            'event',
+            'divisi',
+            'penugasan.evaluasi'
+        ])
             ->where('status_pendaftaran', 'diterima')
             ->get();
 

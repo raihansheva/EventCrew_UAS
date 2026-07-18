@@ -361,14 +361,14 @@
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 name="lokasi_tugas"
-                                                                value="{{ $item->lokasi_tugas }}" required>
+                                                                value="{{ $item->penugasan->lokasi_tugas }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">
                                                             Tugas
                                                         </label>
-                                                        <textarea class="form-control" rows="4" name="tugas" required>{{ $item->tugas }}</textarea>
+                                                        <textarea class="form-control" rows="4" name="tugas" required>{{ $item->penugasan->tugas }}</textarea>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4 mb-3">
@@ -377,21 +377,21 @@
                                                             </label>
                                                             <input type="date" class="form-control"
                                                                 name="tanggal_tugas"
-                                                                value="{{ $item->tanggal_tugas }}" required>
+                                                                value="{{ $item->penugasan->tanggal_tugas }}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label class="form-label">
                                                                 Jam Mulai
                                                             </label>
                                                             <input type="time" class="form-control" name="jam_mulai"
-                                                                value="{{ $item->jam_mulai }}" required>
+                                                                value="{{ $item->penugasan->jam_mulai }}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label class="form-label">
                                                                 Jam Selesai
                                                             </label>
                                                             <input type="time" class="form-control" name="jam_selesai"
-                                                                value="{{ $item->jam_selesai }}" required>
+                                                                value="{{ $item->penugasan->jam_selesai }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
@@ -400,15 +400,15 @@
                                                         </label>
                                                         <select class="form-select" name="status_tugas">
                                                             <option value="belum_dimulai"
-                                                                {{ $item->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
+                                                                {{ $item->penugasan->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
                                                                 Belum Dimulai
                                                             </option>
                                                             <option value="berlangsung"
-                                                                {{ $item->status_tugas == 'berlangsung' ? 'selected' : '' }}>
+                                                                {{ $item->penugasan->status_tugas == 'berlangsung' ? 'selected' : '' }}>
                                                                 Berlangsung
                                                             </option>
                                                             <option value="selesai"
-                                                                {{ $item->status_tugas == 'selesai' ? 'selected' : '' }}>
+                                                                {{ $item->penugasan->status_tugas == 'selesai' ? 'selected' : '' }}>
                                                                 Selesai
                                                             </option>
                                                         </select>
