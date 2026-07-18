@@ -19,7 +19,11 @@
                                 <th>Nama Volunteer</th>
                                 <th>Motivasi</th>
                                 <th>Status Pendaftaran</th>
-                                <th class="text-center">Aksi</th>
+                                @if (Auth::user()->role == 'panitia' &&
+                                        Auth::user()->penyelenggara &&
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                    <th class="text-center">Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -47,33 +51,37 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-light border-0" data-bs-toggle="dropdown">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                @if (Auth::user()->role == 'panitia')
-                                                    @if ($item->status_pendaftaran == 'menunggu')
-                                                        <li>
-                                                            <button class="dropdown-item" data-bs-toggle="modal"
-                                                                data-bs-target="#modalVerify{{ $item->id }}">
-                                                                <i class='bx bx-check-circle me-2'></i>
-                                                                Verifikasi
-                                                            </button>
-                                                        </li>
+                                    @if (Auth::user()->role == 'panitia' &&
+                                            Auth::user()->penyelenggara &&
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <button class="btn btn-light border-0" data-bs-toggle="dropdown">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    @if (Auth::user()->role == 'panitia')
+                                                        @if ($item->status_pendaftaran == 'menunggu')
+                                                            <li>
+                                                                <button class="dropdown-item" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalVerify{{ $item->id }}">
+                                                                    <i class='bx bx-check-circle me-2'></i>
+                                                                    Verifikasi
+                                                                </button>
+                                                            </li>
+                                                        @endif
                                                     @endif
-                                                @endif
-                                                <li>
-                                                    <button class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#modalDetail{{ $item->id }}">
-                                                        <i class='bx bx-show me-2'></i>
-                                                        Detail
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                                    <li>
+                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#modalDetail{{ $item->id }}">
+                                                            <i class='bx bx-show me-2'></i>
+                                                            Detail
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <div class="modal fade" id="modalVerify{{ $item->id }}" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">

@@ -151,9 +151,9 @@
                                 <tbody>
                                     @forelse($penugasanAktif as $item)
                                         <tr>
-                                            <td>{{ $item->volunteer->nama_lengkap }}</td>
-                                            <td>{{ $item->event->nama_event }}</td>
-                                            <td>{{ $item->divisi->nama_divisi }}</td>
+                                            <td>{{ $item->pendaftaran->volunteer->nama_lengkap }}</td>
+                                            <td>{{ $item->pendaftaran->event->nama_event }}</td>
+                                            <td>{{ $item->pendaftaran->divisi->nama_divisi }}</td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -170,6 +170,7 @@
     @endif
     @if (Auth::user()->role == 'panitia')
         <div class="admin-section">
+           
             <div class="section-body">
 
                 {{-- Statistik --}}

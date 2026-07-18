@@ -18,8 +18,11 @@
                                 <th>Divisi</th>
                                 <th>Volunteer</th>
                                 <th>Status Penugasan</th>
-                                <th>Status Tugas</th>
-                                <th class="text-center">Aksi</th>
+                                @if (Auth::user()->role == 'panitia' &&
+                                        Auth::user()->penyelenggara &&
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                    <th class="text-center">Aksi</th>
+                                @endif
                             </tr>
                         </thead>
 
@@ -42,79 +45,65 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td>
-                                        @if (!$item->penugasan)
-                                            <span class="badge bg-warning text-dark">
-                                                Belum Ditugaskan
-                                            </span>
-                                        @elseif($item->penugasan->status_tugas == 'belum_dimulai')
-                                            <span class="badge bg-secondary">
-                                                Belum Dimulai
-                                            </span>
-                                        @elseif($item->penugasan->status_tugas == 'berlangsung')
-                                            <span class="badge bg-primary">
-                                                Berlangsung
-                                            </span>
-                                        @elseif($item->penugasan->status_tugas == 'selesai')
-                                            <span class="badge bg-success">
-                                                Selesai
-                                            </span>
-                                        @endif
-                                    </td>
+                                    @if (Auth::user()->role == 'panitia' &&
+                                            Auth::user()->penyelenggara &&
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <button class="btn btn-light border-0" data-bs-toggle="dropdown">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    @if (Auth::user()->role == 'panitia')
+                                                        @if (!$item->penugasan)
+                                                            <li>
+                                                                <button class="dropdown-item" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalTambah{{ $item->id }}">
 
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-light border-0" data-bs-toggle="dropdown">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                @if (Auth::user()->role == 'panitia')
-                                                    @if (!$item->penugasan)
-                                                        <li>
-                                                            <button class="dropdown-item" data-bs-toggle="modal"
-                                                                data-bs-target="#modalTambah{{ $item->id }}">
-
-                                                                <i class='bx bx-task me-2'></i>
-                                                                Tambah Penugasan
-                                                            </button>
-                                                        </li>
-                                                    @else
-                                                        <li>
-                                                            <button class="dropdown-item" data-bs-toggle="modal"
-                                                                data-bs-target="#modalEdit{{ $item->id }}">
-                                                                <i class='bx bx-edit me-2'></i>
-                                                                Edit Penugasan
-                                                            </button>
-                                                        </li>
-                                                    @endif
-                                                    @if ($item->penugasan->status_tugas == 'selesai')
-                                                        @if ($item->evaluasi)
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
-                                                                <i class='bx bx-medal me-2'></i>
-                                                                Lihat Evaluasi
-                                                            </a>
+                                                                    <i class='bx bx-task me-2'></i>
+                                                                    Tambah Penugasan
+                                                                </button>
+                                                            </li>
                                                         @else
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#modalEvaluasi{{ $item->id }}">
-                                                                <i class="bx bx-star me-2"></i>
-                                                                Evaluasi
-                                                            </a>
+                                                            <li>
+                                                                <button class="dropdown-item" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEdit{{ $item->id }}">
+                                                                    <i class='bx bx-edit me-2'></i>
+                                                                    Edit Penugasan
+                                                                </button>
+                                                            </li>
+                                                        @endif
+                                                        @if ($item->status_tugas == 'selesai')
+                                                            @if ($item->evaluasi)
+                                                                <a class="dropdown-item" href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
+                                                                    <i class='bx bx-medal me-2'></i>
+                                                                    Lihat Evaluasi
+                                                                </a>
+                                                            @else
+                                                                <a class="dropdown-item" href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEvaluasi{{ $item->id }}">
+                                                                    <i class="bx bx-star me-2"></i>
+                                                                    Evaluasi
+                                                                </a>
+                                                            @endif
                                                         @endif
                                                     @endif
-                                                @endif
 
-                                                <li>
-                                                    <button class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#modalDetail{{ $item->id }}">
+                                                    <li>
+                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#modalDetail{{ $item->id }}">
 
-                                                        <i class='bx bx-show me-2'></i>
-                                                        Detail
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                                            <i class='bx bx-show me-2'></i>
+                                                            Detail
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <div class="modal fade" id="modalTambah{{ $item->id }}" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">

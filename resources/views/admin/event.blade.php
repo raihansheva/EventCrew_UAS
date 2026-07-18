@@ -29,7 +29,11 @@
                                 <th>Tanggal Selesai</th>
                                 <th>Status Event</th>
                                 <th>Status Verifikasi</th>
-                                <th>Action</th>
+                                @if (Auth::user()->role == 'panitia' &&
+                                        Auth::user()->penyelenggara &&
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -67,59 +71,64 @@
                                         {{ $event->status_verifikasi }}
                                         </span>
                                     </td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-light border-0" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
+                                    @if (Auth::user()->role == 'panitia' &&
+                                            Auth::user()->penyelenggara &&
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <button class="btn btn-light border-0" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
 
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                <div class="area-menu-drop">
-                                                    <li>
-                                                        <button class="dropdown-item drop-detail d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalDetail{{ $event->id }}">
-                                                            <i class='bx bx-show me-2'></i>
-                                                            Detail
-                                                        </button>
-                                                    </li>
-                                                    @if (Auth::user()->role == 'admin')
-                                                        @if ($event->status_verifikasi !== 'disetujui')
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    <div class="area-menu-drop">
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-detail d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalDetail{{ $event->id }}">
+                                                                <i class='bx bx-show me-2'></i>
+                                                                Detail
+                                                            </button>
+                                                        </li>
+                                                        @if (Auth::user()->role == 'admin')
+                                                            @if ($event->status_verifikasi !== 'disetujui')
+                                                                <li>
+                                                                    <button class="dropdown-item d-flex align-items-center"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalVerify{{ $event->id }}">
+                                                                        <i class='bx bx-check-circle me-2'></i>
+                                                                        Verifikasi
+                                                                    </button>
+                                                                </li>
+                                                            @endif
+                                                        @endif
+                                                        @if (Auth::user()->role == 'panitia')
                                                             <li>
-                                                                <button class="dropdown-item d-flex align-items-center"
+                                                                <button
+                                                                    class="dropdown-item drop-edit d-flex align-items-center"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#modalVerify{{ $event->id }}">
-                                                                    <i class='bx bx-check-circle me-2'></i>
-                                                                    Verifikasi
+                                                                    data-bs-target="#modalEdit{{ $event->id }}">
+                                                                    <i class='bx bx-edit-alt me-2'></i>
+                                                                    Edit
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button
+                                                                    class="dropdown-item text-danger drop-hapus d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalHapus{{ $event->id }}">
+                                                                    <i class="bx bx-trash me-2"></i>
+                                                                    Hapus
                                                                 </button>
                                                             </li>
                                                         @endif
-                                                    @endif
-                                                    @if (Auth::user()->role == 'panitia')
-                                                        <li>
-                                                            <button
-                                                                class="dropdown-item drop-edit d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEdit{{ $event->id }}">
-                                                                <i class='bx bx-edit-alt me-2'></i>
-                                                                Edit
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button
-                                                                class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalHapus{{ $event->id }}">
-                                                                <i class="bx bx-trash me-2"></i>
-                                                                Hapus
-                                                            </button>
-                                                        </li>
-                                                    @endif
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <div class="modal fade" id="modalEdit{{ $event->id }}" tabindex="-1"
                                     aria-hidden="true">

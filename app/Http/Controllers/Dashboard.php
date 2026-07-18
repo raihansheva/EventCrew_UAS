@@ -111,14 +111,16 @@ class Dashboard extends Controller
         ])->latest()->take(5)->get();
 
         $penugasanAktif = PenugasanVolunteer::with([
-            'volunteer',
-            'event',
-            'divisi'
+            'pendaftaran.volunteer',
+            'pendaftaran.event',
+            'pendaftaran.divisi'
         ])
             ->where('status_tugas', 'berlangsung')
             ->latest()
             ->take(5)
             ->get();
+
+        // dd($penugasanAktif);
 
         return view('admin.dashboard', compact(
             'totalVolunteer',
