@@ -88,14 +88,14 @@ class PendaftaranVolunteerController extends Controller
         $request->validate([
             'volunteer_id' => 'required',
             'divisi_id' => 'required',
-            'deskripsi' => 'nullable'
+            'motivasi' => 'nullable'
         ]);
 
         PendaftaranVolunteer::create([
             'event_id' => $request->event_id,
             'volunteer_id' => $request->volunteer_id,
             'divisi_id' => $request->divisi_id,
-            'deskripsi' => $request->deskripsi,
+            'motivasi' => $request->motivasi,
             'status_pendaftaran' => 'menunggu'
         ]);
 
