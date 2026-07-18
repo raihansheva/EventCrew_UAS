@@ -43,28 +43,23 @@ class PendaftaranVolunteerController extends Controller
             'divisi'
         ])->findOrFail($id);
 
-        // Jika sudah diverifikasi sebelumnya
+
         if ($pendaftaran->status_pendaftaran != 'menunggu') {
             return back()->with('warning', 'Pendaftaran ini sudah diverifikasi.');
         }
 
-        // Jika diterima, cek kuota
         if ($request->status_pendaftaran == 'diterima') {
-
             if ($pendaftaran->divisi->kuota_volunteer <= 0) {
                 return back()->with('warning', 'Kuota volunteer pada divisi ini sudah penuh.');
             }
 
-            // Kurangi kuota
             $pendaftaran->divisi->decrement('kuota_volunteer');
         }
 
-        // Update status
         $pendaftaran->update([
             'status_pendaftaran' => $request->status_pendaftaran,
         ]);
 
-        // Reload relasi agar status terbaru ikut terkirim
         $pendaftaran->refresh();
         $pendaftaran->load([
             'volunteer.user',

@@ -18,6 +18,7 @@
                                 <th>Divisi</th>
                                 <th>Volunteer</th>
                                 <th>Status Penugasan</th>
+                                <th>Status Tugas</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -38,6 +39,25 @@
                                         @else
                                             <span class="badge bg-warning text-dark">
                                                 Belum Ditugaskan
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (!$item->penugasan)
+                                            <span class="badge bg-warning text-dark">
+                                                Belum Ditugaskan
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'belum_dimulai')
+                                            <span class="badge bg-secondary">
+                                                Belum Dimulai
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'berlangsung')
+                                            <span class="badge bg-primary">
+                                                Berlangsung
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'selesai')
+                                            <span class="badge bg-success">
+                                                Selesai
                                             </span>
                                         @endif
                                     </td>
@@ -67,7 +87,7 @@
                                                             </button>
                                                         </li>
                                                     @endif
-                                                    @if ($item->status_tugas == 'selesai')
+                                                    @if ($item->penugasan->status_tugas == 'selesai')
                                                         @if ($item->evaluasi)
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
