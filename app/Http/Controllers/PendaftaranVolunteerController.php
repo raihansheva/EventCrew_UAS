@@ -99,7 +99,6 @@ class PendaftaranVolunteerController extends Controller
             'status_pendaftaran' => 'menunggu'
         ]);
 
-        return redirect('/pendaftaran')
-            ->with('success', 'Pendaftaran berhasil dikirim');
+        return back()->with('success', 'Pendaftaran berhasil dikirim.');
     }
 }
