@@ -110,7 +110,8 @@
                                     class="nav-link {{ request()->is('data-pendaftaran') ? 'active' : '' }}">
                                     Data Pendaftaran
                                 </a>
-                                <a href="/data-penugasan" class="nav-link {{ request()->is('data-penugasan') ? 'active' : '' }}">
+                                <a href="/data-penugasan"
+                                    class="nav-link {{ request()->is('data-penugasan') ? 'active' : '' }}">
                                     Penugasan Volunteer
                                 </a>
                             @endif
@@ -179,6 +180,7 @@
                 </div>
             </div>
             <main>
+
                 <div class="header-main">
                     <h1 class="brand-main">
                         <span class="brand-main-highlight">
@@ -186,6 +188,25 @@
                         </span>
                     </h1>
                 </div>
+                @if (Auth::user()->role == 'panitia' &&
+                        Auth::user()->penyelenggara &&
+                        Auth::user()->penyelenggara->status_verifikasi != 'terverifikasi')
+                    <div class="alert alert-warning d-flex align-items-start shadow-sm mb-4" role="alert">
+                        <i class='bx bx-time-five fs-3 me-3'></i>
+                        <div>
+                            <h6 class="mb-1">
+                                Akun Panitia Belum Terverifikasi
+                            </h6>
+                            <p class="mb-0">
+                                Akun Anda masih dalam proses verifikasi oleh Admin.
+                                Selama proses ini Anda hanya dapat melihat data.
+                                Fitur seperti menambah, mengubah, maupun menghapus data akan tersedia setelah akun
+                                disetujui.
+                                Mohon menunggu proses verifikasi.
+                            </p>
+                        </div>
+                    </div>
+                @endif
                 @yield('content')
             </main>
         </div>

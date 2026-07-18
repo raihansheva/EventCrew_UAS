@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="admin-section">
-        @if (Auth::user()->role == 'panitia')
+        @if (Auth::user()->role == 'panitia' &&
+                Auth::user()->penyelenggara &&
+                Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
             <div class="section-header">
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
                     Tambah Data
@@ -22,7 +24,11 @@
                                 <th>Nama Divisi</th>
                                 <th>Deskripsi</th>
                                 <th>Kuota Volunteer</th>
-                                <th width="180" class="text-center">Action</th>
+                                @if (Auth::user()->role == 'panitia' &&
+                                        Auth::user()->penyelenggara &&
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                    <th width="180" class="text-center">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -33,39 +39,43 @@
                                     <td>{{ $d->nama_divisi }}</td>
                                     <td>{{ $d->deskripsi }}</td>
                                     <td>{{ $d->kuota_volunteer }}</td>
-                                    <td class="text-center">
-                                        <div class="dropup">
-                                            <button class="btn btn-light border-0" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
+                                    @if (Auth::user()->role == 'panitia' &&
+                                            Auth::user()->penyelenggara &&
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                        <td class="text-center">
+                                            <div class="dropup">
+                                                <button class="btn btn-light border-0" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
 
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                <div class="area-menu-drop">
-                                                    @if (Auth::user()->role == 'panitia')
-                                                        <li>
-                                                            <button
-                                                                class="dropdown-item drop-edit d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editModal{{ $d->id }}">
-                                                                <i class='bx bx-edit-alt me-2'></i>
-                                                                Edit
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button
-                                                                class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalHapus{{ $d->id }}">
-                                                                <i class="bx bx-trash me-2"></i>
-                                                                Hapus
-                                                            </button>
-                                                        </li>
-                                                    @endif
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </td>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    <div class="area-menu-drop">
+                                                        @if (Auth::user()->role == 'panitia')
+                                                            <li>
+                                                                <button
+                                                                    class="dropdown-item drop-edit d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $d->id }}">
+                                                                    <i class='bx bx-edit-alt me-2'></i>
+                                                                    Edit
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button
+                                                                    class="dropdown-item text-danger drop-hapus d-flex align-items-center"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalHapus{{ $d->id }}">
+                                                                    <i class="bx bx-trash me-2"></i>
+                                                                    Hapus
+                                                                </button>
+                                                            </li>
+                                                        @endif
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <!-- Modal Edit -->
                                 <div class="modal fade" id="editModal{{ $d->id }}" tabindex="-1">
