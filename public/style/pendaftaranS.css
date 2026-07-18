@@ -1,6 +1,7 @@
 .area-pendaftaran {
     display: flex;
     flex-direction: column;
+    margin: 32px 0px;
 }
 
 .area-header-pendaftaran {
@@ -10,12 +11,12 @@
 
 .area-content-pendaftaran {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 24px;
 }
 
 .card-pendaftaran {
-    width: 50%;
+    width: calc(50% - 15px);
     height: auto;
     padding: 24px;
     background-color: white;

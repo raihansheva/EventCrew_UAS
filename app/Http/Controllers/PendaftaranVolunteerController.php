@@ -82,4 +82,24 @@ class PendaftaranVolunteerController extends Controller
 
         return back()->with('success', 'Volunteer berhasil ditolak dan email telah dikirim.');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'volunteer_id' => 'required',
+            'divisi_id' => 'required',
+            'deskripsi' => 'nullable'
+        ]);
+
+        PendaftaranVolunteer::create([
+            'event_id' => $request->event_id,
+            'volunteer_id' => $request->volunteer_id,
+            'divisi_id' => $request->divisi_id,
+            'deskripsi' => $request->deskripsi,
+            'status_pendaftaran' => 'menunggu'
+        ]);
+
+        return redirect('/pendaftaran')
+            ->with('success', 'Pendaftaran berhasil dikirim');
+    }
 }

@@ -31,6 +31,10 @@
                                     <span class="status selesai">
                                         Selesai
                                     </span>
+                                @elseif($item->status_tugas == 'belum_dimulai')
+                                    <span class="status default">
+                                        Belum Dimulai
+                                    </span>
                                 @else
                                     <span class="status default">
                                         {{ ucfirst($item->status_tugas) }}

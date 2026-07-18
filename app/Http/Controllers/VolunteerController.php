@@ -199,16 +199,16 @@ class VolunteerController extends Controller
 
     public function penugasan(Request $request)
     {
-        $request->validate([
-            'pendaftaran_id' => 'required|exists:pendaftaran_volunteers,id',
-            'tugas' => 'required|string',
-            'lokasi_tugas' => 'required|string|max:255',
-            'tanggal_mulai_tugas' => 'required|date',
-            'tanggal_selesai_tugas' => 'required|date|after_or_equal:tanggal_mulai_tugas',
-            'jam_mulai' => 'required',
-            'jam_selesai' => 'required|after:jam_mulai',
-            'status_tugas' => 'required|in:belum_dimulai,berlangsung,selesai',
-        ]);
+        // $request->validate([
+        //     'pendaftaran_id' => 'required|exists:pendaftaran_volunteers,id',
+        //     'tugas' => 'required|string',
+        //     'lokasi_tugas' => 'required|string|max:255',
+        //     'tanggal_mulai_tugas' => 'required|date',
+        //     'tanggal_selesai_tugas' => 'required|date|after_or_equal:tanggal_mulai_tugas',
+        //     'jam_mulai' => 'required',
+        //     'jam_selesai' => 'required|after:jam_mulai',
+        //     'status_tugas' => 'required|in:belum_dimulai,berlangsung,selesai',
+        // ]);
 
         $cek = PenugasanVolunteer::where(
             'pendaftaran_id',

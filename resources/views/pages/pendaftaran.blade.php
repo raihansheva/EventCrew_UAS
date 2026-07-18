@@ -139,7 +139,7 @@
                                                         <label class="form-label">
                                                             Motivasi Mendaftar
                                                         </label>
-                                                        <textarea name="motivasi" rows="5" class="form-control"
+                                                        <textarea name="deskripsi" rows="5" class="form-control"
                                                             placeholder="Ceritakan alasan Anda ingin bergabung menjadi volunteer..." required></textarea>
                                                     </div>
                                                 </div>

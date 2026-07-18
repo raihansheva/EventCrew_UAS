@@ -67,8 +67,8 @@
                                                             </button>
                                                         </li>
                                                     @endif
-                                                    @if ($item->penugasan->status_tugas == 'selesai')
-                                                        @if ($item->penugasan->evaluasi)
+                                                    @if ($item->status_tugas == 'selesai')
+                                                        @if ($item->evaluasi)
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
                                                                 <i class='bx bx-medal me-2'></i>
@@ -319,7 +319,7 @@
                                 <div class="modal fade" id="modalEdit{{ $item->id }}" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
-                                            <form action="{{ route('admin.penugasan.update', $item->penugasan->id) }}"
+                                            <form action="{{ route('admin.penugasan.update', $item->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -361,14 +361,14 @@
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 name="lokasi_tugas"
-                                                                value="{{ $item->penugasan->lokasi_tugas }}" required>
+                                                                value="{{ $item->lokasi_tugas }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">
                                                             Tugas
                                                         </label>
-                                                        <textarea class="form-control" rows="4" name="tugas" required>{{ $item->penugasan->tugas }}</textarea>
+                                                        <textarea class="form-control" rows="4" name="tugas" required>{{ $item->tugas }}</textarea>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4 mb-3">
@@ -377,21 +377,21 @@
                                                             </label>
                                                             <input type="date" class="form-control"
                                                                 name="tanggal_tugas"
-                                                                value="{{ $item->penugasan->tanggal_tugas }}" required>
+                                                                value="{{ $item->tanggal_tugas }}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label class="form-label">
                                                                 Jam Mulai
                                                             </label>
                                                             <input type="time" class="form-control" name="jam_mulai"
-                                                                value="{{ $item->penugasan->jam_mulai }}" required>
+                                                                value="{{ $item->jam_mulai }}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label class="form-label">
                                                                 Jam Selesai
                                                             </label>
                                                             <input type="time" class="form-control" name="jam_selesai"
-                                                                value="{{ $item->penugasan->jam_selesai }}" required>
+                                                                value="{{ $item->jam_selesai }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
@@ -400,15 +400,15 @@
                                                         </label>
                                                         <select class="form-select" name="status_tugas">
                                                             <option value="belum_dimulai"
-                                                                {{ $item->penugasan->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
+                                                                {{ $item->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
                                                                 Belum Dimulai
                                                             </option>
                                                             <option value="berlangsung"
-                                                                {{ $item->penugasan->status_tugas == 'berlangsung' ? 'selected' : '' }}>
+                                                                {{ $item->status_tugas == 'berlangsung' ? 'selected' : '' }}>
                                                                 Berlangsung
                                                             </option>
                                                             <option value="selesai"
-                                                                {{ $item->penugasan->status_tugas == 'selesai' ? 'selected' : '' }}>
+                                                                {{ $item->status_tugas == 'selesai' ? 'selected' : '' }}>
                                                                 Selesai
                                                             </option>
                                                         </select>
@@ -440,7 +440,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <input type="hidden" name="penugasan_id"
-                                                        value="{{ $item->penugasan->id }}">
+                                                        value="{{ $item->id }}">
                                                     <div class="mb-3">
                                                         <label class="form-label">
                                                             Volunteer
@@ -500,7 +500,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if ($item->penugasan->evaluasi)
+                                @if ($item->evaluasi)
                                     <div class="modal fade" id="modalLihatEvaluasi{{ $item->id }}" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content rounded-4">
@@ -538,7 +538,7 @@
                                                                 Dievaluasi Pada
                                                             </label>
                                                             <input type="text" class="form-control"
-                                                                value="{{ $item->penugasan->evaluasi->created_at->translatedFormat('d F Y H:i') }}"
+                                                                value="{{ $item->evaluasi->created_at->translatedFormat('d F Y H:i') }}"
                                                                 readonly>
                                                         </div>
                                                         <div class="col-12 mb-4">
@@ -548,7 +548,7 @@
                                                             </label>
 
                                                             @php
-                                                                $nilai = $item->penugasan->evaluasi->nilai;
+                                                                $nilai = $item->evaluasi->nilai;
                                                             @endphp
 
                                                             <div class="border rounded-3 p-4 text-center">
@@ -590,7 +590,7 @@
                                                             <label class="form-label fw-semibold">
                                                                 Komentar
                                                             </label>
-                                                            <textarea class="form-control" rows="5" readonly>{{ $item->penugasan->evaluasi->komentar }}</textarea>
+                                                            <textarea class="form-control" rows="5" readonly>{{ $item->evaluasi->komentar }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
