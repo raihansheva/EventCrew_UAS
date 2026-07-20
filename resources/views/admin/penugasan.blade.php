@@ -5,7 +5,56 @@
 <link rel="stylesheet" href="{{ asset('style/admin/adminPenugasan.css') }}">
 @section('content')
     <div class="admin-section">
-        {{-- <div class="section-header">
+        @if (Auth::user()->role == "panitia")        
+            <div class="section-header d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-sm btn-dark rounded-circle " data-bs-toggle="modal"
+                    data-bs-target="#modalInformasi" style="width:38px;height:38px;">
+                    <i class='bx bx-info-circle fs-5'></i>
+                </button>
+            </div>
+        @endif
+        <div class="modal fade" id="modalInformasi" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class='bx bx-info-circle me-2'></i>
+                            Informasi Halaman
+                        </h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning mb-3">
+                            Ikuti panduan berikut saat mengelola penugasan volunteer.
+                        </div>
+                        <ul class="mb-0">
+                            <li>Tambah penugasan melalui menu <strong>Aksi → Tambah Penugasan</strong>.</li>
+                            <li>Penugasan dapat diedit selama status tugas <strong>Belum Dimulai</strong> atau
+                                <strong>Berlangsung</strong>.</li>
+                            <li>Jika status tugas sudah <strong>Selesai</strong>, penugasan tidak dapat diubah.</li>
+                            <li>Menu <strong>Evaluasi</strong> akan muncul setelah tugas selesai.</li>
+                            <li>Jika evaluasi telah diberikan, menu akan berubah menjadi <strong>Lihat Evaluasi</strong>.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="alert alert-dark alert-dismissible fade show mb-4" role="alert">
+            <h6 class="fw-semibold">
+                <i class='bx bx-info-circle me-2'></i>
+                Informasi Halaman
+            </h6>
+
+            <ul class="mb-0 mt-2">
+                <li>Tambah penugasan melalui menu <b>Aksi</b>.</li>
+                <li>Penugasan hanya dapat diedit sebelum status <b>Selesai</b>.</li>
+                <li>Menu <b>Evaluasi</b> muncul ketika tugas telah selesai.</li>
+                <li>Setelah evaluasi dibuat, menu berubah menjadi <b>Lihat Evaluasi</b>.</li>
+            </ul>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
         </div> --}}
         <div class="section-body">
             <div class="table-container">
@@ -18,10 +67,13 @@
                                 <th>Divisi</th>
                                 <th>Volunteer</th>
                                 <th>Status Penugasan</th>
-                                @if (Auth::user()->role == 'panitia' &&
+                                <th>Status Tugas</th>
+                                @if (
+                                        Auth::user()->role == 'panitia' &&
                                         Auth::user()->penyelenggara &&
-                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
-                                    <th class="text-center">Aksi</th>
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi'
+                                    )
+                                        <th class="text-center">Aksi</th>
                                 @endif
                             </tr>
                         </thead>
@@ -33,7 +85,6 @@
                                     <td>{{ $item->event->nama_event }}</td>
                                     <td>{{ $item->divisi->nama_divisi }}</td>
                                     <td>{{ $item->volunteer->nama_lengkap }}</td>
-
                                     <td>
                                         @if ($item->penugasan)
                                             <span class="badge bg-success">
@@ -45,64 +96,84 @@
                                             </span>
                                         @endif
                                     </td>
-                                    @if (Auth::user()->role == 'panitia' &&
+                                    <td>
+                                        @if (!$item->penugasan)
+                                            <span class="badge bg-secondary">
+                                                Belum Ditugaskan
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'belum_dimulai')
+                                            <span class="badge bg-warning text-dark">
+                                                Belum Dimulai
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'berlangsung')
+                                            <span class="badge bg-primary">
+                                                Berlangsung
+                                            </span>
+                                        @elseif($item->penugasan->status_tugas == 'selesai')
+                                            <span class="badge bg-success">
+                                                Selesai
+                                            </span>
+                                        @endif
+                                    </td>
+                                    @if (
+                                            Auth::user()->role == 'panitia' &&
                                             Auth::user()->penyelenggara &&
-                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
-                                        <td class="text-center">
-                                            <div class="dropdown">
-                                                <button class="btn btn-light border-0" data-bs-toggle="dropdown">
-                                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                    @if (Auth::user()->role == 'panitia')
-                                                        @if (!$item->penugasan)
-                                                            <li>
-                                                                <button class="dropdown-item" data-bs-toggle="modal"
-                                                                    data-bs-target="#modalTambah{{ $item->id }}">
-
-                                                                    <i class='bx bx-task me-2'></i>
-                                                                    Tambah Penugasan
-                                                                </button>
-                                                            </li>
-                                                        @else
-                                                            <li>
-                                                                <button class="dropdown-item" data-bs-toggle="modal"
-                                                                    data-bs-target="#modalEdit{{ $item->id }}">
-                                                                    <i class='bx bx-edit me-2'></i>
-                                                                    Edit Penugasan
-                                                                </button>
-                                                            </li>
-                                                        @endif
-                                                        @if ($item->status_tugas == 'selesai')
-                                                            @if ($item->evaluasi)
-                                                                <a class="dropdown-item" href="#"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
-                                                                    <i class='bx bx-medal me-2'></i>
-                                                                    Lihat Evaluasi
-                                                                </a>
-                                                            @else
-                                                                <a class="dropdown-item" href="#"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalEvaluasi{{ $item->id }}">
-                                                                    <i class="bx bx-star me-2"></i>
-                                                                    Evaluasi
-                                                                </a>
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi'
+                                        )
+                                            <td class="text-center">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-light border-0" data-bs-toggle="dropdown">
+                                                        <i class='bx bx-dots-vertical-rounded'></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                        @if (Auth::user()->role == 'panitia')
+                                                            @if (!$item->penugasan)
+                                                                <li>
+                                                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#modalTambah{{ $item->id }}">
+                                                                        <i class='bx bx-task me-2'></i>
+                                                                        Tambah Penugasan
+                                                                    </button>
+                                                                </li>
+                                                            @elseif($item->penugasan->status_tugas != 'selesai')
+                                                                <li>
+                                                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#modalEdit{{ $item->id }}">
+                                                                        <i class='bx bx-edit me-2'></i>
+                                                                        Edit Penugasan
+                                                                    </button>
+                                                                </li>
+                                                            @endif
+                                                            @if ($item->penugasan && $item->penugasan->status_tugas == 'selesai')
+                                                                @if ($item->penugasan->evaluasi)
+                                                                    <a class="dropdown-item" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalLihatEvaluasi{{ $item->id }}">
+                                                                        <i class='bx bx-medal me-2'></i>
+                                                                        Lihat Evaluasi
+                                                                    </a>
+                                                                @else
+                                                                    <a class="dropdown-item" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalEvaluasi{{ $item->id }}">
+                                                                        <i class="bx bx-star me-2"></i>
+                                                                        Evaluasi
+                                                                    </a>
+                                                                @endif
                                                             @endif
                                                         @endif
-                                                    @endif
 
-                                                    <li>
-                                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#modalDetail{{ $item->id }}">
+                                                        <li>
+                                                            <button class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#modalDetail{{ $item->id }}">
 
-                                                            <i class='bx bx-show me-2'></i>
-                                                            Detail
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                                                <i class='bx bx-show me-2'></i>
+                                                                Detail
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
                                     @endif
                                 </tr>
                                 <div class="modal fade" id="modalTambah{{ $item->id }}" tabindex="-1">
@@ -325,191 +396,195 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="modalEdit{{ $item->id }}" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                            <form action="{{ route('admin.penugasan.update', $item->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">
-                                                        Edit Penugasan Volunteer
-                                                    </h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label class="form-label">
-                                                                Event
-                                                            </label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $item->event->nama_event }}" readonly>
+                                @if($item->penugasan)
+                                    <div class="modal fade" id="modalEdit{{ $item->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <form action="{{ route('admin.penugasan.update', $item->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">
+                                                            Edit Penugasan Volunteer
+                                                        </h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">
+                                                                    Event
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $item->event->nama_event }}" readonly>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">
+                                                                    Volunteer
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $item->volunteer->nama_lengkap }}" readonly>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">
+                                                                    Divisi
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $item->divisi->nama_divisi }}" readonly>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">
+                                                                    Lokasi Tugas
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                    name="lokasi_tugas"
+                                                                    value="{{ $item->penugasan->lokasi_tugas }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">
+                                                                Tugas
+                                                            </label>
+                                                            <textarea class="form-control" rows="4" name="tugas" required>{{ $item->penugasan->tugas }}</textarea>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4 mb-3">
+                                                                <label class="form-label">
+                                                                    Tanggal Tugas
+                                                                </label>
+                                                                <input type="date" class="form-control"
+                                                                    name="tanggal_tugas"
+                                                                    value="{{ $item->penugasan->tanggal_tugas }}" required>
+                                                            </div>
+                                                            <div class="col-md-4 mb-3">
+                                                                <label class="form-label">
+                                                                    Jam Mulai
+                                                                </label>
+                                                                <input type="time" class="form-control" name="jam_mulai"
+                                                                    value="{{ $item->penugasan->jam_mulai }}" required>
+                                                            </div>
+                                                            <div class="col-md-4 mb-3">
+                                                                <label class="form-label">
+                                                                    Jam Selesai
+                                                                </label>
+                                                                <input type="time" class="form-control" name="jam_selesai"
+                                                                    value="{{ $item->penugasan->jam_selesai }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">
+                                                                Status Tugas
+                                                            </label>
+                                                            <select class="form-select" name="status_tugas">
+                                                                <option value="belum_dimulai"
+                                                                    {{ $item->penugasan->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
+                                                                    Belum Dimulai
+                                                                </option>
+                                                                <option value="berlangsung"
+                                                                    {{ $item->penugasan->status_tugas == 'berlangsung' ? 'selected' : '' }}>
+                                                                    Berlangsung
+                                                                </option>
+                                                                <option value="selesai"
+                                                                    {{ $item->penugasan->status_tugas == 'selesai' ? 'selected' : '' }}>
+                                                                    Selesai
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-bs-dismiss="modal">
+                                                            Batal
+                                                        </button>
+                                                        <button class="btn btn-warning" type="submit">
+                                                            Simpan Perubahan
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($item->penugasan)
+                                    <div class="modal fade" id="modalEvaluasi{{ $item->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content rounded-4">
+                                                <form action="{{ route('evaluasi.store') }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title fw-bold">
+                                                            Evaluasi Volunteer
+                                                        </h5>
+                                                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="penugasan_id"
+                                                            value="{{ $item->penugasan->id }}">
+                                                        <div class="mb-3">
                                                             <label class="form-label">
                                                                 Volunteer
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->volunteer->nama_lengkap }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
+                                                        <div class="mb-3">
                                                             <label class="form-label">
-                                                                Divisi
+                                                                Event
                                                             </label>
                                                             <input type="text" class="form-control"
-                                                                value="{{ $item->divisi->nama_divisi }}" readonly>
+                                                                value="{{ $item->event->nama_event }}" readonly>
                                                         </div>
-                                                        <div class="col-md-6 mb-3">
+                                                        <div class="mb-3">
                                                             <label class="form-label">
-                                                                Lokasi Tugas
+                                                                Nilai
                                                             </label>
-                                                            <input type="text" class="form-control"
-                                                                name="lokasi_tugas"
-                                                                value="{{ $item->penugasan->lokasi_tugas }}" required>
+                                                            <select class="form-select" name="nilai" required>
+                                                                <option value="">
+                                                                    -- Pilih Nilai --
+                                                                </option>
+                                                                <option value="1">
+                                                                    1 - Sangat Kurang
+                                                                </option>
+                                                                <option value="2">
+                                                                    2 - Kurang
+                                                                </option>
+                                                                <option value="3">
+                                                                    3 - Cukup
+                                                                </option>
+                                                                <option value="4">
+                                                                    4 - Baik
+                                                                </option>
+                                                                <option value="5">
+                                                                    5 - Sangat Baik
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">
+                                                                Komentar
+                                                            </label>
+                                                            <textarea class="form-control" name="komentar" rows="4" placeholder="Masukkan komentar..."></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Tugas
-                                                        </label>
-                                                        <textarea class="form-control" rows="4" name="tugas" required>{{ $item->penugasan->tugas }}</textarea>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                            Batal
+                                                        </button>
+                                                        <button type="submit" class="btn btn-warning">
+                                                            Simpan Evaluasi
+                                                        </button>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4 mb-3">
-                                                            <label class="form-label">
-                                                                Tanggal Tugas
-                                                            </label>
-                                                            <input type="date" class="form-control"
-                                                                name="tanggal_tugas"
-                                                                value="{{ $item->penugasan->tanggal_tugas }}" required>
-                                                        </div>
-                                                        <div class="col-md-4 mb-3">
-                                                            <label class="form-label">
-                                                                Jam Mulai
-                                                            </label>
-                                                            <input type="time" class="form-control" name="jam_mulai"
-                                                                value="{{ $item->penugasan->jam_mulai }}" required>
-                                                        </div>
-                                                        <div class="col-md-4 mb-3">
-                                                            <label class="form-label">
-                                                                Jam Selesai
-                                                            </label>
-                                                            <input type="time" class="form-control" name="jam_selesai"
-                                                                value="{{ $item->penugasan->jam_selesai }}" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Status Tugas
-                                                        </label>
-                                                        <select class="form-select" name="status_tugas">
-                                                            <option value="belum_dimulai"
-                                                                {{ $item->penugasan->status_tugas == 'belum_dimulai' ? 'selected' : '' }}>
-                                                                Belum Dimulai
-                                                            </option>
-                                                            <option value="berlangsung"
-                                                                {{ $item->penugasan->status_tugas == 'berlangsung' ? 'selected' : '' }}>
-                                                                Berlangsung
-                                                            </option>
-                                                            <option value="selesai"
-                                                                {{ $item->penugasan->status_tugas == 'selesai' ? 'selected' : '' }}>
-                                                                Selesai
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        data-bs-dismiss="modal">
-                                                        Batal
-                                                    </button>
-                                                    <button class="btn btn-warning" type="submit">
-                                                        Simpan Perubahan
-                                                    </button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal fade" id="modalEvaluasi{{ $item->id }}" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content rounded-4">
-                                            <form action="{{ route('evaluasi.store') }}" method="POST">
-                                                @csrf
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title fw-bold">
-                                                        Evaluasi Volunteer
-                                                    </h5>
-                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="penugasan_id"
-                                                        value="{{ $item->id }}">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Volunteer
-                                                        </label>
-                                                        <input type="text" class="form-control"
-                                                            value="{{ $item->volunteer->nama_lengkap }}" readonly>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Event
-                                                        </label>
-                                                        <input type="text" class="form-control"
-                                                            value="{{ $item->event->nama_event }}" readonly>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Nilai
-                                                        </label>
-                                                        <select class="form-select" name="nilai" required>
-                                                            <option value="">
-                                                                -- Pilih Nilai --
-                                                            </option>
-                                                            <option value="1">
-                                                                1 - Sangat Kurang
-                                                            </option>
-                                                            <option value="2">
-                                                                2 - Kurang
-                                                            </option>
-                                                            <option value="3">
-                                                                3 - Cukup
-                                                            </option>
-                                                            <option value="4">
-                                                                4 - Baik
-                                                            </option>
-                                                            <option value="5">
-                                                                5 - Sangat Baik
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">
-                                                            Komentar
-                                                        </label>
-                                                        <textarea class="form-control" name="komentar" rows="4" placeholder="Masukkan komentar..."></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Batal
-                                                    </button>
-                                                    <button type="submit" class="btn btn-warning">
-                                                        Simpan Evaluasi
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if ($item->evaluasi)
+                                @endif
+                                @if($item->penugasan && $item->penugasan->evaluasi)
                                     <div class="modal fade" id="modalLihatEvaluasi{{ $item->id }}" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content rounded-4">
@@ -547,7 +622,7 @@
                                                                 Dievaluasi Pada
                                                             </label>
                                                             <input type="text" class="form-control"
-                                                                value="{{ $item->evaluasi->created_at->translatedFormat('d F Y H:i') }}"
+                                                                value="{{ $item->penugasan->evaluasi->created_at->translatedFormat('d F Y H:i') }}"
                                                                 readonly>
                                                         </div>
                                                         <div class="col-12 mb-4">
@@ -557,7 +632,7 @@
                                                             </label>
 
                                                             @php
-                                                                $nilai = $item->evaluasi->nilai;
+                                                                $nilai = $item->penugasan->evaluasi->nilai;
                                                             @endphp
 
                                                             <div class="border rounded-3 p-4 text-center">
@@ -599,7 +674,7 @@
                                                             <label class="form-label fw-semibold">
                                                                 Komentar
                                                             </label>
-                                                            <textarea class="form-control" rows="5" readonly>{{ $item->evaluasi->komentar }}</textarea>
+                                                            <textarea class="form-control" rows="5" readonly>{{ $item->penugasan->evaluasi->komentar }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>

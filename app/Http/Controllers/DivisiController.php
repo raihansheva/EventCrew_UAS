@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DivisiVolunteer;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DivisiController extends Controller
 {
@@ -13,8 +14,10 @@ class DivisiController extends Controller
      */
     public function index()
     {
-        $divisi = DivisiVolunteer::all();
-        $event = Event::all();
+        $user = Auth::user();
+        $event = Event::where('panitia_id', $user->id)->get();
+        $divisi = DivisiVolunteer::whereIn('event_id', $event->pluck('id'))
+            ->get();
         return view('admin.divisi', compact('divisi', 'event'));
     }
 

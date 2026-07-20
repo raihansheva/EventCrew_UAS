@@ -78,14 +78,16 @@ Route::middleware(['auth', 'role:admin,panitia'])->group(function () {
     Route::post('/data-penugasan', [VolunteerController::class, 'penugasan'])->name('admin.penugasan.post');
     Route::put('/data-penugasan/{id}', [VolunteerController::class, 'editPenugasan'])->name('admin.penugasan.update');
     Route::post('/evaluasi/store', [PanitiaController::class, 'storeEvaluasi'])
-    ->name('evaluasi.store');
+        ->name('evaluasi.store');
 
     Route::get('/profile-admin', [PanitiaController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/update', [PanitiaController::class, 'updateProfile'])
-    ->name('admin.profile.update');
+        ->name('admin.profile.update');
     Route::post('/admin/update-password', [PanitiaController::class, 'updatePassword'])
-    ->name('admin.password.update');
+        ->name('admin.password.update');
 
+
+    Route::put('/event/{id}/ajukan-ulang', [AdminEventController::class, 'ajukanUlang'])->name('event.ajukanUlang');
 });
 
 

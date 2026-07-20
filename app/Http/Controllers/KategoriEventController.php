@@ -9,7 +9,7 @@ class KategoriEventController extends Controller
 {
     public function index()
     {
-        $kategoris = KategoriEvent::latest()->get();
+        $kategoris = KategoriEvent::all();
 
         return view('admin.eventKategori', compact('kategoris'));
     }
@@ -19,11 +19,9 @@ class KategoriEventController extends Controller
         $request->validate([
             'nama_kategori' => 'required|max:255',
         ]);
-
         KategoriEvent::create([
             'nama_kategori' => $request->nama_kategori,
         ]);
-
         return redirect()->back()
             ->with('success', 'Kategori berhasil ditambahkan.');
     }
@@ -33,9 +31,7 @@ class KategoriEventController extends Controller
         $request->validate([
             'nama_kategori' => 'required|max:255',
         ]);
-
         $kategori = KategoriEvent::findOrFail($id);
-
         $kategori->update([
             'nama_kategori' => $request->nama_kategori,
         ]);
@@ -47,13 +43,10 @@ class KategoriEventController extends Controller
     public function destroy($id)
     {
         $kategori = KategoriEvent::findOrFail($id);
-
         if ($kategori->events()->exists()) {
             return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan oleh event.')->with('openDeleteModal', $kategori->id);;
         }
-
         $kategori->delete();
-
         return redirect()->back()
             ->with('success', 'Kategori berhasil dihapus.');
     }

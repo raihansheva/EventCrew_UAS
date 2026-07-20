@@ -33,7 +33,7 @@ class LoginController extends Controller
 
             if ($role === 'admin' || $role === 'panitia') {
                 return redirect('/dashboard')->with(
-                    'toast_success',
+                    'success',
                     'Login berhasil! Selamat datang, ' . Auth::user()->email
                 );
             }

@@ -143,7 +143,8 @@ a {
 }
 
 .sidebar .nav-link.active {
-    background: #fad41861;
+    /* background: #fad41861; */
+    background: var(--primary-yellow);
     color: var(--dark-red);
     font-weight: 600;
 }

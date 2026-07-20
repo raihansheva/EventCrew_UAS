@@ -20,7 +20,9 @@
                                 <th>Alamat</th>
                                 <th>Keahlian</th>
                                 <th>Pengalaman</th>
-                                <th>Aksi</th>
+                                @if (Auth::user()->role == 'panitia')
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
 
@@ -29,50 +31,45 @@
                             @forelse($volunteers as $key => $user)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $user->volunteer->nama_lengkap }}</td>
-                                    <td>{{ $user->volunteer->no_hp }}</td>
-                                    <td>{{ $user->volunteer->jenis_kelamin }}</td>
-                                    <td>{{ $user->volunteer->alamat }}</td>
-                                    <td>{{ $user->volunteer->keahlian }}</td>
-                                    <td>{{ $user->volunteer->pengalaman }}</td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-light border-0" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <i class='bx bx-dots-vertical-rounded'></i>
-                                            </button>
-
-                                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                                <div class="area-menu-drop">
-
-                                                    {{-- <li>
-                                                <button class="dropdown-item drop-edit d-flex align-items-center"
-                                                    data-bs-toggle="modal" data-bs-target="#editModal{{ $k->id }}">
-                                                    <i class='bx bx-edit-alt me-2'></i>
-                                                    Edit
+                                    <td>{{ $user->nama_lengkap }}</td>
+                                    <td>{{ $user->no_hp }}</td>
+                                    <td>{{ $user->jenis_kelamin }}</td>
+                                    <td>{{ $user->alamat }}</td>
+                                    <td>{{ $user->keahlian }}</td>
+                                    <td>{{ $user->pengalaman }}</td>
+                                    @if (Auth::user()->role == 'panitia')
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <button class="btn btn-light border-0" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
                                                 </button>
-                                            </li> --}}
-                                                    <li>
-                                                        <button class="dropdown-item drop-detail d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalDetail{{ $user->id }}">
-                                                            <i class='bx bx-show me-2'></i>
-                                                            Detail
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        <button
-                                                            class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalHapus{{ $user->id }}">
-                                                            <i class="bx bx-trash me-2"></i>
-                                                            Hapus
-                                                        </button>
-                                                    </li>
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </td>
+
+                                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                                    <div class="area-menu-drop">
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item drop-detail d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalDetail{{ $user->id }}">
+                                                                <i class='bx bx-show me-2'></i>
+                                                                Detail
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                class="dropdown-item text-danger drop-hapus d-flex align-items-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalHapus{{ $user->id }}">
+                                                                <i class="bx bx-trash me-2"></i>
+                                                                Hapus
+                                                            </button>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <div class="modal fade" id="modalHapus{{ $user->id }}" tabindex="-1"
                                     aria-hidden="true">
@@ -111,22 +108,21 @@
                                                 <div class="area-content-detail">
                                                     <div class="content-kiri">
                                                         <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-envelope'></i> Email</label>
-                                                                <span class="value-event">{{ $user->email }}</span>
-                                                            </div>
-                                                            <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-lock-alt'></i> Password</label>
-                                                                <span class="value-event">••••••••</span>
-                                                            </div>
-                                                            <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-id-card'></i>
-                                                                    Role</label>
-                                                                <span
-                                                                    class="value-event">{{ $user->role }}</span>
-                                                            </div>
+                                                            <label class="label-event" for=""><i
+                                                                    class='bx bx-envelope'></i> Email</label>
+                                                            <span class="value-event">{{ $user->email }}</span>
+                                                        </div>
+                                                        <div class="area-label">
+                                                            <label class="label-event" for=""><i
+                                                                    class='bx bx-lock-alt'></i> Password</label>
+                                                            <span class="value-event">••••••••</span>
+                                                        </div>
+                                                        <div class="area-label">
+                                                            <label class="label-event" for=""><i
+                                                                    class='bx bx-id-card'></i>
+                                                                Role</label>
+                                                            <span class="value-event">{{ $user->role }}</span>
+                                                        </div>
                                                     </div>
                                                     <div class="content-kanan">
                                                         <div class="area-kiri-detail">
@@ -134,26 +130,24 @@
                                                                 <label class="label-event" for=""><i
                                                                         class='bx bx-user'></i> Nama
                                                                     Volunteer</label>
-                                                                <span class="value-event">{{ $user->volunteer->nama_lengkap }}</span>
+                                                                <span class="value-event">{{ $user->nama_lengkap }}</span>
                                                             </div>
                                                             <div class="area-label">
                                                                 <label class="label-event" for=""><i
                                                                         class='bx bx-phone'></i> Nomer Handphone</label>
-                                                                <span class="value-event">{{ $user->volunteer->no_hp }}</span>
+                                                                <span class="value-event">{{ $user->no_hp }}</span>
                                                             </div>
                                                             <div class="area-label">
                                                                 <label class="label-event" for=""><i
                                                                         class='bx bx-male-female'></i>
                                                                     Jenis Kelamin</label>
-                                                                <span
-                                                                    class="value-event">{{ $user->volunteer->jenis_kelamin }}</span>
+                                                                <span class="value-event">{{ $user->jenis_kelamin }}</span>
                                                             </div>
                                                             <div class="area-label">
                                                                 <label class="label-event" for=""><i
                                                                         class='bx bx-map text-danger'></i>
                                                                     Alamat</label>
-                                                                <span
-                                                                    class="value-event">{{ $user->volunteer->alamat }}</span>
+                                                                <span class="value-event">{{ $user->alamat }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="area-kanan-detail">
@@ -162,19 +156,20 @@
                                                                         class='bx bx-brain'></i>
                                                                     Keahlian</label>
                                                                 <span
-                                                                    class="value-event">{{ $user->volunteer->keahlian ?? '-' }}</span>
+                                                                    class="value-event">{{ $user->keahlian ?? '-' }}</span>
                                                             </div>
                                                             <div class="area-label">
                                                                 <label class="label-event" for=""><i
-                                                                        class='bx bx-briefcase-alt-2'></i> Pengalaman</label>
+                                                                        class='bx bx-briefcase-alt-2'></i>
+                                                                    Pengalaman</label>
                                                                 <span
-                                                                    class="value-event">{{ $user->volunteer->pengalaman ?? '-' }}</span>
+                                                                    class="value-event">{{ $user->pengalaman ?? '-' }}</span>
                                                             </div>
                                                             <div class="area-label">
                                                                 <label class="label-event" for=""><i
                                                                         class='bx bx-book-open'></i> Pendidikan</label>
                                                                 <span
-                                                                    class="value-event">{{ $user->volunteer->pendidikan ?? '-' }}</span>
+                                                                    class="value-event">{{ $user->pendidikan ?? '-' }}</span>
                                                             </div>
                                                             {{-- <div class="area-label">
                                                                 <label class="label-event" for=""><i

@@ -6,6 +6,7 @@ use App\Models\EvaluasiVolunteer;
 use App\Models\PendaftaranVolunteer;
 use App\Models\PenugasanVolunteer;
 use App\Models\User;
+use App\Models\Volunteer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,7 @@ class VolunteerController extends Controller
 {
     public function index()
     {
-        $volunteers = User::with('volunteer')
-            ->where('role', 'volunteer')
-            ->get();
+        $volunteers = Volunteer::with('user')->get();
 
         return view('admin.volunteer', compact('volunteers'));
     }
@@ -198,11 +197,11 @@ class VolunteerController extends Controller
             'volunteer',
             'event',
             'divisi',
-            'penugasan.evaluasi'
+            'penugasan'
         ])
             ->where('status_pendaftaran', 'diterima')
             ->get();
-
+        // dd($penugasan);
         return view('admin.penugasan', compact('penugasan'));
     }
 

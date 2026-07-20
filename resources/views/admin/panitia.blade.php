@@ -32,7 +32,25 @@
                                     <td>{{ $user->no_hp }}</td>
                                     {{-- <td>{{ $user->alamat }}</td>
                                     <td>{{ $user->deskripsi }}</td> --}}
-                                    <td>{{ $user->status_verifikasi }}</td>
+                                    <td>
+                                        @if ($user->status_verifikasi == 'terverifikasi')
+                                            <span class="badge bg-success">
+                                                Terverifikasi
+                                            </span>
+                                        @elseif ($user->status_verifikasi == 'pending')
+                                            <span class="badge bg-warning text-dark">
+                                                Pending
+                                            </span>
+                                        @elseif ($user->status_verifikasi == 'ditolak')
+                                            <span class="badge bg-danger">
+                                                Ditolak
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary">
+                                                {{ $user->status_verifikasi }}
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <button class="btn btn-light border-0" type="button" data-bs-toggle="dropdown"
@@ -45,8 +63,7 @@
                                                     @if ($user->status_verifikasi !== 'terverifikasi')
                                                         <li>
                                                             <button class="dropdown-item d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalVerify{{ $user->id }}">
+                                                                data-bs-toggle="modal" data-bs-target="#modalVerify{{ $user->id }}">
                                                                 <i class='bx bx-check-circle me-2'></i>
                                                                 Verifikasi
                                                             </button>
@@ -54,18 +71,15 @@
                                                     @endif
                                                     <li>
                                                         <button class="dropdown-item drop-detail d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalDetail{{ $user->id }}">
+                                                            data-bs-toggle="modal" data-bs-target="#modalDetail{{ $user->id }}">
                                                             <i class='bx bx-show me-2'></i>
                                                             Detail
                                                         </button>
                                                     </li>
                                                     @if (Auth::user()->role == 'panitia')
                                                         <li>
-                                                            <button
-                                                                class="dropdown-item drop-edit d-flex align-items-center"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editModal{{ $user->id }}">
+                                                            <button class="dropdown-item drop-edit d-flex align-items-center"
+                                                                data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
                                                                 <i class='bx bx-edit-alt me-2'></i>
                                                                 Edit
                                                             </button>
@@ -74,8 +88,7 @@
                                                     <li>
                                                         <button
                                                             class="dropdown-item text-danger drop-hapus d-flex align-items-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalHapus{{ $user->id }}">
+                                                            data-bs-toggle="modal" data-bs-target="#modalHapus{{ $user->id }}">
                                                             <i class="bx bx-trash me-2"></i>
                                                             Hapus
                                                         </button>
@@ -85,8 +98,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="modalHapus{{ $user->id }}" tabindex="-1"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="modalHapus{{ $user->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -102,8 +114,7 @@
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <form action="{{ route('admin.panitia.destroy', $user->id) }}"
-                                                    method="POST">
+                                                <form action="{{ route('admin.panitia.destroy', $user->id) }}" method="POST">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
@@ -122,18 +133,17 @@
                                                 <div class="area-content-detail">
                                                     <div class="content-kiri">
                                                         <div class="area-label">
-                                                            <label class="label-event" for=""><i
-                                                                    class='bx bx-envelope'></i> Email</label>
+                                                            <label class="label-event" for=""><i class='bx bx-envelope'></i>
+                                                                Email</label>
                                                             <span class="value-event">{{ $user->user->email }}</span>
                                                         </div>
                                                         <div class="area-label">
-                                                            <label class="label-event" for=""><i
-                                                                    class='bx bx-lock-alt'></i> Password</label>
+                                                            <label class="label-event" for=""><i class='bx bx-lock-alt'></i>
+                                                                Password</label>
                                                             <span class="value-event">••••••••</span>
                                                         </div>
                                                         <div class="area-label">
-                                                            <label class="label-event" for=""><i
-                                                                    class='bx bx-id-card'></i>
+                                                            <label class="label-event" for=""><i class='bx bx-id-card'></i>
                                                                 Role</label>
                                                             <span class="value-event">{{ $user->user->role }}</span>
                                                         </div>
@@ -141,15 +151,14 @@
                                                     <div class="content-kanan">
                                                         <div class="area-kiri-detail">
                                                             <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-user'></i> Nama
+                                                                <label class="label-event" for=""><i class='bx bx-user'></i>
+                                                                    Nama
                                                                     Penyelenggara</label>
-                                                                <span
-                                                                    class="value-event">{{ $user->nama_penyelenggara }}</span>
+                                                                <span class="value-event">{{ $user->nama_penyelenggara }}</span>
                                                             </div>
                                                             <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-phone'a></i> Nama Penanggung Jawab
+                                                                <label class="label-event" for=""><i class='bx bx-phone' a></i>
+                                                                    Nama Penanggung Jawab
                                                                 </label>
                                                                 <span
                                                                     class="value-event">{{ $user->nama_penanggung_jawab }}</span>
@@ -169,11 +178,9 @@
                                                         </div>
                                                         <div class="area-kanan-detail">
                                                             <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-brain'></i>
+                                                                <label class="label-event" for=""><i class='bx bx-brain'></i>
                                                                     Deskripsi</label>
-                                                                <span
-                                                                    class="value-event">{{ $user->deskripsi ?? '-' }}</span>
+                                                                <span class="value-event">{{ $user->deskripsi ?? '-' }}</span>
                                                             </div>
 
                                                             <div class="area-label">
@@ -183,21 +190,20 @@
                                                                 @if ($user->status_verifikasi == 'terverifikasi')
                                                                     <span class="value-event"
                                                                         style="color: rgb(1, 209, 1); font-weight: bold;">
-                                                                    @elseif ($user->status_verifikasi == 'ditolak')
+                                                                @elseif ($user->status_verifikasi == 'ditolak')
                                                                         <span class="value-event"
                                                                             style="color: red; font-weight: bold;">
-                                                                        @else
+                                                                    @else
                                                                             <span class="value-event"
                                                                                 style="color: gray; font-weight: bold;">
-                                                                @endif
-                                                                {{ $user->status_verifikasi ?? '-' }}</span>
+                                                                        @endif
+                                                                            {{ $user->status_verifikasi ?? '-' }}</span>
                                                             </div>
                                                             {{-- <div class="area-label">
-                                                                <label class="label-event" for=""><i
-                                                                        class='bx bx-detail'></i>
+                                                                <label class="label-event" for=""><i class='bx bx-detail'></i>
                                                                     Deskripsi</label>
                                                                 <span class="value-event">{{ $event->deskripsi }}</span>
-                                                            </div>  --}}
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -212,8 +218,7 @@
                                             <div class="modal-body p-2">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Edit Event</h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form action="/data-panitia/{{ $user->id }}" method="POST"
                                                     enctype="multipart/form-data">
@@ -231,25 +236,25 @@
                                                                     <label class="form-label">Nama Penanggung Jawab</label>
                                                                     <input type="text" name="nama_penanggung_jawab"
                                                                         class="form-control"
-                                                                        value="{{ $user->nama_penanggung_jawab }}"
-                                                                        required>
+                                                                        value="{{ $user->nama_penanggung_jawab }}" required>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Nomer Handphone</label>
-                                                                    <input type="text" name="no_hp"
-                                                                        class="form-control" value="{{ $user->no_hp }}"
-                                                                        required>
+                                                                    <input type="text" name="no_hp" class="form-control"
+                                                                        value="{{ $user->no_hp }}" required>
                                                                 </div>
 
                                                             </div>
                                                             <div class="area-kanan">
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Alamat</label>
-                                                                    <textarea name="alamat" class="form-control" rows="3">{{ $user->alamat }}</textarea>
+                                                                    <textarea name="alamat" class="form-control"
+                                                                        rows="3">{{ $user->alamat }}</textarea>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Deskripsi</label>
-                                                                    <textarea name="deskripsi" class="form-control" rows="3">{{ $user->deskripsi }}</textarea>
+                                                                    <textarea name="deskripsi" class="form-control"
+                                                                        rows="3">{{ $user->deskripsi }}</textarea>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Status Verifikasi</label>
@@ -268,14 +273,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="modalVerify{{ $user->id }}" tabindex="-1"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="modalVerify{{ $user->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Verifikasi Penyelenggara</h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div class="modal-body text-center">
                                                 <i class='bx bx-check-shield text-warning' style="font-size:70px;"></i>
@@ -285,8 +288,8 @@
                                                 </p>
                                             </div>
                                             <div class="modal-footer justify-content-center">
-                                                <form action="{{ route('admin.panitia.verifikasi', $user->id) }}"
-                                                    method="POST" class="me-2">
+                                                <form action="{{ route('admin.panitia.verifikasi', $user->id) }}" method="POST"
+                                                    class="me-2">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="status_verifikasi" value="ditolak">
@@ -296,8 +299,7 @@
                                                     </button>
                                                 </form>
 
-                                                <form action="{{ route('admin.panitia.verifikasi', $user->id) }}"
-                                                    method="POST">
+                                                <form action="{{ route('admin.panitia.verifikasi', $user->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="status_verifikasi" value="terverifikasi">
@@ -324,8 +326,7 @@
         </div>
     </div>
     <div class="toast-container position-fixed top-0 end-0 p-4">
-        <div id="successToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
-            aria-atomic="true">
+        <div id="successToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
                 <strong class="me-auto">
                     <i class='bx bx-check-circle me-1'></i>
@@ -340,7 +341,7 @@
     </div>
     @if (session('success'))
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const toastElement = document.getElementById('successToast');
                 const toast = new bootstrap.Toast(toastElement, {
                     delay: 3000

@@ -7,6 +7,7 @@ use App\Models\Penyelenggara;
 use App\Models\User;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -65,6 +66,8 @@ class RegisterController extends Controller
             'pengalaman'    => $request->pengalaman,
         ]);
 
+        Auth::login($user);
+
         return redirect('/')->with('success', 'Registrasi berhasil, silakan login!');
     }
 
@@ -118,6 +121,9 @@ class RegisterController extends Controller
             'deskripsi'               => $request->deskripsi,
             'status_verifikasi'       => 'menunggu',
         ]);
+
+
+        Auth::login($user);
 
         return redirect('/dashboard')
             ->with('success', 'Pendaftaran penyelenggara berhasil. Silakan menunggu verifikasi dari admin.');

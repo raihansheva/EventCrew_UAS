@@ -7,12 +7,47 @@
         @if (Auth::user()->role == 'panitia' &&
                 Auth::user()->penyelenggara &&
                 Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
-            <div class="section-header">
+            <div class="section-header d-flex justify-content-between align-items-center">
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
                     Tambah Data
                 </button>
+
+                <button type="button" class="btn btn-sm btn-dark rounded-circle d-flex justify-content-between align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#modalInfoDivisi" style="width:38px;height:38px;">
+                    <i class='bx bx-info-circle fs-5'></i>
+                </button>
             </div>
         @endif
+        <div class="modal fade" id="modalInfoDivisi" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class='bx bx-info-circle me-2'></i>
+                            Informasi Halaman Divisi
+                        </h5>
+                        <button class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            Halaman ini digunakan untuk mengelola divisi pada setiap event yang Anda selenggarakan.
+                        </div>
+                        <ul class="mb-0">
+                            <li>Setiap divisi dibuat khusus untuk <strong>event milik Anda</strong>.</li>
+                            <li>Nama divisi harus sesuai dengan kebutuhan pelaksanaan event, seperti Registrasi,
+                                Dokumentasi, Konsumsi, Keamanan, Liaison Officer (LO), dan lainnya.</li>
+                            <li>Divisi yang telah dibuat akan ditampilkan pada formulir pendaftaran volunteer sehingga
+                                peserta dapat memilih divisi yang diinginkan.</li>
+                            <li>Panitia dapat mengubah atau menghapus divisi selama divisi tersebut belum digunakan pada
+                                proses penugasan volunteer.</li>
+                            <li>Pastikan jumlah divisi sesuai dengan kebutuhan agar proses penempatan volunteer menjadi
+                                lebih mudah.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="section-body">
             <div class="table-container">
                 <div class="table-wrapper">
@@ -135,7 +170,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Hapus Kategori</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="area-content-input text-center">
@@ -146,7 +182,8 @@
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <form action="{{ route('admin.divisi.destroy', $d->id) }}" method="POST">
+                                                <form action="{{ route('admin.divisi.destroy', $d->id) }}"
+                                                    method="POST">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>

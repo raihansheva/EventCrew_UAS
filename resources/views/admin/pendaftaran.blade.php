@@ -7,6 +7,57 @@
     <div class="admin-section">
         {{-- <div class="section-header">
         </div> --}}
+        @if (Auth::user()->role == "panitia")
+            <div class="section-header d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-sm btn-dark rounded-circle" data-bs-toggle="modal"
+                    data-bs-target="#modalInfoPendaftaran" style="width:38px;height:38px;">
+                    <i class='bx bx-info-circle fs-5'></i>
+                </button>
+            </div>
+        @endif
+        <div class="modal fade" id="modalInfoPendaftaran" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                            Informasi Halaman
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-light border mb-0">
+                            <h6 class="fw-bold mb-3">
+                                Panduan Pengelolaan Pendaftaran
+                            </h6>
+                            <ul class="mb-0 ps-3">
+                                <li>
+                                    Halaman ini menampilkan seluruh volunteer yang telah
+                                    mendaftar pada event Anda.
+                                </li>
+                                <li>
+                                    Klik menu <strong>Aksi</strong> untuk melihat detail
+                                    pendaftaran volunteer.
+                                </li>
+                                <li>
+                                    Panitia dapat menerima atau menolak pendaftaran
+                                    berdasarkan data diri dan motivasi volunteer.
+                                </li>
+                                <li>
+                                    Volunteer yang telah <strong>diterima</strong>
+                                    dapat diberikan penugasan pada halaman
+                                    <strong>Penugasan Volunteer</strong>.
+                                </li>
+                                <li>
+                                    Volunteer yang sudah memiliki penugasan tidak dapat
+                                    didaftarkan ulang.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="section-body">
             <div class="table-container">
                 <div class="table-wrapper">
@@ -19,9 +70,11 @@
                                 <th>Nama Volunteer</th>
                                 <th>Motivasi</th>
                                 <th>Status Pendaftaran</th>
-                                @if (Auth::user()->role == 'panitia' &&
+                                @if (
+                                        Auth::user()->role == 'panitia' &&
                                         Auth::user()->penyelenggara &&
-                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                        Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi'
+                                    )
                                     <th class="text-center">Aksi</th>
                                 @endif
                             </tr>
@@ -51,9 +104,11 @@
                                             </span>
                                         @endif
                                     </td>
-                                    @if (Auth::user()->role == 'panitia' &&
+                                    @if (
+                                            Auth::user()->role == 'panitia' &&
                                             Auth::user()->penyelenggara &&
-                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi')
+                                            Auth::user()->penyelenggara->status_verifikasi == 'terverifikasi'
+                                        )
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button class="btn btn-light border-0" data-bs-toggle="dropdown">
@@ -211,7 +266,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- <hr> --}}
+                                                {{--
+                                                <hr> --}}
                                                 <div class="area-motivasi">
                                                     <div class="card-motivasi">
                                                         <label class="label-motivasi">
@@ -240,8 +296,7 @@
         </div>
     </div>
     <div class="toast-container position-fixed top-0 end-0 p-4">
-        <div id="successToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
-            aria-atomic="true">
+        <div id="successToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
                 <strong class="me-auto">
                     <i class='bx bx-check-circle me-1'></i>
@@ -256,7 +311,7 @@
     </div>
     @if (session('success'))
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const toastElement = document.getElementById('successToast');
                 const toast = new bootstrap.Toast(toastElement, {
                     delay: 3000

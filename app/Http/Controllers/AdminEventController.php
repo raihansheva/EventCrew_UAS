@@ -15,7 +15,7 @@ class AdminEventController extends Controller
         $user = Auth::user();
         if ($user->role == "admin") {
             $events = Event::with('kategori')->latest()->get();
-        }else if ($user->role == "panitia") {
+        } else if ($user->role == "panitia") {
             $events = Event::with('kategori')->where('panitia_id', $user->id)->latest()->get();
         } else {
             abort(403, 'Anda tidak memiliki hak akses.');
@@ -26,17 +26,17 @@ class AdminEventController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nama_event'      => 'required|string|max:255',
-        //     'kategori_id'     => 'required',
-        //     'deskripsi'       => 'nullable|string',
-        //     'lokasi'          => 'required|string|max:255',
-        //     'tanggal_mulai'   => 'required|date',
-        //     'tanggal_selesai' => 'required|date',
-        //     'poster'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        //     'status_event'    => 'required',
-        // ]);
-        // dd($request->all());
+        $request->validate([
+            'nama_event'      => 'required|string|max:255',
+            'kategori_id'     => 'required',
+            'deskripsi'       => 'nullable|string',
+            'lokasi'          => 'required|string|max:255',
+            'tanggal_mulai'   => 'required|date',
+            'tanggal_selesai' => 'required|date',
+            'poster'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'status_event'    => 'required',
+        ]);
+        dd($request->all());
 
         $file = $request->file('poster');
 
@@ -123,5 +123,27 @@ class AdminEventController extends Controller
         $event->save();
 
         return back()->with('success', 'Status verifikasi berhasil diperbarui.');
+    }
+
+    public function ajukanUlang($id)
+    {
+        $event = Event::findOrFail($id);
+
+        if ($event->status_verifikasi != 'ditolak') {
+            return back();
+        }
+
+        $event->update([
+
+            'status_verifikasi' => 'menunggu',
+
+            'catatan_admin' => null
+
+        ]);
+
+        return back()->with(
+            'success',
+            'Event berhasil diajukan ulang.'
+        );
     }
 }

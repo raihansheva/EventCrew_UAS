@@ -4,7 +4,11 @@
     <div class="area-event">
         <div class="header-event">
             <h1 class="title-event">Event</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt deleniti tenetur dolore rem impedit iusto.</p>
+            <p>
+                Temukan berbagai event menarik dan kesempatan untuk berkontribusi sebagai volunteer.
+                Bergabunglah dalam kegiatan inspiratif, kembangkan pengalaman baru, dan menjadi bagian
+                dari berbagai acara kreatif bersama komunitas.
+            </p>
         </div>
         <div class="area-content-event">
             <div class="content-event">
@@ -34,6 +38,12 @@
                             </div>
                             @if (Auth::check())
                                 <a href="/pendaftaran/{{ $item->id }}" class="btn-detail">
+                                    Lihat Detail
+                                </a>
+                            @else
+                                <a href="#" class="btn-detail" onclick="return false;" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Anda Harus Login / Register Dulu">
                                     Lihat Detail
                                 </a>
                             @endif

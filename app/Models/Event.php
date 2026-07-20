@@ -18,6 +18,7 @@ class Event extends Model
         'tanggal_selesai',
         'poster',
         'status_verifikasi',
+        'alasan_penolakan',
         'status_event',
     ];
 

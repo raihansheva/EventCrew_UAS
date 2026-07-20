@@ -20,6 +20,26 @@ class PendaftaranVolunteerController extends Controller
 
     public function dataPendaftaran()
     {
+
+        if (Auth::user()->role == "admin") {
+            return $this->dataPendaftaranAdmin();
+        }
+
+        if (Auth::user()->role == "panitia") {
+            return $this->dataPendaftaranPanitia();
+        }
+    }
+
+    private function dataPendaftaranAdmin()
+    {
+
+        $pendaftaran = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi'])->get();
+
+        return view('admin.pendaftaran', compact('pendaftaran'));
+    }
+
+    private function dataPendaftaranPanitia()
+    {
         $panitiaId = Auth::id();
 
         $pendaftaran = PendaftaranVolunteer::with(['volunteer', 'event', 'divisi'])
@@ -81,17 +101,30 @@ class PendaftaranVolunteerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'volunteer_id' => 'required',
-            'divisi_id' => 'required',
-            'motivasi' => 'nullable'
+            'event_id'      => 'required|exists:events,id',
+            'volunteer_id'  => 'required|exists:volunteers,id',
+            'divisi_id'     => 'required|exists:divisi_volunteers,id',
+            'motivasi'      => 'nullable|string'
         ]);
 
+        $cekPendaftaran = PendaftaranVolunteer::where('event_id', $request->event_id)
+            ->where('volunteer_id', $request->volunteer_id)
+            ->whereIn('status_pendaftaran', ['menunggu', 'diterima'])
+            ->exists();
+
+        if ($cekPendaftaran) {
+            return back()->with(
+                'error',
+                'Anda sudah melakukan pendaftaran pada event ini dan masih menunggu persetujuan atau sudah diterima.'
+            );
+        }
+
         PendaftaranVolunteer::create([
-            'event_id' => $request->event_id,
-            'volunteer_id' => $request->volunteer_id,
-            'divisi_id' => $request->divisi_id,
-            'motivasi' => $request->motivasi,
-            'status_pendaftaran' => 'menunggu'
+            'event_id'            => $request->event_id,
+            'volunteer_id'        => $request->volunteer_id,
+            'divisi_id'           => $request->divisi_id,
+            'motivasi'            => $request->motivasi,
+            'status_pendaftaran'  => 'menunggu',
         ]);
 
         return back()->with('success', 'Pendaftaran berhasil dikirim.');
